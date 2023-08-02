@@ -51,25 +51,32 @@
                       <div class="user-block">
                         <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
                         <span class="username">
-                          <a href="#">Jonathan Burke Jr.</a>
+                          <a href="#">Elmer.</a>
                           <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
                         </span>
                         <span class="description">Shared publicly - 7:30 PM today</span>
                       </div>
                       <!-- /.user-block -->
                       <div class="container">
-                        <div class="row">
+                      <?php echo form_open_multipart('usuario/agregarActividad'); ?>
+
+                            <div class="row">
                           <div class="col-sm-6"><img src="" alt="aquie imagen">
-                            <input type="file" name="" placeholder="subir foto" title="seleccione una foto">
+                            <input type="file" name="foto" placeholder="subir foto" title="seleccione una foto">
+                            <input type="text" class="form-control" name="nombre" placeholder="nombre evento">
                           </div>
                           <div class="col-sm-6">
-                            <label for="textarea1">Ingrese la descriccion de Evento </label>
+                            <label for="#textarea1">Ingrese la descriccion de Evento </label>
 
-                            <textarea rows="10" cols="30" placeholder="Ingrese descrccion de nuevo evento">
+                            <textarea rows="10" cols="30" name="descriccion" id="textarea1" placeholder="Ingrese descrccion de nuevo evento">
                                 
                             </textarea>
                            </div>
                         </div>
+                        <div class="row d-flex justify-content-around">
+                           <button class="btn btn-outline-success " type="submit">Guardar</button>
+                        </div>
+                      <?php echo form_close(); ?>
                         
                       </div>
 
@@ -85,6 +92,8 @@
 
                       <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
                     </div>
+
+
                     <!-- /.post -->
 
                     <!-- Post -->

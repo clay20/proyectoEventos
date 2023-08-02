@@ -401,7 +401,44 @@ function subiFoto()
 	 
 
 
-
+public function agregarActividad()
+{
+			$idUsuario=1;//recupera usuario desde datos de sessciones 
+			$foto='';
+			$nombre
+			$descriccion
+			$nombreArchivo='actvidad'.'.jpg';
+			$config['upload_path']='./uploads/usuario/';
+			$config['file_name']=$nombreArchivo;
+			$direccion='./uploads/usuario/'.$nombreArchivo;
+			if(file_exists($direccion))
+			{
+				unlink($direccion);
+			}
+			$config['allowed_types']='jpg';
+			$this->load->library('upload',$config);
+			if(!$this->upload->do_upload())
+			{
+				$data['error']=$this->upload->display_errors();
+			}
+			else
+			{
+				$data['foto']=$nombreArchivo;
+				$this->usuario_model->agregarActiviadadBD($idUsuario,$data);
+				$this->upload->data();
+			}
+		//  if($this->session->userdata('login'))
+		// {
+		
+		// }
+		//  else
+		//  {
+		//  	$data['msg']=$this->uri->segment(3);
+		//  	$this->load->view('inc/cabezera');
+		//  	$this->load->view('loginV',$data);
+		// }
+		redirect('usuario/panel/','refresh');
+}
 
 	 // function de crear reportesss
 
