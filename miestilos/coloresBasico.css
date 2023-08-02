@@ -1,0 +1,98 @@
+:root {
+ 
+
+/*Mi colore de primarios */
+  --bs-primary: #001f3f;
+  --bs-secondary:  #C5CAE9;
+  --bs-acent: #FF3D00;
+
+
+  --bs-dark:  0, 31, 63;
+  --bs-white: 255, 255, 255;
+  --bs-black: 0, 0, 0;
+ --bs-info: 13, 202, 240;ss
+
+
+}
+
+/*los iniciakes que se utilizara para l personalizacion*/
+
+
+.bgt-primary {
+  background-color: var(--bs-primary) ;
+   color: var(--bs-secondary);
+
+}
+.bgt-secondary {
+  background-color: var(--bs-secondary) ;
+  color: var(--bs-primary);
+}
+.bgt-acent {
+  background-color: var(--bs-acent) ;
+  color: var(--bs-secondary);
+}
+.t-primary {
+     color: var(--bs-primary);
+
+}
+
+
+.t-secondary {
+  ;
+  color: var(--bs-secondary);
+}
+.t-acent {
+  color: var(--bs-acent);
+}
+
+
+.btnt-primary {
+  color: var(--bs-secondary);
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+.btnt-primary:hover {
+ 
+  background-color: var(--bs-secondary);
+  border-color: var(--bs-secondary);
+  color: var(--bs-primary);
+}
+
+
+.btnt-acent {
+  color: var(--bs-secondary);
+  background-color: var(--bs-acent);
+  border-color: var(--bs-acent);
+}
+.btnt-acent:hover {
+ 
+  background-color: var(--bs-secondary);
+  border-color: var(--bs-secondary);
+  color: var(--bs-acent);
+}
+
+
+
+
+.btnt-outline-primary {
+  color:var(--bs-primary);
+  border-color:var(--bs-primary);
+}
+.btnt-outline-primary:hover {
+  color: var(--bs-secondary);
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+.btnt-outline-acent {
+  color:var(--bs-acent);
+  border-color:var(--bs-acent);
+}
+.btnt-outline-acent:hover {
+  color: var(--bs-secondary);
+  background-color: var(--bs-acent);
+  border-color: var(--bs-acent
+
+
+
+

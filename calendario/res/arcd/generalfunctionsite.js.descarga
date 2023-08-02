@@ -1,0 +1,448 @@
+function changeEndHour( startH, numberHrs ){
+
+  // Fix
+  if ( startH == '12:00 PM' ) { // 12 del dia
+    
+    meridian = 'PM';
+
+    if ( numberHrs == 12 ) {
+
+      meridian = 'AM'; // 0 hrs son las 12:00 AM
+
+    }
+
+    $("#endH").val( numberHrs + ':00 ' + meridian );
+    return;
+  }
+
+  numberHrs = parseInt( numberHrs );
+  partsStartH = startH.split(" ");
+
+  shour = parseInt( partsStartH[0] );
+  meridian = partsStartH[1];
+
+  endH = shour + numberHrs;
+  endMeridian = meridian;
+
+  if ( endH > 12 ) {
+
+    endH -= 12;
+
+    if ( meridian == 'AM' ) {      
+      endMeridian = 'PM';
+    }else{
+      endMeridian = 'AM';
+    }
+
+  }
+
+  hEndText = endH + ':00 ' + endMeridian;
+
+  // Fix 2
+  if ( hEndText == '12:00 PM' ) {
+
+    hEndText = '12:00 AM';
+
+  }
+
+  $("#endH").val( hEndText );
+
+}
+
+function refreshWithNewData( myCalendar, data ){
+
+  myCalendar.setEvents(data);
+  waitOnCalendarLoad( false );
+
+}
+
+function waitOnCalendarLoad( $wait ){
+
+  if ( $wait ) {
+
+    $("body").attr('style', 'cursor:wait');
+    $(".days-container").addClass('hide');
+    
+  }else{
+
+    $("body").attr('style', 'cursor:normal');
+    $(".days-container").removeClass('hide');
+
+  }
+
+}
+
+function colourByStatus(calendarTag=''){
+
+  var totalByDay = {}
+  // initialice in zero
+  $(calendarTag+" .day:not('.adjacent-month')").each(function( index, value ){
+    
+    var clist = value.classList    
+
+    for( var i=0; i<clist.length; i++ ){
+
+      var dataZero = {}
+
+      if ( clist[i].indexOf('calendar-day-') > -1 ) {
+        
+        dataZero['pending'] = 0
+        dataZero['reserved'] = 0
+        dataZero['success'] = 0
+
+        totalByDay[ clist[i].replace('calendar-day-', '') ] = dataZero
+        
+      }
+
+    }
+
+  })
+  // end initialice in zero //
+
+  $(calendarTag+" .event-item-date").each( function(){ 
+    
+    var statusNumber = $(this).data("status");
+/*console.log( statusNumber );*/
+    
+    var tag = '.calendar-day-' + $(this).data("sql-date");
+
+    if ( statusNumber == 1 ) {
+
+      classToAdd = 'pendingPay';
+      totalByDay[ $(this).data('sql-date') ][ 'pending' ]++
+
+    }else if ( statusNumber == 2 ) {
+    
+      classToAdd = 'reserved';
+      totalByDay[ $(this).data('sql-date') ][ 'reserved' ]++      
+
+    }else if ( statusNumber == 3 ) {
+
+      classToAdd = 'successPay';
+      totalByDay[ $(this).data('sql-date') ][ 'success' ]++      
+
+    }
+
+    $(tag).addClass( classToAdd );
+
+    $(this).parent().parent().addClass( classToAdd );
+
+  })
+
+  createBadges( totalByDay )
+
+}
+
+function createBadges( totalByDay ){
+
+  // Create the badges
+  var badgeBase = '<div class="badge __CLASS__">__NUM__</div>'
+  var badgePending = ''
+  var badgeReserved = ''
+  var badgeSuccess = ''
+
+  $.each( totalByDay, function( date, totals ){
+
+    var tag = '.calendar-day-' + date + ' .badge-area';
+
+    if ( totals.pending > 0 ) {
+      badgePending = badgeBase.replace('__NUM__', totals.pending)
+      badgePending = badgePending.replace('__CLASS__', 'pendingPay')
+      $(tag).append( badgePending )
+    }
+
+    if ( totals.reserved > 0 ) {
+      badgeReserved = badgeBase.replace('__NUM__', totals.reserved)
+      badgeReserved = badgeReserved.replace('__CLASS__', 'reserved')      
+      $(tag).append( badgeReserved )
+
+    }
+
+    if ( totals.success > 0 ) {
+      badgeSuccess = badgeBase.replace('__NUM__', totals.success)
+      badgeSuccess = badgeSuccess.replace('__CLASS__', 'successPay')
+      $(tag).append( badgeSuccess )
+
+    }  
+
+  })
+  
+}
+
+function disableDaysWithEvents( disableToday ){
+
+  disableToday = typeof disableToday !== 'undefined' ?  disableToday : false;
+
+  if ( disableToday ) { $(".today").addClass('past') }
+
+  $(".event").addClass('past');
+
+}
+
+
+function setActiveDays( activeDaysArray ){
+
+  $(".days-container .day:not(.past, .adjacent-month)").addClass('available past');
+
+  // Reactivar los dias permitidos para reservar
+  for( i = 0; i < activeDaysArray.length; i++ ){
+    $(".days-container .available.calendar-dow-" + activeDaysArray[i] ).removeClass("past");
+  }
+
+}
+
+
+// Pasarlo a un archivo js 
+function convertTo24Hours( stringHour ){
+
+  // Casos especiales
+  if ( stringHour == '12:00 AM' ) {
+    return 0; // Las cero h
+  }
+
+  if ( stringHour == '12:00 PM' ) {
+    return 12; // Las 12 del dia
+  }
+
+  if ( stringHour.indexOf(' AM') > -1 ) {
+
+    return parseInt( stringHour.replace(':00 AM', '') );
+
+  }
+
+  stringHour = parseInt( stringHour.replace(':00 PM', '') );
+  return stringHour + 12;
+  
+}
+
+function convertToMeridian( $intHour ){
+
+  if ( $intHour == 24 ) { return '12:00 PM'; }
+
+  $meridianH = $intHour + ':00 AM';
+
+  if ( $intHour >= 13 ) {
+
+    $intHour -= 12;
+
+    if ( $intHour == 12 ) {
+      
+      $intHour = 24;        
+
+    }
+
+    $meridianH = $intHour + ':00 PM';
+
+  }
+  
+  return $meridianH;
+
+}
+
+
+var diasSemana = new Array("lunes","martes","miercoles","jueves","viernes","sabado","domingo");
+
+function getNameSlugDay( day ){
+  var f = new Date( day );
+  return diasSemana[f.getDay()];
+}
+
+function changeSliderPos( newVal ){
+
+  steps = $("#eventHours").data("slider-range");
+  steps = steps.split(",");
+  minVal = steps[0]; 
+  steps = steps[1] - steps[0];
+  sliderW = $(".track").width();
+  lenStep = sliderW/steps;
+
+  newStepInRange = newVal-minVal;
+  offset = lenStep * newStepInRange;
+
+
+  oldStyle=$(".dragger").attr("style");
+  oldStyleArr=oldStyle.split(";");
+  for( i=0; i<oldStyleArr.length; i++ ){ 
+    if( oldStyleArr[i].indexOf(" left") > -1 ){ 
+      oldStyleArr[i] = " left: "+offset+"px" 
+    } 
+  };
+
+  newStyle=oldStyleArr.join(";")
+  $(".dragger").attr("style", newStyle);
+
+  $("#eventHours").val( newVal );
+
+  $("#numberHrs").text( newVal );
+
+}
+
+
+function convertValToInt( val ){
+
+  val = val.replace(/,/g, "");
+  val = val.replace(/\$/g, "");
+
+  val = parseInt( val );
+
+  if ( isNaN( val ) ){
+    val = '';
+  }
+
+  return val;
+
+}
+
+function calculateVal( inputTag1, inputTag2, operation, tagResult ){
+
+  val1 = convertValToInt( $("#"+inputTag1).inputmask('unmaskedvalue') );
+  val2 = convertValToInt( $("#"+inputTag2).inputmask('unmaskedvalue') );
+
+  valResult = 0;  
+
+  switch( operation ){
+    case '+': valResult = val1 + val2; break;    
+    case '-': valResult = val1 - val2; break;    
+    case '*': valResult = val1 * val2; break;    
+    case '/': valResult = val1 / val2; break;
+    default: valResult = 0;
+  }
+
+  // Que no sea menor a cero la resta
+  if ( operation == '-' && valResult < 0 ) {  
+    $("#"+inputTag2).val( $("#"+inputTag1).val() );    
+    valResult = 0;
+  }
+
+  $("#"+tagResult).val( valResult );
+
+}
+
+var earlyAccessFlag = false
+
+function getReservedHours(calendar, day){
+
+  var resH = {}
+
+  for(i=0; i<calendar.eventsThisInterval.length; i++){ 
+    
+    if ( day == calendar.eventsThisInterval[i].date ) {
+
+      // condition for early access
+      if ( true == earlyAccessFlag ) {
+        
+        let start24 = convertTo24Hours( calendar.eventsThisInterval[i].startH )
+        // fix si son las 12 del dia
+        if ( 0 == start24 ) {
+          start24 = 11;          
+        }else{
+          start24--;
+        }
+
+        calendar.eventsThisInterval[i].startH = convertToMeridian( start24 )
+
+      }
+
+      resH [ calendar.eventsThisInterval[i].startH ] = calendar.eventsThisInterval[i].eventHours
+
+    }
+
+  }
+
+  return resH
+
+};
+
+function getExclusionsForTimepicker( rh ){ // reservedHours
+
+   let exclusions = []
+
+  for (var indexHour in rh) {    
+    
+    var h24 = convertTo24Hours(indexHour)
+
+    h24 = h24+rh[indexHour]
+    
+    var maxhour = h24
+
+    if ( h24 > 23 ) {
+      maxhour = 23
+    }
+
+    var maxhourMeridian = convertToMeridian( maxhour )
+    maxhourMeridian = maxhourMeridian.replace(":00", ":01")
+
+    // fix
+    if ( '12:01 AM' == maxhourMeridian ) {
+      maxhourMeridian = '12:01 PM'
+    }
+
+
+    exclusionStartHour = indexHour
+
+    // Fix por que no puede iniciar un evento a las 12 AM, 
+    // ni siquiera esta esa hora disponible en el select
+    // cambiar a las 12 PM
+    if ( '12:00 AM' == indexHour ) {
+      exclusionStartHour = "12:00 PM";
+      maxhourMeridian = maxhourMeridian.replace('AM', 'PM')
+    }
+
+    exclusions.push( [exclusionStartHour, maxhourMeridian] )
+
+  }
+
+  return exclusions
+
+};
+
+
+function formatNumber(num) { // Returns Number with comas separator
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+};
+
+
+function validateRequiredFields( tagForm ){
+
+  fieldsToCheck = [];
+
+  // Validar que no esten vacios los campos requeridos
+  $("#"+tagForm+" input[required='required']").each( function(i, v){
+    fieldsToCheck.push( v.id );    
+  })
+
+
+  for (i = 0; i < fieldsToCheck.length; i++) { 
+
+    fieldCheck = fieldsToCheck[i];
+    
+    currTag = $("#"+fieldCheck);
+
+    // Solo revisar que no este vacio
+    if ( currTag.attr('type') == 'file' && currTag.val().length > 0 ) {
+      continue;
+    }
+
+    eventVal = currTag.val();
+
+    if ( eventVal == '' || eventVal.length < 1 || eventVal == 0 ) {
+      $("#"+fieldCheck).parent().addClass("has-error");
+      console.log('Falta: ' + fieldCheck);
+      return false;
+    }
+  }
+
+
+  $('#'+tagForm).submit();
+
+
+}
+
+var slug = function(str) {
+    var $slug = '';
+    var trimmed = $.trim(str);
+    $slug = trimmed.replace(/[^a-z0-9-]/gi, '-').
+    replace(/-+/g, '-').
+    replace(/^-|-$/g, '');
+    return $slug.toLowerCase();
+}

@@ -1,0 +1,115 @@
+
+h1{
+	color: #F96816;
+
+}
+		/* Le quitamos el formato a los controles */
+input, span{ 
+	border: none; 
+	box-sizing: border-box;
+	font-family: Verdana;
+	font-size: 14px;
+	line-height: 12px;
+	outline: none; 
+	padding: 0;
+	/*resize: none; */
+	width: 300px;
+
+	
+}
+
+select { 
+	border: none; 
+	box-sizing: border-box;
+	font-family: Verdana;
+	font-size: 14px;
+	line-height: 12px;
+	outline: none; 
+	padding: 0;
+	resize: none; 
+	width: 200px;
+}
+
+.fake_placeholder{ 
+	margin-bottom: 1px; 
+}
+
+/* el label emula el aspecto del input */
+.fake_placeholder label{
+	border: 1px solid #F96816;
+	border-radius: 10px;
+	display: inline-block;
+	padding: 10px;
+	position: relative;
+	margin: 5px;
+}
+
+.fake_placeholder span{
+	color: black;
+	display: inline-block;
+	left: 2px;
+	padding: 5px;
+	position: absolute;
+	transition:0.25s;
+	top: 9px;
+	width: auto;
+}
+
+.fake_placeholder span.reubicar{
+	color: #F96816;
+	background: white;
+	font-size: 12px;
+	top: -12px;
+}
+.fake_placeholder span.lbSuperio{
+	color: black;
+	display: inline-block;
+	left: 2px;
+	padding: 5px;
+	position: absolute;
+	transition:0.25s;
+	top: 9px;
+	width: auto;
+}
+
+.fake_placeholder span.lbSuperio{
+	color: #F96816;
+	background: white;
+	font-size: 12px;
+	top: -12px;
+}
+
+.seleccion {
+
+	
+	border-bottom: 1px solid #F96816;
+	
+	display: inline-block;
+	padding: 5px;
+	position: relative;
+	margin: 10px;
+}
+
+.seleccion label{
+	color: #E86100;
+	width: 100px;
+}
+.seleccion select option{
+	color:darkorange ;
+
+
+}
+
+.guardar {
+	border: 1px solid #F96816;
+	color: #E86100;
+	font-style: bold;
+	border-radius: 10px;
+	display: inline-block;
+	padding: 10px;
+	position: relative;
+	width: 325px;
+}
+select option {
+	color: white
+}
