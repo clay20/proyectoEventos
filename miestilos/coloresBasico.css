@@ -2,25 +2,29 @@
  
 
 /*Mi colore de primarios */
-  --bs-primary: #001f3f;
-  --bs-secondary:  #C5CAE9;
-  --bs-acent: #FF3D00;
+--bs-primary: #001f3f;
+/*  #001f3f*/
+--bs-secondary:  #191919;
+--bs-acent:#D28C58 ;
+/*  FF3D00 00ff00*/
+--text-primary:#fff;
+--text-secondary:#000;
 
-
-  --bs-dark:  0, 31, 63;
-  --bs-white: 255, 255, 255;
-  --bs-black: 0, 0, 0;
- --bs-info: 13, 202, 240;ss
-
-
+--bs-fondo:#CDE5FF;
+--bs-dark:  0, 31, 63;
+--bs-white: 255, 255, 255;
+--bs-black: 0, 0, 0;
+--bs-info: 13, 202, 240;
 }
 
 /*los iniciakes que se utilizara para l personalizacion*/
 
-
+.anime a:hover{
+ opacity: 0.8;
+}
 .bgt-primary {
   background-color: var(--bs-primary) ;
-   color: var(--bs-secondary);
+  color: var(--bs-secondary);
 
 }
 .bgt-secondary {
@@ -31,14 +35,27 @@
   background-color: var(--bs-acent) ;
   color: var(--bs-secondary);
 }
+.bg-primary {
+  background-color: var(--bs-primary) ;
+}
+
+
+}
+.bg-secondary {
+  background-color: var(--bs-secondary) ;
+}
+.bg-acent {
+  background-color: var(--bs-acent) ;
+}
+
+
 .t-primary {
-     color: var(--bs-primary);
+ color: var(--text-primary);
 
 }
 
 
 .t-secondary {
-  ;
   color: var(--bs-secondary);
 }
 .t-acent {
@@ -47,7 +64,7 @@
 
 
 .btnt-primary {
-  color: var(--bs-secondary);
+  color: var(--text-primary);
   background-color: var(--bs-primary);
   border-color: var(--bs-primary);
 }
@@ -55,7 +72,7 @@
  
   background-color: var(--bs-secondary);
   border-color: var(--bs-secondary);
-  color: var(--bs-primary);
+  color: var(--text-primary);
 }
 
 

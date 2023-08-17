@@ -1,5 +1,5 @@
 
-<div class="container " >
+<div class="container " style=" background-image: url('<?php echo base_url();?>/img/fondo.jpg'); background-repeat: no-repeat" >
        
     <div class="d-flex justify-content-center">
     <div class="container1">
@@ -28,7 +28,7 @@
                    ?>
                     <p> <?php echo $mensaje; ?></p>
 
-                    <h2>Iniciar sesion</h2>
+                    <h2><b>Iniciar sesion</b></h2>
                     <div class="input-box">
                         <span class="icon"><i class="fas fa-user"></i></span>
                         <input type="text" name="usuario" required autofocus>
@@ -39,9 +39,9 @@
                         <input type="password" name="password" required>
                         <label>Password</label>
                     </div>
-                    <div class="remember-password">
+                    <div class="forget-passs">
                         
-                        <a  class="forgetPassword" href="#">Has olvidado la clave?</a>
+                        <p><a  class="forgetPassword" href="#">Has olvidado la clave?</a></p>
                     </div>
                     <button class="btn">Iniciar sesion</button>
                     <div class="create-account">
@@ -51,7 +51,7 @@
             </div>
             <div class="form-box forget">
                 <form action="">
-                     <h2>Olvidadeste tu contrasenia</h2>
+                     <h2><b>Olvidadeste tu contrasenia</b></h2>
 
                     <div class="input-box">
                         <span class="icon"><i class="fas fa-envelope"></i></span>
@@ -72,7 +72,7 @@
             <div class="form-box register">
                  <?php echo form_open_multipart('usuario/registrarUsuario'); ?>
               
-                       <h2>Registrarse</h2>
+                       <h2><b>Registrarse</b></h2>
 
 
                     <div class="input-box">

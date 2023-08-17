@@ -217,14 +217,14 @@
 
 
 <script>"use strict";</script>
-<script src="<?php echo base_url();?>/calendario/res/jquery.js.descarga"></script>
+<script src="<?php echo base_url();?>/calendario/res/jquery.js"></script>
 
 <script src="<?php echo base_url();?>/calendario/res/momentjs.lang.js"></script>ss
 
-<script src="<?php echo base_url();?>/calendario/res/bootstrap.min.js.descarga"></script>
+<script src="<?php echo base_url();?>/calendario/res/bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>/calendario/res/underscore-min.js"></script>
 
-<script src="<?php echo base_url();?>/calendario/res/clndr.min.js.descarga"></script>
+<script src="<?php echo base_url();?>/calendario/res/clndr.min.js"></script>
 
 
 
@@ -351,7 +351,7 @@
 <script>
   
 var myCalendar;
-var currentPeriod = 202507;
+var currentPeriod = 202308;
 var eventsArray = [];
 
 function loadBySection(){
@@ -588,8 +588,7 @@ function addCalendarEvt( clickedDay ){
   var objson = JSON.parse(ivtosend);
 
   $.post( 
-    'https://demo.reservarsalon.com' + 
-    '/calendar/addInternal/' + 
+    'aqui var ir nuestro direccion' + 
     3 + 
     '/'+ currentPeriod, 
      objson ,
@@ -621,8 +620,7 @@ var uuidJson = 0;
 
 function getNewData(){
 
-  $.get('https://demo.reservarsalon.com' + 
-        '/calendar/json/' + 
+  $.get('aqui var ir nuetro httpd://' + 
         3 +
         '/'+ currentPeriod,               
         
@@ -647,8 +645,7 @@ function getNewData(){
             }else{
 
               // Get reservations with client data
-              $.get('https://demo.reservarsalon.com' +
-                  '/salon/json/' + currentPeriod + '/?e_salon=si57',
+              $.get('aqui var nuestro direccion https/ssf' + currentPeriod + '/?e_salon=si57',
                   function( jsonFull ){
                     refreshWithNewData( myCalendar, jsonFull.events );
                     colourByStatus();

@@ -37,19 +37,19 @@
     </section>
 
     <!-- Main content -->
-    <section class="content" style="background: red">
+    <section class="content" >
 
-      <div class="" style="background: blue">
+      <div class="" >
 
        
           
             <!-- THE CALENDAR -->
-            <div id="mini-clndr" class="bg-danger row" style="" >
+            <div id="mini-clndr" class=" row" style="" >
              
 
-              <div class="clndr-1 col-md-4 col-sm-6" style="background: teal" ><div class="clndr" > </div> </div>                
+              <div class="clndr-1 col-md-4 col-sm-6"  ><div class="clndr" > </div> </div>                
                  
-              <div class="clndr-2 col-md-4 col-sm-6" style="background: yellows;" ><div class="clndr">  </div></div>          
+              <div class="clndr-2 col-md-4 col-sm-6"3 ><div class="clndr">  </div></div>          
               
               <div class="clndr-3 col-md-4 col-sm-6"><div class="clndr">   </div> </div>
   
@@ -257,7 +257,7 @@
     <script id="calendar-template" type="text/template">  
 
 
-      <div class="col-md-12" style="background: pink"s>
+      <div class="col-md-12" >
 
         <div class="controls text-center">
           <div class="month"><%= month %>&nbsp;<%= year %></div>
@@ -284,7 +284,7 @@
 // var currentPeriod = 202606;
     var dweek =  ['L', 'M', 'I', 'J', 'V', 'S', 'D'];
     var clndrTempl = $('#calendar-template').html();
-    var anualEventsPhp = {"202507":"[]","202508":"[]","202509":"[]","202510":"[]","202511":"[]","202512":"[]","202601":"[]","202602":"[]","202603":"[]","202604":"[]","202605":"[]","202606":"[]"};
+    var anualEventsPhp = {"202307":"[]","202308":"[]","202309":"[]","202310":"[]","202311":"[]","202312":"[]","202401":"[]","202402":"[]","202403":"[]","202404":"[]","202405":"[]","202406":"[]"};
 
     function loadBySection(){
 
@@ -292,8 +292,8 @@
 
       var aux;
 
-      let currMont = 6;
-      let currYear = 2025;
+      let currMont = 11;
+      let currYear = 2023;
 
       for (var i = 1; i < 13; i++) {
         if ( currMont > 11 ) { 

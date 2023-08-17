@@ -19,8 +19,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <link href="<?php echo base_url();?>bootstrap/css/bootstrap.css" rel="stylesheet">
 <!-- <link href="<?php echo base_url();?>miestilos/css.css" rel="stylesheet"> -->
 <link href="<?php echo base_url();?>miestilos/login.css" rel="stylesheet">
-<link rel="stylesheet" href="<?php echo base_url();?>/adminlti/plugins/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="<?php echo base_url();?>/icon/css/all.min.css">
 
 <!-- <link rel="stylesheet" href="<?php echo base_url();?>miestilos/LoginEstilos.css"> -->
-<body  class=" bg-linght" >
+<body  class=" bg-linght"  style=" background: #D28C58;">
  

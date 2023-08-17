@@ -57,18 +57,18 @@
                         <span class="description">Shared publicly - 7:30 PM today</span>
                       </div>
                       <!-- /.user-block -->
-                      <div class="container">
+                      
                       <?php echo form_open_multipart('usuario/agregarActividad'); ?>
-
+                      <div class="container"> 
                             <div class="row">
                           <div class="col-sm-6"><img src="" alt="aquie imagen">
-                            <input type="file" name="foto" placeholder="subir foto" title="seleccione una foto">
+                            <input type="file" name="userfile" placeholder="subir foto" title="seleccione una foto">
                             <input type="text" class="form-control" name="nombre" placeholder="nombre evento">
                           </div>
                           <div class="col-sm-6">
                             <label for="#textarea1">Ingrese la descriccion de Evento </label>
 
-                            <textarea rows="10" cols="30" name="descriccion" id="textarea1" placeholder="Ingrese descrccion de nuevo evento">
+                            <textarea rows="10" cols="30" name="descripcion" id="textarea1" placeholder="Ingrese descrccion de nuevo evento">
                                 
                             </textarea>
                            </div>
@@ -76,9 +76,10 @@
                         <div class="row d-flex justify-content-around">
                            <button class="btn btn-outline-success " type="submit">Guardar</button>
                         </div>
+                         </div>
                       <?php echo form_close(); ?>
                         
-                      </div>
+                     
 
                       <p>
                         <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>

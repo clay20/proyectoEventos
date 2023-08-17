@@ -45,18 +45,35 @@ class Usuario_model extends CI_Model
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+public function agregarActiviadadBD($data)
+{
 	
+		$this->db->trans_start(); //incioo transaccion
+
+		$this->db->insert('actividades',$data);
+
+
+		$id=$this->db->insert_id();
+
+		$data['foto']=$id.'.jpg';
+		$this->db->where('id',$id);
+		$this->db->update('actividades',$data);
+		$this->db->trans_complete(); //fin transaccion
+
+		if($this->db->trans_status()===FALSE)
+		{
+			return false;
+		}
+		return $id;
+}
+
+	public function mostraActividadBd()
+	{
+		$this->db->select('*');
+		$this->db->from('actividades');
+		 $this->db->order_by('id', 'DESC');
+		return $this->db->get();
+	}
 
 	
 	public function agregarUsuario($data1,$data2)

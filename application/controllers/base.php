@@ -8,9 +8,13 @@ class Base extends CI_Controller {
 	
 	function index()
 	{
+       $lista=$this->usuario_model->mostraActividadBd();
+		
+		$data['actividad']=$lista;
+		
 		$this->load->view('inc/default/header');
 		$this->load->view('inc/default/menu');
-		$this->load->view('default/inicio');
+		$this->load->view('default/inicio',$data );
 		$this->load->view('inc/default/footer');
 		
 		
@@ -46,7 +50,7 @@ class Base extends CI_Controller {
 	function login()
     {
 		$this->load->view('inc/default/header');
-		$this->load->view('inc/default/menu');
+		// $this->load->view('inc/default/menu');
 		$this->load->view('login');
 		$this->load->view('inc/default/footer');
 	}

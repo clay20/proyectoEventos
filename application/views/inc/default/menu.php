@@ -29,7 +29,7 @@
       </ul>
       <form class="d-flex" method="POST" action="<?php echo base_url();  ?>index.php/base/login">
 
-       <button class="btn btn-outline-primary" type="submit">Acceder</button>
+       <button class= "btnM " type="submit" style="background:#D28C58;" > Acceder</button>
       </form>
     </div>
   </div>
