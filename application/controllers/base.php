@@ -53,6 +53,7 @@ class Base extends CI_Controller {
 		// $this->load->view('inc/default/menu');
 		$this->load->view('login');
 		$this->load->view('inc/default/footer');
+		
 	}
 	
 	

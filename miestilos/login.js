@@ -24,5 +24,3 @@ forgetPassword.addEventListener('click',()=>{
 login.addEventListener('click',()=>{
     loginsec.classList.remove('activeRestablecer')
 })
-
-

@@ -4,14 +4,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require FCPATH.'vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+		//las tres linias superio solo para el uso de reporte en excel    
 
 class Usuario extends CI_Controller {
 
-		//las tres linias superio solo para el uso de reporte en excel    
 //manejo de secciones con mvc
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->library('form_validation');
+		$this->load->helper(array('rules'));
+	}
+	function formLogin()
+   	 {
+		$this->load->view('inc/default/header');
+		// $this->load->view('inc/default/menu');
+		$this->load->view('login');
+		$this->load->view('inc/default/footer');
+
+		
+	}
+
 	 function login()
 	 {
-//nivel de seguridad esto se puede aplicar en todo los campo acceso a la vistas
+		//nivel de seguridad esto se puede aplicar en todo los campo acceso a la vistas
 	        
 	    if($this->session->userdata('login'))
 		{
@@ -28,29 +45,93 @@ class Usuario extends CI_Controller {
 
 	 }
 
+	
+	 
 
-	function validarUsuario()
+
+	function validarPrueba()
 	{
-
+		$this->form_validation->set_error_delimiters('', '');
+		$rules=getLoginRules();
 		$login=$_POST['usuario'];
 		$password=md5($_POST['password']);
-		$consulta=$this->usuario_model->validarLogin($login,$password);
 
-		if($consulta->num_rows()>0)
-		{
-			foreach ($consulta->result() as $row) {
-				$this->session->set_userdata('idUsuario',$row->id);
-				$this->session->set_userdata('nombreUsuario',$row->nombreUsuario);
-				$this->session->set_userdata('rolUsuario',$row->rol);
-				redirect('usuario/panel','refresh');
-			}
+		$this->form_validation->set_rules($rules);
+		if($this->form_validation->run()===FALSE)
+		{			
+			$this->output->set_status_header(400); 
+			$error=array(
+				'usuario'=> form_error('usuario'),
+				'password'=> form_error('password')
+			   );
+			echo json_encode($error);
 		}
-		else
-		{
-			redirect('usuario/login/1','refresh');
+
+		else{	
+			
+			$consulta=$this->usuario_model->validarLogin($login,$password);
+			$col=$consulta->num_rows();
+			
+			if($consulta->num_rows()==0)
+			{ 
+				$this->output->set_status_header(401);
+				echo json_encode(array('msg'=>'Verifique tus credecciales'));
+				exit();
+			}
+
+			 if($consulta->num_rows()>0)
+			{
+				// echo json_encode(array('msg'=>'Bienvenido'));
+				$url= base_url();
+
+				echo json_encode(array('url'=>$url.'index.php/usuario/panel'));
+
+			
+				foreach ($consulta->result() as $row) {
+					$this->session->set_userdata('idUsuario',$row->id);
+					$this->session->set_userdata('nombreUsuario',$row->nombreUsuario);
+					$this->session->set_userdata('rolUsuario',$row->rol);
+					redirect('usuario/panel','refresh');
+
+				}
+				// $this->output->set_status_header(200);
+				
+
+			}
+			// else
+			// {
+			// 	redirect('usuario/login/1','refresh');
+			// }
+
+			
 		}	
 	}
     
+
+	// function validarUsuario()
+	// {
+
+	// 	$login=$_POST['usuario'];
+	// 	$password=md5($_POST['password']);
+	// 	$consulta=$this->usuario_model->validarLogin($login,$password);
+
+	// 	if($consulta->num_rows()>0)
+	// 	{
+	// 		foreach ($consulta->result() as $row) {
+	// 			$this->session->set_userdata('idUsuario',$row->id);
+	// 			$this->session->set_userdata('nombreUsuario',$row->nombreUsuario);
+	// 			$this->session->set_userdata('rolUsuario',$row->rol);
+	// 			redirect('usuario/panel','refresh');
+	// 		}
+	// 	}
+	// 	else
+	// 	{
+	// 		redirect('usuario/login/1','refresh');
+	// 	}	
+	// }
+
+
+
  
 
 	function panel()

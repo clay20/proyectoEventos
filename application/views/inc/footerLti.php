@@ -18,6 +18,7 @@
 <!-- Bootstrap 4 -->
 <script src="<?php echo base_url();?>/adminlti/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+<!-- <script src="<?php echo base_url();?>/miestilos/md/js/mdb.min.js"></script> -->
 <!-- DataTables  & Plugins -->
 <script src="<?php echo base_url();?>/adminlti/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>/adminlti/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -41,6 +42,7 @@
 <script src="<?php echo base_url();?>/adminlti/plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Toastr -->
 <script src="<?php echo base_url();?>/adminlti/plugins/toastr/toastr.min.js"></script>
+
 
 
 

@@ -1,5 +1,5 @@
  <!-- Navbar -->
- <nav class="main-header navbar navbar-expand bgt-secondary t-acent" >
+ <nav class="main-header navbar navbar-expand bgt-secondary t-acent" style="background:#0B102D" >
     <!-- Left navbar links -->
     
         <a class="" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars t-acent "> </i></a>

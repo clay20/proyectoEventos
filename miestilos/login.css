@@ -4,18 +4,14 @@
     --lighColor:#C5CAE9;
 
     --primaryColor:#020d4f;
-    --secondaryColor:#001f3f;
+    --secondaryColor:#D28C58;
+/*  //001f3f*/
     --acentColor:#001f3f;
-   /* --primaryColorDark: #0B102D;
-    --lighColor:#C5CAE9;
-    --primaryColor:#020d4f;
-    --secondaryColor:#f9aa33;
-    --acentColor:#001f3f;*/
-
+  
     --primaryText:white;
     --secondaryText:black;
-    --enableText:grey;
-    --linkText:#00796B;
+    --enableText:#C5CAE9;
+    --linkText:#004B97;
 
 }
 
@@ -26,8 +22,7 @@
     font-family: "poppins",sans-serif;
 }
 body{
-    height: 100%;
-    width: 100%;
+    
     background: var(--lighColor);
 }
 
@@ -77,6 +72,13 @@ body{
 
 
 
+.fondoCompleta{
+    
+    width:100% !important;
+    height: 100vh !important;
+  
+}
+
 .container1{
     
     padding-bottom: 4px;
@@ -84,8 +86,7 @@ body{
     margin: 4px;
     overflow: hidden;
     border: 2px solid var(--primaryColorDark);
-    background: white;
-    width: 400px;
+    width: 380px;
     height: 600px;
     background: transparent;
     
@@ -110,8 +111,8 @@ body{
     display: flex;
     justify-content: center;
     align-items: top;
-    width: 400px;
-    height: 600px;
+    width: 380px;
+    height: 680px;
     background: transparent;
 }
 
@@ -172,6 +173,7 @@ body{
     height: 50px;
     margin: 25px 0;
     position: relative;
+
 }
 
 .form-box :focus, .input-box input:valid {
@@ -179,7 +181,7 @@ body{
 background: transparent;
 }
 .form-box :focus, .input-box input:invalid {
-  border-bottom: 2px solid white;
+ border-bottom: 2px solid white;
 
 }
 .input-box input {
@@ -215,6 +217,7 @@ background: transparent;
 .input-box input:valid~ label{
     top: -5px;
     color: var(--primaryColorDark);
+    font-weight: bold;
 
 }
 .remember-password{
@@ -266,7 +269,7 @@ background: transparent;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    background: var(--acentColor);
+    background: #D28C58;
     font-size: 16px;
     color: var( --primaryText);
     box-shadow: rgba(0,0,0,0.4);
@@ -277,11 +280,14 @@ background: transparent;
 }
 .btnM:hover{
 
-    background: var(--acentColor);
+    background: var(--primaryColorDark);
     font-size: 16px;
     box-shadow: rgba(0,0,0,0.4);
     opacity: 0.99999;
-    color: var(--primaryColorDark);
+    color: var(--secondaryColor);
+    border: var(--secondaryColor) 2px solid;
+
+
 }
 
 .create-account{
@@ -297,6 +303,7 @@ background: transparent;
     color: var(--primaryColor);
     text-decoration: none;
     font-size: 14.5px;
+    font-weight: bold;
 }
 
 
@@ -315,4 +322,5 @@ background: transparent;
     color: var(--primaryColor);
     text-decoration: none;
     font-size: 13.5px;
+    font-weight: bold;
 }

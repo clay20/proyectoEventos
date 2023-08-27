@@ -1,5 +1,5 @@
  <!-- Main Sidebar Container -->
- <aside class="main-sidebar sidebar-dark-info elevation-5 sideba-mini bgt-primary "  style=" background-image: url('<?php echo base_url();?>/img/asideA.jpeg');" >
+ <aside class="main-sidebar sidebar-dark-info elevation-5 sideba-mini bgt-primary "  style=" background-image: url('<?php echo base_url();?>/img/asideA.png');" >
 
     <!-- Sidebar -->
     <div class="sidebar ">
