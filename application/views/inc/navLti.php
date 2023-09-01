@@ -1,5 +1,5 @@
  <!-- Navbar -->
- <nav class="main-header navbar navbar-expand bgt-secondary t-acent" style="background:#0B102D" >
+ <nav class="main-header navbar navbar-expand bsgt-primary " style="background: #00162B ;color: #FFAB6B;"  >
     <!-- Left navbar links -->
     
         <a class="" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars t-acent "> </i></a>
@@ -15,10 +15,9 @@
        <li class="nav-item dropdown">
          <a class="nav-link t-acent" data-toggle="dropdown" href="#">
          
-           <div class="image t-acent d-flex " > 
-                            <div><?php echo $this->session->userdata('rolUsuario').' '; ?>
-                            <!-- <?php echo$this->session->userdata('idUsuario'); ?> -->
-                            </div>
+           <div class="image t-acent d-flex justify-content-center align-items-center " > 
+                            <div style="padding-right: 5px"><?php echo $this->session->userdata('rolUsuario').' '; ?>
+                                                        </div>
                           <img src="<?php echo base_url();?>/adminlti/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image" style="height:30px ;">
             </div>
         </a>

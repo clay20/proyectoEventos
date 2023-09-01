@@ -14,7 +14,7 @@
 
            </div >
            <div class="col-12 d-flex justify-content-center">
-            <span class=" brand-text t-primary" style="color:white; font-size:25px;"><b>Eventos Andrea</b></span></div>
+            <span class=" brand-text " style="color:#FFAB6B; font-size:25px;"><b>Eventos Andrea</b></span></div>
           </div>
           
         </div>
@@ -26,17 +26,17 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           
-           <li class="nav-item" style="opacity:100">
+           <li class="nav-item" >
             <a href="<?php echo base_url();?>index.php/usuario/homeAdmind" class="nav-link">
-              <i class="fa-solid fa-house fa-beat t-acent"></i>
+              <i class="fa-solid nav-icon fa-house  t-acent"></i>
               <p class="t-primary" ></i><b>Inicio</b></p>
             </a>
 
           </li>
           <li class="nav-item">
             <a href="<?php echo base_url();?>index.php/usuario/calendario" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt t-acent"></i>
-              <p class="t-primary">Calendario</p>
+              <i class="fa-solid nav-icon far fa-calendar-alt t-acent"></i>
+              <p class="t-primary"><b>Calendario</b></p>
             </a>
 
           </li>

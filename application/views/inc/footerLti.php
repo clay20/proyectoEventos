@@ -1,9 +1,4 @@
-<footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 1.0.0
-    </div>
-    <strong>Copyright &copy; 2023 <a href="https://adminlte.io">elmer</a>.</strong>todos los derechos.
-  </footer>
+
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -42,7 +37,9 @@
 <script src="<?php echo base_url();?>/adminlti/plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Toastr -->
 <script src="<?php echo base_url();?>/adminlti/plugins/toastr/toastr.min.js"></script>
-
+<!-- para validaciones de texbox propio -->
+<script type="text/javascript" src="<?php echo base_url();?>miestilos/js/validaciones.js"></script> 
+<script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionUsuario.js"></script> 
 
 
 

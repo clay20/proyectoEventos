@@ -5,12 +5,12 @@
 /*  #001f3f*/
 --bs-secondary:  #FBD6A9; 
 /*seconday y primari son los mismo colores*/
+--bs-acent:#FFAB6B ;
 
---bs-acent:#D28C58 ;
 /*  # D28C58*/
 --text-primary:#fff;
---text-secondary:#000;
---text-enable:#55554;
+--text-secondary:#001f3f;
+--text-enable:#001B36;
 
 
 --bs-fondo:#CDE5FF;
@@ -40,18 +40,29 @@
 }
 
 .bg-primary {
-  background-color: var(--bs-primary) ;
+  background-color: var(--bs-primary)!important;
 }
 
 
-}
+
 .bg-secondary {
   background-color: var(--bs-secondary)!important ;
 }
-.bg-acent {
-  background-color: var(--bs-acent) !important;
+.bg-acent-op-80 {
+  background-color: var(--bs-acent)!important;
 }
-
+.bg-acent-op-80 {
+  background-color: rgba(255, 171, 107, 0.8)!important;
+}
+.bg-acent-op-60{
+ background-color: rgba(255, 171, 107, 0.6)!important;
+}
+.bg-acent-op-40 {
+  background-color: rgba(255, 171, 107, 0.4)!important;
+}
+.bg-acent-op-20 {
+  background-color: rgba(255, 171, 107, 0.2)!important;
+}
 
 .t-primary {
  color: var(--text-primary) !important;
@@ -61,6 +72,12 @@
 
 .t-secondary {
   color: var(--text-secondary) !important;
+  font-weight:bold !important;
+
+}
+.t-secondary-n {
+   color: var(--text-secondary) !important;
+  
 }
 .t-acent {
   color: var(--bs-acent) !important;
@@ -151,6 +168,8 @@
     position: relative !important;
     margin-top: 25px !important;
     margin-right: 5px !important;
+    margin-left: 5px !important;
+
 
 /*-moz- box-shadow: rgb(150,150,150)  -2PX 0px 5px; 
   -webkit-box-shadow: rgb(150,150,150)  -2PX 0px 5px; */
@@ -190,12 +209,17 @@
     color: var(--text-secondary) !important;
     width: 100% !important;
 }
-.myBox .myImputField[type=number]::-webkit-inner-spin-button,
-.myBox .myImputField[type=number]::-webkit-outer-spin-button {
 
-    background-color: red !important;
-    
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none !important; 
+  -moz-appearance: none !important; 
+
+  margin: 0 !important; 
 }
+
+
 
 
 .myBox .myImputField:focus ~ .mylabel,.myBox .myImputField:valid ~ .mylabel{
@@ -222,3 +246,28 @@ font-weight: bold;
 }
 
 
+
+/*Personalizacion para navegacion en colores*/
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color:var(--bs-primary) !important;
+  background-color: var(--bs-secondary) !important;
+}
+
+.nav-link:hover, .nav-link:focus {
+  color: var(--bs-primary)!important;
+}
+
+
+.nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: white !important;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+
+.myborder{
+  border-color: var(--bs-acent) !important;
+}

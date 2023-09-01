@@ -26,3 +26,4 @@
   <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>/calendario/res/clndr.css">  
 
 </head>
+<body style="background:#C4A070">

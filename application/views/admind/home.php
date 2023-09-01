@@ -42,6 +42,11 @@
           reporteTare
           <a href="<?php echo base_url();  ?>index.php/usuario/reporteTare" target="_blank">
             <button type="submit" > Reporte  Tarea</button></a>
+             <a href="#" target="_blank">
+              <?php echo form_open_multipart("email/send") ?>
+              <input type="hidden" name="msg" value="des homes">
+            <button type="submit" > Enviar</button>
+            <?php echo form_close(); ?></a>
 
             <div class="row">
               <div class="col-lg-3 col-6">

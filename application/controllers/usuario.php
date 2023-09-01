@@ -10,12 +10,17 @@ class Usuario extends CI_Controller {
 
 //manejo de secciones con mvc
 
+
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->helper(array('rules'));
+		// $this->load->helper(array('rules'));
+
 	}
+
+	
 	function formLogin()
    	 {
 		$this->load->view('inc/default/header');
@@ -219,7 +224,7 @@ public function registrarUsuario()///registro de se lado cliente
 			redirect('usuario/login/1','refresh');
 		}	
 }
-public function agregarView()//metod donde agreaga usuario admini o usuario invitado
+public function agregarView()//metod donde agreaga usuario admini o usuario invitado y una consulta al db
 {
 			
 
@@ -227,49 +232,80 @@ public function agregarView()//metod donde agreaga usuario admini o usuario invi
 		{
 			$lista=$this->usuario_model->tipoRol();
 			$data['rol']=$lista;
-
+			$lista=$this->empleado_model->cargo();
+			$data['cargo']=$lista;
+			$lista=$this->usuario_model->datosUsuario(1);
+			$data['usuarios']=$lista;
 	   		$this->load->view('inc/cabezeraLti');
 			$this->load->view('inc/navLti');
 			$this->load->view('inc/asidebarLti');
 			// $this->load->view('usuariovLti',$data);
 			$this->load->view('admind/usuario/agregarUsuarioV',$data);
-
 			$this->load->view('inc/footerLti');
 		}else
 		{
 			$this->load->view('inc/cabezeraLti');
-			
 			$this->load->view('error/404');
-
 			$this->load->view('inc/footerLti');
 		}
 }
 public function agregarUsuario()//metod donde agreaga usuario admini o usuario invitado
 {
-			
+     	$this->load->library('phpmailer_lib');
+     			
+   
 
 		if($this->session->userdata('rolUsuario') =='admind')
 		{
-			
-
-			$data1['nombre']=$_POST['nombre'];
-			$data1['primerApellido']=$_POST['primerApellido'];
-			$data1['segundoApellido']=$_POST['segundoApellido'];
+			$nombre=letraCapital($_POST['nombre']);
+			$data1['nombre']=$nombre;
+			$data1['primerApellido']=letraCapital($_POST['primerApellido']);
+			$data1['segundoApellido']=letraCapital($_POST['segundoApellido']);
 			$data1['ci']=$_POST['ci'];
 			$data1['fechaNacimiento']=$_POST['fechaNacimiento'];
 			$data1['sexo']=$_POST['genero'];
+			$data1['salario']=$_POST['salario'];
 			$data1['celular']=$_POST['celular'];
 			$data1['telefono']=$_POST['telefono'];
+			$data1['idCargo']=$_POST['cargo'];
+			$data1['idUsuario']=$this->session->userdata('idUsuario');
 
-			$data2['nombreUsuario']='falta';
-			$data2['password']='ci';
+
+			$pwd=generarPwd($_POST['primerApellido']);
+			
+			$data2['password']=md5($pwd);
 			$data2['email']=$_POST['email'];
 			$data2['idTipoUsuario']=$_POST['rol'];	
-			
+			$data2['idUsuario']=$this->session->userdata('idUsuario');
+			$correo =$_POST['email'];
+			$nombre=letraCapital($_POST['nombre']);
 
-			$this->usuario_model->agregarUsuario($data1,$data2);
-     		redirect('usuario/agregarView','refresh');
+			$nameUsuario=$this->usuario_model->agregarUsuario($data1,$data2,$nombre);
+			if(is_string($nameUsuario)){
+				//reistro de dsto con exitos
 
+				if($this->phpmailer_lib->load($correo,$nombre,$nameUsuario,$pwd)){
+					//reistro de email exit
+					$url= base_url();
+
+					echo json_encode(array('msg'=>'Envio de datos correcto'));
+
+				}
+				else
+				{
+					echo json_encode(array('msg'=>'fallo de envio de datos'));
+
+				}
+				echo json_encode(array('msg'=>'Registro en vace de datos correcto'));
+			}else
+			{
+				echo json_encode(array('msg'=>'fallo de envio de y registros'));
+				//no se completo la transaccions
+			}
+
+			$url=base_url();
+
+     			 echo json_encode(array('url'=>$url.'index.php/usuario/agregarUsuarioV'));
 
 	   		
 		}else
@@ -281,6 +317,44 @@ public function agregarUsuario()//metod donde agreaga usuario admini o usuario i
 			$this->load->view('inc/footerLti');
 		}
 }
+
+public function modifiaDatosUsuarioa()//modifcar gestion Usuarios
+{
+	
+	$id=$_POST['id'];
+
+	$lista=$this->usuario_model->datosUsuarioID($id);
+	$listaArray = $lista->row_array();
+	// $listaArray = $lista->result_array();
+	echo json_encode($listaArray);
+}
+public function modifiaDatosUsuarioaFUll()//modifcar gestion Usuarios
+{
+	
+	
+	$lista=$this->usuario_model->datosUsuario(1);	
+	$listaArray = $lista->result_array();
+	// $listaArray = $lista->row_array();
+	echo json_encode($listaArray);
+}
+
+public function usuarioDatosDesabilitadosFUll(){
+	$lista=$this->usuario_model->datosUsuario(0);	
+	$listaArray = $lista->result_array();
+	// $listaArray = $lista->row_array();
+	echo json_encode($listaArray);
+}
+
+
+public function eliminarDatosUsuarioa()//modifcar gestion Usuarios
+{
+	if(isset($_POST['id'])){
+		$id =$_POST['id'];
+	
+	$this->usuario_model->elimnarHabiltarDatosUsuariodb($id,0);
+	}
+}
+
 
 
 
@@ -322,26 +396,6 @@ public function calAnual()
 }
 
 
-
-	// function index()
-	// {
-  
-
-	// 	/*$query =$this->db->get('usuarios');
-	// 	$exeCon=$query->result();
-	// 	print_r($exeCon);
-	// 	prueba deconexion*/
-
-	// 	$lista=$this->usuario_model->listarUsuarios();
-	// 	$data['infoUsuario']=$lista;
-
-
-	// 	$this->load->view('inc/cabezera');
-	// 	$this->load->view('inc/menu');
-	// 	$this->load->view('usuarioV',$data);
-	// 	$this->load->view('inc/pie');
-		
-	// }
 	
 	function index()
 	{
@@ -349,8 +403,6 @@ public function calAnual()
 
 		$lista=$this->usuario_model->listarUsuarios();
 		$data['infoUsuario']=$lista;
-
-
 
 		$this->load->view('inc/default/header');
 		$this->load->view('inc/default/menu');
@@ -360,43 +412,23 @@ public function calAnual()
 	}
 	
 
-
-
-
-	function agregar()
-	{
-		$this->load->view('inc/cabezera');
-		$this->load->view('inc/menu');
-		$this->load->view('agregarV');
-		$this->load->view('inc/pie');
-	}
 	
 	function agregardb()
-	{
-     $data['nombre']=$_POST['nombre'];
-     $data['primerApellido']=$_POST['apellido1'];
-     $data['segundoApellido']=$_POST['apellido2'];
-     $data['ci']=$_POST['ci'];
-     $data['fechaNacimiento']='1996-03-06';
-     $data['sexo']=$_POST['sexo'];
-     $data['login']=$_POST['nombre'];
-     $data['claveUsuario']='1';
-     $data['rolUsuario']=$_POST['rol'];
+			{
+		     $data['nombre']=$_POST['nombre'];
+		     $data['primerApellido']=$_POST['apellido1'];
+		     $data['segundoApellido']=$_POST['apellido2'];
+		     $data['ci']=$_POST['ci'];
+		     $data['fechaNacimiento']='1996-03-06';
+		     $data['sexo']=$_POST['sexo'];
+		     $data['login']=$_POST['nombre'];
+		     $data['claveUsuario']='1';
+		     $data['rolUsuario']=$_POST['rol'];
 
-    $this->usuario_model->agregarUsuario($data);
-     redirect('usuario/index','refresh');
+		    $this->usuario_model->agregarUsuario($data);
+		     redirect('usuario/index','refresh');
 	}
-	function buscardb()
-	{
-     $id=$_POST['id'];
-    $data['usuarioEncontrado']= $this->usuario_model->buscarIdDB($id);
-
-		$this->load->view('inc/cabezera');
-		$this->load->view('inc/menu');
-		$this->load->view('modificarV',$data);
-		$this->load->view('inc/pie');
-
- 	}
+	
 
  	function modificardb()
  	{

@@ -34,7 +34,10 @@ class Usuario_model extends CI_Model
 		return $this->db->get();
       
 	}
-	public function tipoRol()
+
+
+
+	public function tipoRol()//importnte 
 	{
 		$this->db->select('*');
 		$this->db->from('tipoUsuario');
@@ -49,12 +52,8 @@ public function agregarActiviadadBD($data)
 {
 	
 		$this->db->trans_start(); //incioo transaccion
-
 		$this->db->insert('actividades',$data);
-
-
 		$id=$this->db->insert_id();
-
 		$data['foto']=$id.'.jpg';
 		$this->db->where('id',$id);
 		$this->db->update('actividades',$data);
@@ -76,49 +75,67 @@ public function agregarActiviadadBD($data)
 	}
 
 	
-	public function agregarUsuario($data1,$data2)
+
+
+
+	
+	public function agregarUsuario($data1,$data2,$nombreUsuario)
 	{
+
 		$this->db->trans_start(); //incioo transaccion
 
 		$this->db->insert('empleados',$data1);
 		$idEmpleado=$this->db->insert_id();
 		$data2['idEmpleado']=$idEmpleado;
+		$data2['nombreUsuario']=generarUsuario($nombreUsuario.$idEmpleado);
 		$this->db->insert('usuario',$data2);
-
 
 		$this->db->trans_complete(); //fin transaccion
 
+		return generarUsuario($nombreUsuario.$idEmpleado);
 		if($this->db->trans_status()===FALSE)
 		{
 			return false;
 		}
-
-
 		
 	}
+  
 
-	public function buscarIdDB($id)
-	{
-		$this->db->select('*');
-		$this->db->from('usuarios');
-		$this->db->where('id',$id);
+
+  public function datosUsuario($estado)// gestion usuairo
+  {
+  	$this->db->select('E.id,E.nombre,E.primerApellido,E.segundoApellido,E.ci,E.fechaNacimiento,E.sexo,E.salario,E.celular,E.telefono, E.idCargo,C.nombreCargo,U.nombreUsuario,U.email,T.rol');
+		$this->db->from('empleados E');
+		$this->db->join('cargo C','C.id=E.idCargo');
+		$this->db->join('usuario U','U.idEmpleado=E.id');
+		$this->db->join('tipoUsuario T','T.id=U.idTipoUsuario');
+		$this->db->where('U.estado',$estado);
+		$this->db->where('E.estado',$estado);
+
 		return $this->db->get();
+  }
 
-	}
+  public function datosUsuarioID($id)// gestion usuairo
+  {
+  	$this->db->select('E.id,E.nombre,E.primerApellido,E.segundoApellido,E.ci,E.fechaNacimiento,E.sexo,E.salario,E.celular,E.telefono, E.idCargo,C.nombreCargo,U.nombreUsuario,U.email,T.rol');
+		$this->db->from('empleados E');
+		$this->db->join('cargo C','C.id=E.idCargo');
+		$this->db->join('usuario U','U.idEmpleado=E.id');
+		$this->db->join('tipoUsuario T','T.id=U.idTipoUsuario');
+		$this->db->where('E.id',$id);
 
-	public function modificarUsuariodb($id,$data)
-	{
-		$this->db->where('id',$id);
-		 $this->db->update('usuarios',$data);
-	}
- 	public function eliminarUsuariodb($id)
+
+		return $this->db->get();
+  }
+
+  	public function elimnarHabiltarDatosUsuariodb($id,$estado)//eliminar gestion usurios
     {
-    	$this->db->where('id',$id);
-		 $this->db->delete('usuarios');
+    	$this->db->where('idEmpleado',$id);
+    	$data['estado']=$estado;
+		 $this->db->update('usuario',$data);
     }
 
 
-   
 
 }
  

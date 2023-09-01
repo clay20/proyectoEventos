@@ -219,7 +219,7 @@
 <script>"use strict";</script>
 <script src="<?php echo base_url();?>/calendario/res/jquery.js"></script>
 
-<script src="<?php echo base_url();?>/calendario/res/momentjs.lang.js"></script>ss
+<script src="<?php echo base_url();?>/calendario/res/momentjs.lang.js"></script>
 
 <script src="<?php echo base_url();?>/calendario/res/bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>/calendario/res/underscore-min.js"></script>

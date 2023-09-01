@@ -1,13 +1,12 @@
 
 :root{
-    --primaryColorDark: #0B102D;
+    --primaryColorDark: #001f3f;
     --lighColor:#C5CAE9;
-
-    --primaryColor:#020d4f;
-    --secondaryColor:#D28C58;
+    --primaryColor:#001f3f;
+    --secondaryColor:#D28C58; 
 /*  //001f3f*/
     --acentColor:#001f3f;
-  
+  /* acent colore se utiliza para lo iconos */
     --primaryText:white;
     --secondaryText:black;
     --enableText:#C5CAE9;

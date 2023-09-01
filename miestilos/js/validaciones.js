@@ -1,4 +1,5 @@
 
+
 function validarNombre(nombre)
 {
 	//Patrón para el nombre
@@ -31,38 +32,34 @@ function soloLetras(e)
 {
 	var codigoCar=e.keyCode;	
 	var letra=String.fromCharCode(codigoCar);
-	var caracteresPermitidos=/[A-Za-záéíóúÁÉÍÓÚ]/;
-	var caracteresEspeciales=[8,9,13,14,15,32];
+	var caracteresPermitidos=/[A-Za-záéíóúÁÉÍÓÚñÑ]/;
+	var caracteresEspeciales=[8,9,13,14,15,];
 	if (caracteresEspeciales.indexOf(codigoCar)==-1)
 		return (caracteresPermitidos.test(letra));
 	else
 		return true;
 }
 
-function soloDigitos(e)
+
+function soloNumero(e)
 {
-	var codigoCar=e.keyCode;
-	var digito=String.fromCharCode(codigoCar);
+	var codigoCar=e.keyCode;	
+	var letra=String.fromCharCode(codigoCar);
 	var caracteresPermitidos=/[0-9]/;
-	var caracteresEspeciales=[8,9,13,14,15,32];
-	var edad = document.getElementById("edad");
-	if ((edad.value * 10)<100)
-	{
-		if (caracteresEspeciales.indexOf(codigoCar)==-1)
-			return (caracteresPermitidos.test(digito));
-		else
-			return true;
-	}
+	var caracteresEspeciales=[];
+	if (caracteresEspeciales.indexOf(codigoCar)==-1)
+		return (caracteresPermitidos.test(letra));
 	else
-		return false;
+		return true;
 }
+
 
 
 function LetrasNumero(e)
 {
 	var codigoCar=e.keyCode;	
 	var letra=String.fromCharCode(codigoCar);
-	var caracteresPermitidos=/[0-9A-Za-záéíóúÁÉÍÓÚ]/;
+	var caracteresPermitidos=/[0-9A-Za-zñ]/;
 	var caracteresEspeciales=[8,9,13,14,15,32];
 	if (caracteresEspeciales.indexOf(codigoCar)==-1){
 		return (caracteresPermitidos.test(letra));
