@@ -8,7 +8,7 @@
                 <div class="login-section">
                     <div class="form-box login">
 
-                        <form action="<?php echo base_url();?>index.php/usuario/validarPrueba" id="formLogin" method="POST">
+                        <form action="<?php echo base_url();?>index.php/usuario/f" id="formLogin" method="POST">
                            <?php 
 
                            $msg=0;

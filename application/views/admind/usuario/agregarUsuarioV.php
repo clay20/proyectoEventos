@@ -18,9 +18,6 @@
       <section class="content">
         <div class="container-fluid">
 
-
-
-
           <div class="row flex-lg-row flex-column-reverse p-2"  >
             <div class="col "  >
               <!-- small card -->
@@ -55,15 +52,13 @@
                                   
 
                                     <th >Nombre Completo</th>
-                                    <th class="d-none ">C.I</th>
+                                    <th class="">C.I</th>
                                     <th class="d-none d-lg-table-cell">Sexo</th>
-                                    <th class="d-none d-md-table-cell">Telefono</th>
-                                    <th class="d-none d-md-table-cell">Cargo</th>
-                                    <th>Email</th>
-                                    <th>Rol</th>
-
-
+                                    <th class="d-none d-lg-table-cell">Fecha Nacimiento</th>
+                                    <th class="d-none d-lg-table-cell">Email</th>
+                              
                                     <th>Usuario</th>
+                                    <th>Rol</th>
 
                                     <th ><i class="fa-solid fa-user-pen fa-lg  " style="width: 10px; color:yellow;"></i></th>
                                     <th ><i class="fa-solid fa-trash  fa-lg " style="width: 10px; color:red"></i></th>
@@ -82,6 +77,7 @@
 
 
                          <!-- Inicion modefica modal -->
+                          <form id="formModificar">
                          <div class="modal modal-primary" id="ModificarUsuario" aria-hidden="true"  data-backdrop="static"  >
                           <div class="modal-dialog modal-dialog-centered modal-lg" >
                             <div class="modal-content bgt-secondary" >
@@ -97,12 +93,13 @@
                                 </div>
                                 <div class="modal-body">
 
-                                  <?php  echo form_open_multipart('usuario/modificarDatos'); ?>
+                                  <!-- <?php  echo form_open_multipart('usuario/modificarDatos'); ?> -->
+                                 
                                   <div class="post myborder"  style="border-bottom: 2px solid;">
 
                                     <div class="row ">
                                       <div  class=" col-sm-6 col-md-4  col-12  ">
-
+                                              <input type="hidden" id="idD" name="id">
                                         <div class="myBox">
                                           <input class=" myImputField" type="text" id="nombreUsuarioD" name="nombre"  onkeypress="return soloLetras(event)" minlength="2" maxlength="25" required autofocus>
                                           <label class="mylabel" for="nombreUsuario" >Nombre</label>
@@ -119,7 +116,7 @@
                                       <div  class=" col-sm-6 col-md-4  col-12  ">
 
                                         <div class="myBox">
-                                          <input class=" myImputField" type="text" id="segundoApellidoD" name="segundoApellido"  onkeypress="return soloLetras(event)" minlength="0" maxlength="25" required>
+                                          <input class=" myImputField" type="text" id="segundoApellidoD" name="segundoApellido"  onkeypress="return soloLetras(event)" minlength="0" maxlength="25">
                                           <label class="mylabel" for="segundoApellido" >Segundo Apellido</label>
                                         </div>
                                       </div>
@@ -132,7 +129,7 @@
 
                                       <div class="myBox">
                                         <input class="myImputField" type="text" id="ciD" name="ci" onkeypress="return soloNumero(event)" minlength="7" maxlength="10"  required>
-                                        <label class="mylabel" for="ci" >C.Ifd</label>
+                                        <label class="mylabel" for="ci" >C.I.</label>
                                       </div>
                                     </div>
 
@@ -145,27 +142,7 @@
                                           
                                       </div>
                                     </div>
-                                    <div  class=" col-sm-4 col-md-4  col-12  ">
-                                      <div class="myBox">
-                                        <select class="myImputField form-control form-control-sm" name="cargo">
-
-                                          <option  class="bgt-acent" selected disabled >Seleccionar ... </option>
-                                          <?php foreach ($cargo ->result() as $row) {
-                                            ?>
-
-                                            <option  class="bgt-secondary" value="<?php echo $row->id;  ?>"   <?php if ($row->nombreCargo == 'administrador') echo 'selected'; ?>><?php echo $row->nombreCargo; ?></option>
-
-
-                                            <?php
-
-                                          } 
-                                          ?>
-
-
-                                        </select>
-                                        <label class="mylabel" for="cargo" >Cargo/Dpt</label>
-                                      </div>
-                                    </div>
+                              
 
                                   </div>
 
@@ -188,40 +165,7 @@
                                     </div>
 
                                   </div>
-                                  <div class="row ">
-                                    <div  class=" col-sm-4 col-md-4  col-12 ">
-
-
-                                      <div class="myBox">
-                                        <input class="myImputField" type="number" id="salario" name="salario"  onkeypress="return soloNumero(event)" minlength="0" maxlength="6"  required>
-                                        <label class="mylabel" for="salario" >Salario Inicial</label>
-                                        <label class="mylabel-icon" for=""><i class="fa-solid fa-dollar-sign"></i></label>
-                                      </div>
-
-                                    </div>
-                                    <div  class=" col-sm-4 col-md-4  col-12  ">
-
-                                     <div class="myBox">
-                                      <input class="myImputField" type="number" id="celular" name="celular"  onkeypress="return soloNumero(event)" minlength="8" maxlength="8"  required>
-                                      <label class="mylabel" for="celular" >Celular</label>
-                                      <label class="mylabel-icon" for=""><i class="fa-solid fa-mobile-retro"></i></label>
-
-                                    </div>
-
-                                  </div>
-                                  <div  class=" col-sm-4 col-md-4  col-12 ">
-
-
-                                    <div class="myBox">
-                                      <input class="myImputField" type="number" id="telefono" name="telefono"  onkeypress="return soloNumero(event)" minlength="7" maxlength="9"  required>
-                                      <label class="mylabel" for="telefono" >Telefono</label>
-                                      <label class="mylabel-icon" for=""><i class="fa-solid fa-phone"></i></label>
-                                    </div>
-
-                                  </div>
-
-
-                                </div>
+                                 
                                 <div class="row ">
 
                                  <div class=" col myborder" style=" border-bottom: 2px solid black;">  
@@ -245,7 +189,7 @@
                               </div>
                               <div  class=" col-sm-6 col-md-6  col-12 ">
                                 <div class="myBox">
-                                  <select class="myImputField" name="rol">
+                                  <select class="myImputField" name="rol" id="rolId">
 
                                     <option selected disabled class="bgt-acent">Seleccione ... </option>
                                     <?php foreach ($rol ->result() as $row) { ?>
@@ -262,18 +206,19 @@
                             </div>
 
                           </div>
-                          
+                        
 
 
 
 
 
-                            <?php echo form_close(); ?>
+                            <!-- <?php echo form_close(); ?> -->
 
 
                             <div class="clearfix"></div>        
 
                           </div>
+                           
                           <div class="modal-footer d-flex justify-content-around bgt-secondary" >
                              <button class="btn btn-sm btnt-primary" type="submit" data-dismiss="modal"><i class=" fas fa-times p-1 text-danger"></i>Cancelar</button>
                              <button class="btn btn-sm btnt-primary" type="submit">
@@ -285,7 +230,7 @@
                       <!-- /.modal-dialog -->
                     </div>
                     <!-- fin de incio de Modal -->
-
+ </form>
                   </div>
                   <!-- fin Usuarios -->
 
@@ -316,7 +261,7 @@
                         <div  class=" col-sm-6 col-md-4  col-12  ">
 
                           <div class="myBox">
-                            <input class=" myImputField" type="text" id="segundoApellido" name="segundoApellido"  onkeypress="return soloLetras(event)" minlength="0" maxlength="25" required>
+                            <input class=" myImputField" type="text" id="segundoApellido" name="segundoApellido"  onkeypress="return soloLetras(event)" minlength="0" maxlength="25">
                             <label class="mylabel" for="segundoApellido" >Segundo Apellido</label>
                           </div>
                         </div>
@@ -329,41 +274,22 @@
 
                         <div class="myBox">
                           <input class="myImputField" type="text" id="ci" name="ci" onkeypress="return soloNumero(event)" minlength="7" maxlength="10"  required>
-                          <label class="mylabel" for="ci" >C.Ifd</label>
+                          <label class="mylabel" for="ci" >C.I.</label>
                         </div>
                       </div>
 
                       <div  class=" col-sm-3 col-md-4  col-12 d-flex justify-content-center  ">
 
                         <div class="row">
-                          <div class="col-sm-6">
+                         
                             <div class="myBox">
                               <input class="myImputField" type="date" id="fechaNacimiento" name="fechaNacimiento"   max="2023-08-01" value="2020-01-01"   required>
                               <label class="mylabel" for="fechaNacimiento"  >Fecha Nacimiento</label>
-                            </div>
+                           
                           </div>
                         </div>
                       </div>
-                      <div  class=" col-sm-4 col-md-4  col-12  ">
-                        <div class="myBox">
-                          <select class="myImputField form-control form-control-sm" name="cargo">
-
-                            <option  class="bgt-acent" selected disabled >Seleccionar ... </option>
-                            <?php foreach ($cargo ->result() as $row) {
-                              ?>
-
-                              <option  class="bgt-secondary" value="<?php echo $row->id;  ?>"   <?php if ($row->nombreCargo == 'administrador') echo 'selected'; ?>><?php echo $row->nombreCargo; ?></option>
-                              <?php
-
-                            } 
-                            ?>
-
-
-                          </select>
-                          <label class="mylabel" for="cargo" >Cargo/Dpt</label>
-                        </div>
-                      </div>
-
+                     
                     </div>
 
 
@@ -385,40 +311,7 @@
                       </div>
 
                     </div>
-                    <div class="row ">
-                      <div  class=" col-sm-4 col-md-4  col-12 ">
-
-
-                        <div class="myBox">
-                          <input class="myImputField" type="number" id="salario" name="salario"  onkeypress="return soloNumero(event)" minlength="0" maxlength="6"  required>
-                          <label class="mylabel" for="salario" >Salario Inicial</label>
-                          <label class="mylabel-icon" for=""><i class="fa-solid fa-dollar-sign"></i></label>
-                        </div>
-
-                      </div>
-                      <div  class=" col-sm-4 col-md-4  col-12  ">
-
-                       <div class="myBox">
-                        <input class="myImputField" type="number" id="celular" name="celular"  onkeypress="return soloNumero(event)" minlength="8" maxlength="8"  required>
-                        <label class="mylabel" for="celular" >Celular</label>
-                        <label class="mylabel-icon" for=""><i class="fa-solid fa-mobile-retro"></i></label>
-
-                      </div>
-
-                    </div>
-                    <div  class=" col-sm-4 col-md-4  col-12 ">
-
-
-                      <div class="myBox">
-                        <input class="myImputField" type="number" id="telefono" name="telefono"  onkeypress="return soloNumero(event)" minlength="7" maxlength="9"  required>
-                        <label class="mylabel" for="telefono" >Telefono</label>
-                        <label class="mylabel-icon" for=""><i class="fa-solid fa-phone"></i></label>
-                      </div>
-
-                    </div>
-
-
-                  </div>
+                   
                   <div class="row ">
 
                    <div class=" col myborder" style=" border-bottom: 2px solid black;">  

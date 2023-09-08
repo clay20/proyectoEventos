@@ -8,10 +8,9 @@ class Usuario_model extends CI_Model
     {
 
 		
-		$this->db->select('*');
+		$this->db->select('U.id AS idUsuario, U.nombreUsuario,U.email,T.rol');
 		$this->db->from('usuario U');
 		$this->db->join('tipoUsuario T','T.id=U.idTipoUsuario');
-
 		$this->db->where('nombreUsuario',$username);
 		$this->db->where('password',$pwd);
 		$this->db->where('estado',1);
@@ -66,7 +65,7 @@ public function agregarActiviadadBD($data)
 		return $id;
 }
 
-	public function mostraActividadBd()
+	public function mostraActividadBd()//solo clientes
 	{
 		$this->db->select('*');
 		$this->db->from('actividades');
@@ -79,20 +78,18 @@ public function agregarActiviadadBD($data)
 
 
 	
-	public function agregarUsuario($data1,$data2,$nombreUsuario)
+	public function agregarUsuariodb($data1,$data2,$nombreUsuario)//agregar usuario
 	{
 
 		$this->db->trans_start(); //incioo transaccion
 
-		$this->db->insert('empleados',$data1);
-		$idEmpleado=$this->db->insert_id();
-		$data2['idEmpleado']=$idEmpleado;
-		$data2['nombreUsuario']=generarUsuario($nombreUsuario.$idEmpleado);
+		$this->db->insert('persona',$data1);
+		$idPersona=$this->db->insert_id();
+		$data2['id']=$idPersona;
+		$data2['nombreUsuario']=generarUsuario($nombreUsuario.$idPersona);
 		$this->db->insert('usuario',$data2);
-
 		$this->db->trans_complete(); //fin transaccion
-
-		return generarUsuario($nombreUsuario.$idEmpleado);
+		return generarUsuario($nombreUsuario.$idPersona);
 		if($this->db->trans_status()===FALSE)
 		{
 			return false;
@@ -102,40 +99,65 @@ public function agregarActiviadadBD($data)
   
 
 
-  public function datosUsuario($estado)// gestion usuairo
+  public function datosUsuariodb($estado)// gestion usuairo
   {
-  	$this->db->select('E.id,E.nombre,E.primerApellido,E.segundoApellido,E.ci,E.fechaNacimiento,E.sexo,E.salario,E.celular,E.telefono, E.idCargo,C.nombreCargo,U.nombreUsuario,U.email,T.rol');
-		$this->db->from('empleados E');
-		$this->db->join('cargo C','C.id=E.idCargo');
-		$this->db->join('usuario U','U.idEmpleado=E.id');
+  	$this->db->select('P.id, P.nombre,P.primerApellido,IFNULL(P.segundoApellido,"") AS segundoApellido,P.ci,P.fechaNacimiento,P.sexo ,U.nombreUsuario,U.email,T.id AS idRol, T.rol ');
+		$this->db->from('persona P');
+		$this->db->join('usuario U','P.id= U.id');
 		$this->db->join('tipoUsuario T','T.id=U.idTipoUsuario');
 		$this->db->where('U.estado',$estado);
-		$this->db->where('E.estado',$estado);
-
 		return $this->db->get();
   }
-
-  public function datosUsuarioID($id)// gestion usuairo
+  public function datosUsuarioID($id,$estado)// gestion usuairo
   {
-  	$this->db->select('E.id,E.nombre,E.primerApellido,E.segundoApellido,E.ci,E.fechaNacimiento,E.sexo,E.salario,E.celular,E.telefono, E.idCargo,C.nombreCargo,U.nombreUsuario,U.email,T.rol');
-		$this->db->from('empleados E');
-		$this->db->join('cargo C','C.id=E.idCargo');
-		$this->db->join('usuario U','U.idEmpleado=E.id');
+  	$this->db->select('P.id, P.nombre,P.primerApellido,IFNULL(P.segundoApellido,"") AS segundoApellido,P.ci,P.fechaNacimiento,P.sexo ,U.nombreUsuario,U.email,T.id AS idRol, T.rol ');
+		$this->db->from('persona P');
+		$this->db->join('usuario U','P.id= U.id');
 		$this->db->join('tipoUsuario T','T.id=U.idTipoUsuario');
-		$this->db->where('E.id',$id);
-
+		$this->db->where('U.estado',$estado);
+		$this->db->where('P.id',$id);
 
 		return $this->db->get();
   }
+
 
   	public function elimnarHabiltarDatosUsuariodb($id,$estado)//eliminar gestion usurios
     {
-    	$this->db->where('idEmpleado',$id);
+    	$this->db->where('id',$id);
     	$data['estado']=$estado;
+    	$this->db->set('fechaActualizacion', 'CURRENT_TIMESTAMP', false); 
 		 $this->db->update('usuario',$data);
     }
+	public function modificarUsuariodb($data1,$data2,$id)//agregar usuario
+	{
 
+		$this->db->trans_start(); //incioo transaccion
 
+    	$this->db->set('fechaActualizacion', 'CURRENT_TIMESTAMP', false); 
+    	$this->db->where('id',$id);
+		$this->db->update('persona',$data1);
+    	$this->db->set('fechaActualizacion', 'CURRENT_TIMESTAMP', false); 
+
+		$this->db->where('id',$id);
+		$this->db->update('usuario',$data2);
+		$this->db->trans_complete(); //fin transaccion
+		
+		if($this->db->trans_status()===FALSE)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	public function cambiarpwddb($pwd,$id){
+
+			$this->db->where('id',$id);
+			$data['password']=$pwd;
+			$this->db->update('usuario',$data);
+				
+
+	}
+  
 
 }
  

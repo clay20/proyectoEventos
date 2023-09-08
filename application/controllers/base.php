@@ -8,13 +8,13 @@ class Base extends CI_Controller {
 	
 	function index()
 	{
-       $lista=$this->usuario_model->mostraActividadBd();
+       // $lista=$this->usuario_model->mostraActividadBd();
 		
-		$data['actividad']=$lista;
+	// 	$data['actividad']=$lista;
 		
 		$this->load->view('inc/default/header');
 		$this->load->view('inc/default/menu');
-		$this->load->view('default/inicio',$data );
+		// $this->load->view('default/inicio',$data );
 		$this->load->view('inc/default/footer');
 		
 		

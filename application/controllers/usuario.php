@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class Usuario extends CI_Controller {
 
 //manejo de secciones con mvc
-
+//
 
 	public function __construct()
 	{
@@ -93,7 +93,7 @@ class Usuario extends CI_Controller {
 
 			
 				foreach ($consulta->result() as $row) {
-					$this->session->set_userdata('idUsuario',$row->id);
+					$this->session->set_userdata('idUsuario',$row->idUsuario);
 					$this->session->set_userdata('nombreUsuario',$row->nombreUsuario);
 					$this->session->set_userdata('rolUsuario',$row->rol);
 					redirect('usuario/panel','refresh');
@@ -141,7 +141,7 @@ class Usuario extends CI_Controller {
 
 	function panel()
 	{
-		if($this->session->userdata('rolUsuario') =='admind')
+		if($this->session->userdata('rolUsuario') =='admin')
 		{
 	   		redirect('usuario/homeAdmind','refresh');
 	   		//session de usaurio admin
@@ -171,7 +171,7 @@ class Usuario extends CI_Controller {
 	public function logout()
 	{
 		$this->session->sess_destroy();
-		redirect('base/index/3','refresh');
+		redirect('usuario/formLogin','refresh');
 	}
 
 	function homeAdmind()
@@ -228,13 +228,13 @@ public function agregarView()//metod donde agreaga usuario admini o usuario invi
 {
 			
 
-		if($this->session->userdata('rolUsuario') =='admind')
+		if($this->session->userdata('rolUsuario') =='admin')
 		{
 			$lista=$this->usuario_model->tipoRol();
 			$data['rol']=$lista;
 			$lista=$this->empleado_model->cargo();
 			$data['cargo']=$lista;
-			$lista=$this->usuario_model->datosUsuario(1);
+			$lista=$this->usuario_model->datosUsuariodb(1);
 			$data['usuarios']=$lista;
 	   		$this->load->view('inc/cabezeraLti');
 			$this->load->view('inc/navLti');
@@ -249,13 +249,15 @@ public function agregarView()//metod donde agreaga usuario admini o usuario invi
 			$this->load->view('inc/footerLti');
 		}
 }
+
+
 public function agregarUsuario()//metod donde agreaga usuario admini o usuario invitado
 {
      	$this->load->library('phpmailer_lib');
      			
    
 
-		if($this->session->userdata('rolUsuario') =='admind')
+		if($this->session->userdata('rolUsuario') =='admin')
 		{
 			$nombre=letraCapital($_POST['nombre']);
 			$data1['nombre']=$nombre;
@@ -264,15 +266,8 @@ public function agregarUsuario()//metod donde agreaga usuario admini o usuario i
 			$data1['ci']=$_POST['ci'];
 			$data1['fechaNacimiento']=$_POST['fechaNacimiento'];
 			$data1['sexo']=$_POST['genero'];
-			$data1['salario']=$_POST['salario'];
-			$data1['celular']=$_POST['celular'];
-			$data1['telefono']=$_POST['telefono'];
-			$data1['idCargo']=$_POST['cargo'];
 			$data1['idUsuario']=$this->session->userdata('idUsuario');
-
-
 			$pwd=generarPwd($_POST['primerApellido']);
-			
 			$data2['password']=md5($pwd);
 			$data2['email']=$_POST['email'];
 			$data2['idTipoUsuario']=$_POST['rol'];	
@@ -280,7 +275,7 @@ public function agregarUsuario()//metod donde agreaga usuario admini o usuario i
 			$correo =$_POST['email'];
 			$nombre=letraCapital($_POST['nombre']);
 
-			$nameUsuario=$this->usuario_model->agregarUsuario($data1,$data2,$nombre);
+			$nameUsuario=$this->usuario_model->agregarUsuariodb($data1,$data2,$nombre);
 			if(is_string($nameUsuario)){
 				//reistro de dsto con exitos
 
@@ -318,12 +313,46 @@ public function agregarUsuario()//metod donde agreaga usuario admini o usuario i
 		}
 }
 
+
+
+
+public function modificarUsuario()//metod donde agreaga usuario admini o usuario invitado
+{
+     
+		if($this->session->userdata('rolUsuario') =='admin')
+		{
+			$id=$_POST['id'];
+			$data1['nombre']=letraCapital($_POST['nombre']);
+			$data1['primerApellido']=letraCapital($_POST['primerApellido']);
+			$data1['segundoApellido']=letraCapital($_POST['segundoApellido']);
+			$data1['ci']=$_POST['ci'];
+			$data1['fechaNacimiento']=$_POST['fechaNacimiento'];
+			$data1['sexo']=$_POST['genero'];
+			$data1['idUsuario']=$this->session->userdata('idUsuario');
+			$data2['email']=$_POST['email'];
+			$data2['idTipoUsuario']=$_POST['rol'];	
+			$data2['idUsuario']=$this->session->userdata('idUsuario');
+		
+			$ban=$this->usuario_model->modificarUsuariodb($data1,$data2,$id);
+			if ($ban) {
+				$url=base_url();
+				echo json_encode(array('url'=>$url.'index.php/usuario/agregarView'));
+			}
+			
+     			
+		}else
+		{
+			$this->load->view('inc/cabezeraLti');
+			$this->load->view('error/404');
+			$this->load->view('inc/footerLti');
+		}
+}
+
 public function modifiaDatosUsuarioa()//modifcar gestion Usuarios
 {
 	
 	$id=$_POST['id'];
-
-	$lista=$this->usuario_model->datosUsuarioID($id);
+	$lista=$this->usuario_model->datosUsuarioID($id,1);
 	$listaArray = $lista->row_array();
 	// $listaArray = $lista->result_array();
 	echo json_encode($listaArray);
@@ -332,14 +361,14 @@ public function modifiaDatosUsuarioaFUll()//modifcar gestion Usuarios
 {
 	
 	
-	$lista=$this->usuario_model->datosUsuario(1);	
+	$lista=$this->usuario_model->datosUsuariodb(1);	
 	$listaArray = $lista->result_array();
 	// $listaArray = $lista->row_array();
 	echo json_encode($listaArray);
 }
 
 public function usuarioDatosDesabilitadosFUll(){
-	$lista=$this->usuario_model->datosUsuario(0);	
+	$lista=$this->usuario_model->datosUsuariodb(0);	
 	$listaArray = $lista->result_array();
 	// $listaArray = $lista->row_array();
 	echo json_encode($listaArray);
@@ -358,20 +387,56 @@ public function eliminarDatosUsuarioa()//modifcar gestion Usuarios
 
 
 
-public function datosUsuario()//lista los dao s de usaurio administado funcio soo vista falta pasar losd atos
+public function datosUsuario()//datos personales
 {
 			// $lista=$this->usuario_model->listarUsuarios();
 			// $data['infoUsuario']=$lista;
+		$id=$this->session->userdata('idUsuario');;
+		$lista=$this->usuario_model->datosUsuarioID($id,1);
+		$data['datos']=$lista;
 
 			$this->load->view('inc/cabezeraLti');
 			$this->load->view('inc/navLti');
 			$this->load->view('inc/asidebarLti');
-			// $this->load->view('usuariovLti',$data);
-			$this->load->view('admind/perfil/datosUsuario');
-
+			$this->load->view('admind/perfil/perfil',$data);
 			$this->load->view('inc/footerLti');
 }
 
+
+public function cambioPwd()
+{
+	$idUsuario=$this->session->userdata('idUsuario');
+
+	$usuario=$this->session->userdata('nombreUsuario');
+	$pwd=md5($_POST['pwd']);
+	$pwdNueva=md5($_POST['pwd-nueva']);
+	$pwdRepitir=md5($_POST['pwd-repetir']);
+	if($pwdNueva==$pwdRepitir){
+
+
+		$lista=$this->usuario_model->validarLogin($usuario,$pwd);
+		If($lista->num_rows()>0){
+			$msg=$this->usuario_model->cambiarpwddb($pwdNueva,$idUsuario);
+			$url=base_url();
+			echo json_encode(array('msg'=>'Contraseña Cambiado',
+						'uri'=>'1',
+						'url'=>$url.'index.php/usuario/formLogin'
+		));
+			$this->session->sess_destroy();
+
+		}
+		else
+		{
+			echo json_encode(array('msg'=>'contraseña de usuario incorrecta'));
+		}
+
+	}
+	else
+	{
+
+			echo json_encode(array('msg'=>'Repetir debes igual ala nueva contraseña'));
+	}
+}
 
 public function calendario()
 {

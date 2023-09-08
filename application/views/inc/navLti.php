@@ -16,7 +16,7 @@
          <a class="nav-link t-acent" data-toggle="dropdown" href="#">
          
            <div class="image t-acent d-flex justify-content-center align-items-center " > 
-                            <div style="padding-right: 5px"><?php echo $this->session->userdata('rolUsuario').' '; ?>
+                            <div style="padding-right: 5px"><?php echo $this->session->userdata('rolUsuario').' '.$this->session->userdata('idUsuario'); ?>
                                                         </div>
                           <img src="<?php echo base_url();?>/adminlti/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image" style="height:30px ;">
             </div>
