@@ -17,7 +17,7 @@ $(document).ready(function() {
         template+=`
         <tr usuarioId=${usuario.id}>
         <td>${usuario.nombre+' '+usuario.primerApellido+' '+usuario.segundoApellido}</td>
-        <td>${usuario.ci}</td>
+        <td class="d-none d-lg-table-cell">${usuario.ci}</td>
         <td class="d-none d-lg-table-cell">${usuario.sexo=='f'?'Femenino':'Masculino'}</td>
         <td class="d-none d-lg-table-cell">${usuario.fechaNacimiento}</td>
         <td  class="d-none d-lg-table-cell">${usuario.email}</td>
@@ -34,6 +34,83 @@ $(document).ready(function() {
     }
   });
  }
+  $('#buscarUsuario').keyup(function() {
+  
+      if($('#buscarUsuario').val()) {
+        let valor = $('#buscarUsuario').val();
+        $.ajax({
+          url:'../usuario/usuarioDatosBuscar',
+          data: {valor},
+          type: 'POST',
+          success: function (response) {
+            if(!response.error) {
+              let usuario= JSON.parse(response);
+              console.log(usuario);
+              let template= "";
+              usuario.forEach(usuario=>{
+                template+=`
+                <tr usuarioId=${usuario.id}>
+                <td>${usuario.nombre+' '+usuario.primerApellido+' '+usuario.segundoApellido}</td>
+                <td class="d-none d-lg-table-cell">${usuario.ci}</td>
+                <td class="d-none d-lg-table-cell">${usuario.sexo=='f'?'Femenino':'Masculino'}</td>
+                <td class="d-none d-lg-table-cell">${usuario.fechaNacimiento}</td>
+                <td  class="d-none d-lg-table-cell">${usuario.email}</td>
+                <td>${usuario.nombreUsuario}</td>
+                <td>${usuario.rol}</td>
+                <td title="Editar"> 
+                <button type="submit" class="editaUsuario btn btn-sm btnt-primary" ><i class="fa-solid fa-pen-to-square fa-lg text-warning"></i></button> 
+                </td>
+                <td title="Editar"> <button class="eliminarUsuario btn btn-sm btnt-primary"><i class="fa-solid fa-trash  fa-lg text-danger"></i></button> </td>
+                </tr>
+                `
+              });
+              $('#listaUsuario').html(template); 
+            }
+          } 
+        })
+      }
+  });
+
+
+  $('#buscarUsuarioD').keyup(function() {
+  
+      if($('#buscarUsuarioD').val()) {
+        let valor = $('#buscarUsuarioD').val();
+        $.ajax({
+          url:'../usuario/usuarioDatosBuscar',
+          data: {valor},
+          type: 'POST',
+          success: function (response) {
+            if(!response.error) {
+              let usuario= JSON.parse(response);
+              console.log(usuario);
+              let template= "";
+              usuario.forEach(usuario=>{
+                template+=`
+                <tr usuarioId=${usuario.id}>
+                <td>${usuario.nombre+' '+usuario.primerApellido+' '+usuario.segundoApellido}</td>
+                <td class="d-none d-lg-table-cell">${usuario.ci}</td>
+                <td class="d-none d-lg-table-cell">${usuario.sexo=='f'?'Femenino':'Masculino'}</td>
+                <td class="d-none d-lg-table-cell">${usuario.fechaNacimiento}</td>
+                <td  class="d-none d-lg-table-cell">${usuario.email}</td>
+                <td>${usuario.nombreUsuario}</td>
+                <td>${usuario.rol}</td>
+                <td title="Editar"> 
+                <button type="submit" class="editaUsuario btn btn-sm btnt-primary" ><i class="fa-solid fa-pen-to-square fa-lg text-warning"></i></button> 
+                </td>
+                <td title="Editar"> <button class="eliminarUsuario btn btn-sm btnt-primary"><i class="fa-solid fa-trash  fa-lg text-danger"></i></button> </td>
+                </tr>
+                `
+              });
+              $('#listaUsuario').html(template); 
+            }
+          } 
+        })
+      }
+  });
+
+
+
  function listarUsuarioDesabilitados()
  {
    $.ajax({
@@ -45,15 +122,18 @@ $(document).ready(function() {
       let template= "";
       usuario.forEach(usuario=>{
         template+=`
-        <tr usuarioId=${usuario.id}>
-        <td  class="d-none ">${usuario.id}</td>
-        <td>${usuario.nombre+' '+usuario.primerApellido+' '+usuario.segundoApellido}</td>
-        <td>${usuario.celular}</td>
-        <td>${usuario.nombreCargo}</td>
 
-        <td>${usuario.email}</td>
-        <td>${usuario.rol}</td>
+        <tr usuarioId=${usuario.id}>
+        <td>${usuario.nombre+' '+usuario.primerApellido+' '+usuario.segundoApellido}</td>
+        <td class ="d-none d-lg-table-cell">${usuario.ci}</td>
+        <td class="d-none d-lg-table-cell">${usuario.sexo=='f'?'Femenino':'Masculino'}</td>
+        <td class="d-none d-lg-table-cell">${usuario.fechaNacimiento}</td>
+        <td  class="d-none d-lg-table-cell">${usuario.email}</td>
         <td>${usuario.nombreUsuario}</td>
+        <td>${usuario.rol}</td>
+
+
+
         <td title="Editar"> <button class="eliminarUsuario btn btn-sm btnt-primary"><i class="fa-solid fa-trash  fa-lg text-success"></i></button> </td>
 
 
@@ -81,8 +161,7 @@ $(document).ready(function() {
 })
 
 
- $(document).on('click','.editaUsuario',function(){
-
+ $(document).on('click','.editaUsuario',function(){// modificaionde datos a nivel general
   let element =$(this)[0].parentElement.parentElement;
   let id= $(element).attr('usuarioId');
   console.log(id);
@@ -111,9 +190,7 @@ $(document).ready(function() {
   })
 
 })
-
- $(document).on('click','.editaUsuario',function(){// modificar daos perosnales
-
+  $(document).on('click','.editaUsuario',function(){// modificacion de datos personales
   let element =$(this)[0].parentElement.parentElement;
   let id= $(element).attr('usuarioId');
   console.log(id);
@@ -124,7 +201,7 @@ $(document).ready(function() {
     listarUsuario();
     $('#idD').val(json.id);
 
-    $('#nombreP').val(json.nombre);
+    $('#nombreUsuarioD').val(json.nombre);
     $('#primerApellidoD').val(json.primerApellido);
     $('#segundoApellidoD').val(json.segundoApellido);
     $('#ciD').val(json.ci);
@@ -144,8 +221,6 @@ $(document).ready(function() {
 })
 });
 
-
-
 (function($){
   $("#formModificar").submit(function(ev){
     ev.preventDefault();
@@ -163,7 +238,9 @@ $(document).ready(function() {
         alert.style.display = "block";
                  
         // $("#ModificarUsuario").modal("hide");
-         window.location.replace(json.url);
+         // window.location.replace(json.url);
+          $("#ModificarUsuario").modal("hide");
+            listarUsuario();
       },
 
       statusCode: {
@@ -177,6 +254,42 @@ $(document).ready(function() {
   });
 })(jQuery);
 
+//guardar datos personales
+(function($){
+  $("#formDatosPersonales").submit(function(ev){
+    ev.preventDefault();
+
+    $.ajax({
+      url: "../usuario/modificarDatosPersonales",
+      type: "POST",
+      data: $(this).serialize(),
+      success: function(data){
+        console.log(data);
+        var json= JSON.parse(data);
+       
+      console.log(data);
+        // $("#ModificarUsuario").modal("hide");
+      alert('Ok');
+         window.location.replace(json.url);
+          $("#editarDatosPersonales").modal("hide");
+            listarUsuario();
+      },
+
+      statusCode: {
+        400: function(xhr){
+        },
+        401: function(xhr){
+        },
+                  // Puedes agregar más códigos de estado aquí según sea necesario
+      }
+    });
+  });
+})(jQuery);
+
+
+
+
+
 (function($){
   $("#formRegistro2").submit(function(ev){
     ev.preventDefault();
@@ -187,17 +300,11 @@ $(document).ready(function() {
       data: $(this).serialize(),
       success: function(data){
 
-
         console.log(data);
         var json= JSON.parse(data);
+        alert(json.msg1);
+        alert(json.msg2);
         window.location.replace(json.url);
-
-
-        msg.style.color="green";
-        var alert =document.getElementById('alert');
-        alert.style.display = "block";
-                  // $('#alert').style.display = "block";
-        $('#alert').html('<div class="alert alert-danger" role="alert">'+json+'</div>')
         listarUsuario();
       },
 

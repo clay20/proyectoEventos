@@ -17,8 +17,10 @@
 
   <link rel="stylesheet" href="<?php echo base_url();?>/miestilos/coloresBasico.css">
   <link rel="stylesheet" href="<?php echo base_url();?>/adminlti/dist/css/adminlte.css">
+<!-- mapas matyler -->
 
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
   <!-- CAlendario -->
     <!-- Toastr -->

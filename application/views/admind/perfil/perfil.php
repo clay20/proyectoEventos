@@ -1,4 +1,4 @@
-
+P
 <div class="wrapper">
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper"   style=" background-image: url('<?php echo base_url();?>/img/fondo.jpg'); background-repeat: no-repeat">
@@ -74,7 +74,7 @@
 
 
                       <div class="row d-flex justify-content-center">
-                        <button  class="btn btn-warning"  data-toggle="modal" data-target="#staticBackdrop">
+                        <button  class="btn btn-warning"  data-toggle="modal" data-target="#editarDatosPersonales">
                           Editar 
                         </button> </div>
                       </div>
@@ -94,7 +94,8 @@
             </div>
 
 
-            <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="editarDatosPersonales" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <form id="formDatosPersonales">
               <div class="modal-dialog  modal-dialog-centered" role="document" style="opacity:.9">
                 <div class="modal-content bgt-acent opacity-50">
                   <div class="modal-header" style="background: #D28C58;">
@@ -107,12 +108,14 @@
 
 
                     <div>
+                       <?php foreach ($datos->result() as $row) { ?>
 
                      <div class="row ">
                       <div  class=" col-sm-6 col-md-4  col-12  ">
-                        <input type="hidden" id="idD" name="id">
+                        <input type="hidden" id="idD" name="id" value="<?php echo $row->id; ?>">
                         <div class="myBox">
-                          <input class=" myImputField" type="text" id="nombreUsuarioD" name="nombre"  onkeypress="return soloLetras(event)" minlength="2" maxlength="25" required autofocus>
+
+                          <input class=" myImputField" type="text" id="nombreUsuarioP" name="nombre" value="<?php echo $row->nombre; ?>"  onkeypress="return soloLetras(event)" minlength="2" maxlength="25" required autofocus>
                           <label class="mylabel" for="nombreUsuario" >Nombre</label>
                         </div>
                       </div>
@@ -120,14 +123,14 @@
                       <div  class=" col-sm-6 col-md-4  col-12  ">
 
                         <div class="myBox">
-                          <input class=" myImputField" type="text" id="primerApellidoD" name="primerApellido"  onkeypress="return soloLetras(event)" minlength="2" maxlength="25" required >
+                          <input class=" myImputField" type="text" id="primerApellidoP" name="primerApellido" value="<?php echo $row->primerApellido; ?>" onkeypress="return soloLetras(event)" minlength="2" maxlength="25" required >
                           <label class="mylabel" for="primerApellido" >Primer Apellido</label>
                         </div>
                       </div>
                       <div  class=" col-sm-6 col-md-4  col-12  ">
 
                         <div class="myBox">
-                          <input class=" myImputField" type="text" id="segundoApellidoD" name="segundoApellido"  onkeypress="return soloLetras(event)" minlength="0" maxlength="25">
+                          <input class=" myImputField" type="text" id="segundoApellidoP" name="segundoApellido" value="<?php echo $row->segundoApellido; ?>"  onkeypress="return soloLetras(event)" minlength="0" maxlength="25">
                           <label class="mylabel" for="segundoApellido" >Segundo Apellido</label>
                         </div>
                       </div>
@@ -142,7 +145,7 @@
                      <div  class=" col-sm-3 col-md-4  col-12  ">
 
                       <div class="myBox">
-                        <input class="myImputField" type="text" id="ciD" name="ci" onkeypress="return soloNumero(event)" minlength="7" maxlength="10"  required>
+                        <input class="myImputField" type="text" id="ciP" name="ci" value="<?php echo $row->ci; ?>" onkeypress="return soloNumero(event)" minlength="7" maxlength="10"  required>
                         <label class="mylabel" for="ci" >C.I.</label>
                       </div>
                     </div>
@@ -151,7 +154,7 @@
 
 
                       <div class="myBox">
-                        <input class="myImputField" type="date" id="fechaNacimientoD" name="fechaNacimiento"   max="2023-08-01" value="2020-01-01"   required>
+                        <input class="myImputField" type="date" id="fechaNacimientoP" name="fechaNacimiento" value="<?php echo $row->fechaNacimiento; ?>"   max="2023-08-01" value="2020-01-01"   required>
                         <label class="mylabel" for="fechaNacimiento"  >Fecha Nacimiento</label>
 
                       </div>
@@ -164,29 +167,42 @@
 
 
 
-                    <label class="form-label p-2 " for="inlineRadio3">Genero</label>
+                    <label class="form-label p-2 "   for="inlineRadio3">Genero</label>
 
 
                     <div class=" p-2 form-check form-check-inline">
-                      <input class="form-radio" type="radio" name="genero" id="radioF" value="f" checked>
+                      <input class="form-radio" type="radio" name="genero" id="radioF" value="f" <?php echo ($row->sexo == 'f') ? 'checked' : ''; ?>>
+
                       <label class="form-check-label" for="radioF">Femenino</label>
                     </div>
                     <div class=" p-2 form-check form-check-inline">
-                      <input class="form-radio" type="radio" name="genero" id="radioM" value="m">
+                      <input class="form-radio" type="radio" name="genero" id="radioM" value="m" <?php echo ($row->sexo == 'm') ? 'checked' : ''; ?>>
+
                       <label class="form-check-label" for="radioM">Masculino</label>
                     </div>
 
                   </div>
+                  <div class="row"> 
 
+                       <div  class="  d-flex justify-content-center ">
+
+                      <div class="myBox">
+                        <input class="myImputField" type="email" id="emailP" name="email" value="<?php echo $row->email; ?>" minlength="7" maxlength="25"  required>
+                        <label class="mylabel" for="emailP" >email</label>
+                      </div>
+                    </div>
+                  </div>
+                  <?php  }  ?>
                 </div>
 
               </div>
               <div class="modal-footer d-flex justify-content-around">
                 <button type="button" class="btn btn-sm  btnt-primary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-sm  btnt-primary">Gurdar</button>
+                <button type="submit" class="btn btn-sm  btnt-primary">Gurdar</button>
               </div>
             </div>
           </div>
+          </form>
         </div>
         <!-- perfil lateral -->
         <div class="col-lg-4 col-md-12  col-sm-12  " >
@@ -304,12 +320,12 @@
         // msg.textContent=car;
         if(car==repetir.value.length)
         {
-             msg.textContent='Las Contraseña coinciden';
+             msg.textContent='Las contraseñas coinciden';
              msg.style.color="green";
         }
         else
         {
-            msg.textContent=' repetir contrase deve ser igual ala nueva';
+            msg.textContent=' La contraseña repetir no coincide con la nueva';
              msg.style.color="red";
 
         }

@@ -234,7 +234,7 @@ public function agregarView()//metod donde agreaga usuario admini o usuario invi
 			$data['rol']=$lista;
 			$lista=$this->empleado_model->cargo();
 			$data['cargo']=$lista;
-			$lista=$this->usuario_model->datosUsuariodb(1);
+			$lista=$this->usuario_model->datosUsuariodb(1,$this->session->userdata('idUsuario'));
 			$data['usuarios']=$lista;
 	   		$this->load->view('inc/cabezeraLti');
 			$this->load->view('inc/navLti');
@@ -254,9 +254,7 @@ public function agregarView()//metod donde agreaga usuario admini o usuario invi
 public function agregarUsuario()//metod donde agreaga usuario admini o usuario invitado
 {
      	$this->load->library('phpmailer_lib');
-     			
-   
-
+     		
 		if($this->session->userdata('rolUsuario') =='admin')
 		{
 			$nombre=letraCapital($_POST['nombre']);
@@ -276,31 +274,35 @@ public function agregarUsuario()//metod donde agreaga usuario admini o usuario i
 			$nombre=letraCapital($_POST['nombre']);
 
 			$nameUsuario=$this->usuario_model->agregarUsuariodb($data1,$data2,$nombre);
+
+			$data=array();
 			if(is_string($nameUsuario)){
 				//reistro de dsto con exitos
 
 				if($this->phpmailer_lib->load($correo,$nombre,$nameUsuario,$pwd)){
 					//reistro de email exit
 					$url= base_url();
-
-					echo json_encode(array('msg'=>'Envio de datos correcto'));
+					$data['msg1']='Envio de datos correcto';
+					$data['url']=$url.'index.php/usuario/agregarUsuarioV';
 
 				}
-				else
+				else 
 				{
-					echo json_encode(array('msg'=>'fallo de envio de datos'));
+					
+					$data['msg']='Fallo de envio de datos';
 
 				}
-				echo json_encode(array('msg'=>'Registro en vace de datos correcto'));
+				
+				$data['msg2']='Registro en vace de datos correcto';
 			}else
 			{
-				echo json_encode(array('msg'=>'fallo de envio de y registros'));
+				
+				$data['msg']='Fallo de envio de y registros';
 				//no se completo la transaccions
 			}
 
-			$url=base_url();
 
-     			 echo json_encode(array('url'=>$url.'index.php/usuario/agregarUsuarioV'));
+     			 echo json_encode($data);
 
 	   		
 		}else
@@ -347,6 +349,35 @@ public function modificarUsuario()//metod donde agreaga usuario admini o usuario
 			$this->load->view('inc/footerLti');
 		}
 }
+public function modificarDatosPersonales()//metod donde agreaga usuario admini o usuario invitado
+{
+     
+			$id=$_POST['id'];
+			$data1['nombre']=letraCapital($_POST['nombre']);
+			$data1['primerApellido']=letraCapital($_POST['primerApellido']);
+			$data1['segundoApellido']=letraCapital($_POST['segundoApellido']);
+			$data1['ci']=$_POST['ci'];
+			$data1['fechaNacimiento']=$_POST['fechaNacimiento'];
+			$data1['sexo']=$_POST['genero'];
+			$data1['idUsuario']=$this->session->userdata('idUsuario');
+			$data2['email']=$_POST['email'];
+			
+		
+			$ban=$this->usuario_model->modificarUsuariodb($data1,$data2,$id);
+			if ($ban) {
+				$url=base_url();
+				echo json_encode(array('url'=>$url.'index.php/usuario/datosUsuario'));
+			}
+			
+     			
+		
+}
+
+
+
+
+
+
 
 public function modifiaDatosUsuarioa()//modifcar gestion Usuarios
 {
@@ -361,14 +392,37 @@ public function modifiaDatosUsuarioaFUll()//modifcar gestion Usuarios
 {
 	
 	
-	$lista=$this->usuario_model->datosUsuariodb(1);	
+	$lista=$this->usuario_model->datosUsuariodb(1,$this->session->userdata('idUsuario'));	
+	$listaArray = $lista->result_array();
+	// $listaArray = $lista->row_array();
+	echo json_encode($listaArray);
+}
+public function usuarioDatosBuscar()//modifcar gestion Usuarios
+{
+	$valor=$_POST['valor'];
+	
+	$lista=$this->usuario_model->usuarioDatosBuscardb(1,$this->session->userdata('idUsuario'),$valor);	
+	$listaArray = $lista->result_array();
+	// $listaArray = $lista->row_array();
+	echo json_encode($listaArray);
+}
+public function usuarioDatosBuscarDesabilitados()//modifcar gestion Usuarios
+{
+	$valor=$_POST['valor'];
+	
+	$lista=$this->usuario_model->usuarioDatosBuscardb(0,$this->session->userdata('idUsuario'),$valor);	
 	$listaArray = $lista->result_array();
 	// $listaArray = $lista->row_array();
 	echo json_encode($listaArray);
 }
 
+
+
+
+
+
 public function usuarioDatosDesabilitadosFUll(){
-	$lista=$this->usuario_model->datosUsuariodb(0);	
+	$lista=$this->usuario_model->datosUsuariodb(0,$this->session->userdata('idUsuario'));	
 	$listaArray = $lista->result_array();
 	// $listaArray = $lista->row_array();
 	echo json_encode($listaArray);
@@ -406,7 +460,6 @@ public function datosUsuario()//datos personales
 public function cambioPwd()
 {
 	$idUsuario=$this->session->userdata('idUsuario');
-
 	$usuario=$this->session->userdata('nombreUsuario');
 	$pwd=md5($_POST['pwd']);
 	$pwdNueva=md5($_POST['pwd-nueva']);
@@ -434,7 +487,7 @@ public function cambioPwd()
 	else
 	{
 
-			echo json_encode(array('msg'=>'Repetir debes igual ala nueva contraseña'));
+			echo json_encode(array('msg'=>'La contraseña repetida no coincide con la nueva'));
 	}
 }
 
@@ -842,39 +895,43 @@ $this->pdf->SetFont('Arial','B','8');
 
 
 
- 	public function reporteExcel()
- 	{
- 		// $lista=$this->estudiante_model->listaestudiantes();
-		//  $lista=$lista->result();
+ 	
+		public function reporteExcel()
+{
+    // Crear un nuevo libro de Excel
+    $spreadsheet = new Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
+    $sheet->setCellValue('A1', 'ID');
+    $sheet->setCellValue('B1', 'Nombre');
+    $sheet->setCellValue('C1', 'Primer apellido');
+    $sheet->setCellValue('D1', 'Segundo apellido');
+    $sheet->setCellValue('E1', 'nota');
+    $sn = 2;
 
-		 header('Content-Type: application/vnd.ms-excel');
-		 header('Content-Disposition: attachment;filename="estudiantes.xlsx"');
-		 $spreadsheet = new Spreadsheet();
-		 $sheet = $spreadsheet->getActiveSheet();
-		 $sheet->setCellValue('A1', 'ID');
-		 $sheet->setCellValue('B1', 'Nombre');
-		 $sheet->setCellValue('C1', 'Primer apellido');
-		 $sheet->setCellValue('D1', 'Segundo apellido');
-		 $sheet->setCellValue('E1', 'nota');
-		 $sn=2;
-		 // foreach ($lista as $row) {
-		 // $sheet->setCellValue('A'.$sn,$row->idEstudiante);
-		 // $sheet->setCellValue('B'.$sn,$row->nombre);
-		 // $sheet->setCellValue('C'.$sn,$row->primerApellido);
-		 // $sheet->setCellValue('D'.$sn,$row->segundoApellido);
-		 // $sheet->setCellValue('E'.$sn,$row->nota);
-		 // $sn++;
+    // Obtener los datos de tu modelo (debe descomentar esta parte y ajustarla según tu modelo)
+    // $lista = $this->estudiante_model->listaestudiantes();
+    // $lista = $lista->result();
 
+    // foreach ($lista as $row) {
+    //     $sheet->setCellValue('A' . $sn, $row->idEstudiante);
+    //     $sheet->setCellValue('B' . $sn, $row->nombre);
+    //     $sheet->setCellValue('C' . $sn, $row->primerApellido);
+    //     $sheet->setCellValue('D' . $sn, $row->segundoApellido);
+    //     $sheet->setCellValue('E' . $sn, $row->nota);
+    //     $sn++;
+    // }
 
-		 $writer = new Xlsx($spreadsheet);
- 		$writer->save("php://output");
+    // Crear un objeto de escritura en formato XLSX
+    $writer = new Xlsx($spreadsheet);
 
+    // Configurar los encabezados
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="estudiantes.xlsx"');
+    header('Cache-Control: max-age=0');
 
-
- 		
-			
-		
-	}
+    // Enviar el archivo al navegador
+    $writer->save('php://output');
+}
 	public function reporteExcel2()
  	{
  		// $lista=$this->estudiante_model->listaestudiantes();
@@ -909,11 +966,11 @@ $this->pdf->SetFont('Arial','B','8');
 		 $sheet->setCellValue('E1', 'nota');
 		 $sn=2;
 		 for ($i=2; $i <12 ; $i++) { 
-		 	 $sheet->setCellValue('A.$i', 'ID');
-			 $sheet->setCellValue('B.$i', 'Nombre');
-			 $sheet->setCellValue('C.$i', 'Primer apellido');
-			 $sheet->setCellValue('D.$i', 'Segundo apellido');
-			 $sheet->setCellValue('E.$i', 'nota');
+		 	 $sheet->setCellValue('A'.$i, 'ID');
+			 $sheet->setCellValue('B'.$i, 'Nombre');
+			 $sheet->setCellValue('C'.$i, 'Primer apellido');
+			 $sheet->setCellValue('D'.$i, 'Segundo apellido');
+			 $sheet->setCellValue('E'.$i, 'nota');
 		 }
 
 
@@ -922,15 +979,6 @@ $this->pdf->SetFont('Arial','B','8');
 
 
 
- 		$spreadsheet
-			->getProperties()
-			->setCreator("Nombre del autor")
-			->setLastModifiedBy("Juan Perez")
-			->setTitle('Excel creado en el sistema')
-			->setSubject('Excel de prueba')
-			->setDescription('Descripcion del excel')
-			->setKeywords('Lista estudiantes')
-			->setCategory('Categoria de prueba');
 	}
  	
 }

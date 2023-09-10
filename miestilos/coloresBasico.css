@@ -166,17 +166,15 @@
 
 .myBox{
     position: relative !important;
-    margin-top: 25px !important;
+    margin-top: 15px !important;
     margin-right: 5px !important;
     margin-left: 5px !important;
-
-
-/*-moz- box-shadow: rgb(150,150,150)  -2PX 0px 5px; 
-  -webkit-box-shadow: rgb(150,150,150)  -2PX 0px 5px; */
-/* box-shadow: rgb(0,0,0)  -1PX 3px 0px; */
-
-/*box-shadow: 0px 3px 1px rgba(0, 0, 0, .1);*/
+    margin-bottom: 15px !important;
+    
 }
+
+
+
 .myBox .mylabel{
     position: absolute !important;
     top: 50% !important;

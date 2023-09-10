@@ -25,5 +25,6 @@ class Proveedor extends CI_Controller {
  {
  	// code...
  }
+ 
  	
 }

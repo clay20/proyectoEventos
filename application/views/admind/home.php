@@ -38,7 +38,7 @@
       <a href="<?php echo base_url();  ?>index.php/usuario/reporteExcel" target="_blank">
         <button type="submit" > Reporte excel</button></a>
         <a href="<?php echo base_url();  ?>index.php/usuario/reporteExcel2" target="_blank">
-          <button type="submit" > Reporte excel2</button></a>
+          <button type="submit" > Reporte x2</button></a>
           reporteTare
           <a href="<?php echo base_url();  ?>index.php/usuario/reporteTare" target="_blank">
             <button type="submit" > Reporte  Tarea</button></a>

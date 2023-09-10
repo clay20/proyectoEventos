@@ -12,17 +12,16 @@ require_once APPPATH.'/third_party/PHPMailer/SMTP.php';
 class Phpmailer_lib
 {
     public function __construct(){
-        log_message('Debug', 'PHPMailer class is loaded.');
+        // log_message('Debug', 'PHPMailer class is loaded.');
     }
 
     public function load($correo,$nombre,$usuario,$pwd){
        
-      
 
         $mail = new PHPMailer;
                        
             //Server settings
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
             $mail->isSMTP();                                            //Send using SMTP
             $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
@@ -94,10 +93,8 @@ class Phpmailer_lib
         $mail->CharSet = 'UTF-8';
 
      if ($mail->send()) {
-        echo "Tu mensaje se envió con éxito";
         return true;
       } else {
-        echo "Hubo un error al enviar el mensaje";
         return false;
       }
 

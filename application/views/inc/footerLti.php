@@ -38,6 +38,9 @@
 <!-- Toastr -->
 <script src="<?php echo base_url();?>/adminlti/plugins/toastr/toastr.min.js"></script>
 <!-- para validaciones de texbox propio -->
+<!-- mapas -->
+
+<!-- mapas -->
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/validaciones.js"></script> 
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionUsuario.js"></script> 
 

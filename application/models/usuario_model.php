@@ -99,13 +99,28 @@ public function agregarActiviadadBD($data)
   
 
 
-  public function datosUsuariodb($estado)// gestion usuairo
+  public function datosUsuariodb($estado,$idSession)// gestion usuarios
   {
   	$this->db->select('P.id, P.nombre,P.primerApellido,IFNULL(P.segundoApellido,"") AS segundoApellido,P.ci,P.fechaNacimiento,P.sexo ,U.nombreUsuario,U.email,T.id AS idRol, T.rol ');
 		$this->db->from('persona P');
 		$this->db->join('usuario U','P.id= U.id');
 		$this->db->join('tipoUsuario T','T.id=U.idTipoUsuario');
 		$this->db->where('U.estado',$estado);
+		$this->db->where('U.id !=',$idSession);
+
+		return $this->db->get();
+  }
+
+  public function usuarioDatosBuscardb($estado,$idSession,$valor)
+  {
+  	$this->db->select('P.id, P.nombre,P.primerApellido,IFNULL(P.segundoApellido,"") AS segundoApellido,P.ci,P.fechaNacimiento,P.sexo ,U.nombreUsuario,U.email,T.id AS idRol, T.rol ');
+		$this->db->from('persona P');
+		$this->db->join('usuario U','P.id= U.id');
+		$this->db->join('tipoUsuario T','T.id=U.idTipoUsuario');
+		$this->db->where('U.estado',$estado);
+		$this->db->where('U.id !=',$idSession);
+		 $this->db->where("U.nombreUsuario like '%".$valor."%' ");
+		
 		return $this->db->get();
   }
   public function datosUsuarioID($id,$estado)// gestion usuairo
