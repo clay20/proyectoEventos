@@ -12,21 +12,66 @@ class Empleado_model extends CI_Model
 		return $this->db->get();
 	}
 
-    public function agregarEmpleado($data)
+    public function agregarEmpleadodb($data1,$data2)
     {
-    	$this->db->insert('empleados',$data);
+
+
+		$this->db->trans_start(); //incioo transaccion
+
+		$this->db->insert('persona',$data1);
+
+		$idPersona=$this->db->insert_id();
+		$data2['id']=$idPersona;
+		$this->db->insert('empleados',$data2);
+		$this->db->trans_complete(); //fin transaccion
+		
+		if($this->db->trans_status()===FALSE)
+		{
+			return false;
+		}
+		return true;
 
     }
-    public function listEmpleado()
-    {
-    	$this->db->select('E.id,E.nombre,E.primerApellido,E.segundoApellido,E.ci,E.fechaNacimiento,
-E.sexo,E.salario,E.celular,E.telefono, E.idCargo,C.nombreCargo');
-		$this->db->from('empleados E');
-		$this->db->join('cargo C','C.id=E.idCargo');
+   public function listEmpleado()
+{
+    $this->db->select("P.id, CONCAT(P.nombre, ' ', P.primerApellido, ' ', IFNULL(P.segundoApellido, '')) AS nombreCompleto, P.ci, P.fechaNacimiento, IF(P.sexo='f', 'Femenino', 'Masculino') AS sexo, E.fechaInicio, E.salario, E.telefono, C.nombreCargo");
+    $this->db->from('persona P');
+    $this->db->join('empleados E', 'E.id = P.id');
+    $this->db->join('cargo C', 'C.id = E.idCargo');
+    $this->db->where('E.estado', 1);
 
-		$this->db->where('estado',1);
-		return $this->db->get();
-    }    
+    return $this->db->get();
+}
+   public function buscarEmpleadoBud($valor)
+{
+    $this->db->select("P.id, CONCAT(P.nombre, ' ', P.primerApellido, ' ', IFNULL(P.segundoApellido, '')) AS nombreCompleto, P.ci, P.fechaNacimiento, IF(P.sexo='f', 'Femenino', 'Masculino') AS sexo, E.fechaInicio, E.salario, E.telefono, C.nombreCargo");
+    $this->db->from('persona P');
+    $this->db->join('empleados E', 'E.id = P.id');
+    $this->db->join('cargo C', 'C.id = E.idCargo');
+    $this->db->where('E.estado', 1);
+     $this->db->like('P.nombre',$valor);
+    $this->db->or_like('P.primerApellido', $valor);
+    $this->db->or_like('P.ci', $valor);
+
+
+  
+    return $this->db->get();
+}
+
+
+   public function datoEmpleadodb($id)
+{
+    $this->db->select("P.id , P.nombre,' ',P.primerApellido,'', IFNULL(P.segundoApellido,'') As segundoApellido ,P.ci,P.fechaNacimiento,
+IF(P.sexo='f','Femenino','Masculino') AS sexo,
+E.fechaInicio,E.salario,E.telefono,C.nombreCargo ");
+    $this->db->from('persona P');
+    $this->db->join('empleados E', 'E.id = P.id');
+    $this->db->join('cargo C', 'C.id = E.idCargo');
+    $this->db->where('E.estado', 1);
+    $this->db->where('E.id', $id);
+    return $this->db->get();
+}
+  
     public function obtenerEmpleado($id)
     {
     	$this->db->select('*');
@@ -38,26 +83,42 @@ E.sexo,E.salario,E.celular,E.telefono, E.idCargo,C.nombreCargo');
     }
 
 
-    public function guardarCambios($data,$id)
+    public function guardarCambios($data1,$data2,$id)
     {
-    	$this->db->where("id",$id);
-        $this->db->update("empleados",$data);
+
+
+
+        $this->db->trans_start(); //incioo transaccion
+		$this->db->where("id",$id);
+    	$this->db->set('fechaActualizacion', 'CURRENT_TIMESTAMP', false); 
+        $this->db->update("persona",$data1);
+        $this->db->where("id",$id);
+    	$this->db->set('fechaActualizacion', 'CURRENT_TIMESTAMP', false); 
+        $this->db->update("empleados",$data2);
+		$this->db->trans_complete(); //fin transaccion
+
+		if($this->db->trans_status()===FALSE)
+		{
+			return false;
+		}
+		return true;
     }
 
     public function eliminarEmpleado($id ,$data)
     {
     	$this->db->where("id",$id);
+    	$this->db->set('fechaActualizacion', 'CURRENT_TIMESTAMP', false); 
         $this->db->update("empleados",$data);
     }
-    public function listEmpleadoDisabilitados()
+    public function listEmpleadoDisabilitadosdb()
     {
-    	$this->db->select('E.id,E.nombre,E.primerApellido,E.segundoApellido,E.ci,E.fechaNacimiento,
-E.sexo,E.salario,E.celular,E.telefono, E.idCargo,C.nombreCargo');
-		$this->db->from('empleados E');
-		$this->db->join('cargo C','C.id=E.idCargo');
+    	 $this->db->select("P.id, CONCAT(P.nombre, ' ', P.primerApellido, ' ', IFNULL(P.segundoApellido, '')) AS nombreCompleto, P.ci, P.fechaNacimiento, IF(P.sexo='f', 'Femenino', 'Masculino') AS sexo, E.fechaInicio, E.salario, E.telefono, C.nombreCargo");
+    $this->db->from('persona P');
+    $this->db->join('empleados E', 'E.id = P.id');
+    $this->db->join('cargo C', 'C.id = E.idCargo');
+    $this->db->where('E.estado', 0);
+    return $this->db->get();
 
-		$this->db->where('estado',0);
-		return $this->db->get();
     }
 }
  

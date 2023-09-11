@@ -117,7 +117,7 @@
                            <div  class=" col-sm-3 col-md-4  col-12  ">
 
                             <div class="myBox">
-                              <input class="myImputField" type="text" id="ciD" name="ci" onkeypress="return soloNumero(event)" minlength="7" maxlength="10"  required>
+                              <input class="myImputField" type="text" id="ciD" name="ci" onkeypress="return LetrasNumero(event)" minlength="7" maxlength="10"  required>
                               <label class="mylabel" for="ci" >C.I.</label>
                             </div>
                           </div>

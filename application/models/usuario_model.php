@@ -119,7 +119,7 @@ public function agregarActiviadadBD($data)
 		$this->db->join('tipoUsuario T','T.id=U.idTipoUsuario');
 		$this->db->where('U.estado',$estado);
 		$this->db->where('U.id !=',$idSession);
-		 $this->db->where("U.nombreUsuario like '%".$valor."%' ");
+		 $this->db->where("U.nombreUsuario like %".$valor."%");
 		
 		return $this->db->get();
   }

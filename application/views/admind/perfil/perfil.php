@@ -1,4 +1,4 @@
-P
+
 <div class="wrapper">
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper"   style=" background-image: url('<?php echo base_url();?>/img/fondo.jpg'); background-repeat: no-repeat">
@@ -74,8 +74,8 @@ P
 
 
                       <div class="row d-flex justify-content-center">
-                        <button  class="btn btn-warning"  data-toggle="modal" data-target="#editarDatosPersonales">
-                          Editar 
+                        <button  class="btn btn-sm btnt-primary"  data-toggle="modal" data-target="#editarDatosPersonales">
+                         <i class="fas fa-user-edit m-2"></i> Editar 
                         </button> </div>
                       </div>
 
@@ -197,8 +197,8 @@ P
 
               </div>
               <div class="modal-footer d-flex justify-content-around">
-                <button type="button" class="btn btn-sm  btnt-primary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-sm  btnt-primary">Gurdar</button>
+                <button type="button" class="btn btn-sm  btnt-primary" data-dismiss="modal"> <i class="fas fa-window-close text-warning m-2"></i>Cancelar</button>
+                <button type="submit" class="btn btn-sm  btnt-primary"><i class="fas fa-save text-success m-2"></i> Guardar</button>
               </div>
             </div>
           </div>
@@ -229,8 +229,8 @@ P
               </div>
             <?php  }  ?>
             <div class="row d-flex justify-content-center">
-              <button  class="btn btn-warning"  data-toggle="modal" data-target="#forCambirPassword">
-              Cambiar contraseña </button> 
+              <button  class="btn btn-sm btnt-primary"  data-toggle="modal" data-target="#forCambirPassword">
+              Cambiar contraseña <i class="fas fa-unlock-alt m-2"></i> </button> 
             </div>
           </div>
         </div>
@@ -261,6 +261,7 @@ P
 
                   <input name="pwd" class="myImputField" type="password" required  />
                   <label class="mylabel">Contraseña Actual</label>
+                  <label class="mylabel-icon"><i class="fas fa-lock"></i></label>
                 </div>
               </div>
 
@@ -274,6 +275,7 @@ P
 
                 <input  name="pwd-nueva" id="pwd-nueva" class="myImputField" type="password" required  />
                 <label class="mylabel">Nueva Contraseña</label>
+                <label class="mylabel-icon"><i class="fas fa-key"></i></label>
               </div>
             </div>
 
@@ -288,6 +290,7 @@ P
 
               <input  name="pwd-repetir" id="pwd-repetir" class="myImputField" type="password" required  />
               <label class="mylabel">Repetir Contraseña</label>
+              <label class="mylabel-icon"><i class="fas fa-key"></i></label>
             </div>
           </div>
 
@@ -299,8 +302,8 @@ P
 
     </div>
     <div class="modal-footer d-flex justify-content-around">
-      <button type="button" class="btn btn-sm  btnt-primary" data-dismiss="modal">Cancelar</button>
-      <button type="submit" class="btn btn-sm  btnt-primary">Gurdar</button>
+      <button type="button" class="btn btn-sm  btnt-primary" data-dismiss="modal">  <i class="fas fa-window-close text-warning m-2"></i> Cancelar</button>
+      <button type="submit" class="btn btn-sm  btnt-primary"><i class="fas fa-save text-success m-2"></i> Guardar</button>
     </div>
      <!-- <?php echo form_close(); ?> -->
    </form>

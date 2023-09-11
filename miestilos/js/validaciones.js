@@ -52,6 +52,18 @@ function soloNumero(e)
 	else
 		return true;
 }
+function soloNumeroPunto(e)
+{
+	var codigoCar=e.keyCode;	
+	var letra=String.fromCharCode(codigoCar);
+	var caracteresPermitidos=/[0-9]/;
+	var caracteresEspeciales=[];
+	if (caracteresEspeciales.indexOf(codigoCar)==-1)
+		return (caracteresPermitidos.test(letra));
+	else
+		return true;
+}
+
 
 
 
@@ -69,6 +81,7 @@ function LetrasNumero(e)
 	}
 
 }
+
 
 //validacione n impubos prueba
 
