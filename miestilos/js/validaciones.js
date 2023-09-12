@@ -39,6 +39,17 @@ function soloLetras(e)
 	else
 		return true;
 }
+function soloLetrasEspacio(e)
+{
+	var codigoCar=e.keyCode;	
+	var letra=String.fromCharCode(codigoCar);
+	var caracteresPermitidos=/[A-Za-záéíóúÁÉÍÓÚñÑ\s]/;
+	var caracteresEspeciales=[8,9,13,14,15,];
+	if (caracteresEspeciales.indexOf(codigoCar)==-1)
+		return (caracteresPermitidos.test(letra));
+	else
+		return true;
+}
 
 
 function soloNumero(e)

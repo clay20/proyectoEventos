@@ -44,6 +44,8 @@
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/validaciones.js"></script> 
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionUsuario.js"></script> 
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionEmpleados.js"></script> 
+<script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionProveedor.js"></script> 
+
 
 
 
