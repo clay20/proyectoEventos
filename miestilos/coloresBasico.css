@@ -227,8 +227,19 @@ font-size: 14px !important;
 font-weight: bold;
 }
 
+.myBox .myImputField:disabled~ .mylabel{
+top: -5px !important;
+color: var(--bs-primary) !important;
+font-size: 14px !important;
+font-weight: bold;
+}
 
 
+.myBox .myImputField:disabled{
+
+  border-bottom: 2px solid green !important;
+
+}
 .myBox :focus,.myBox .myImputField:valid {
   border-bottom: 2px solid green !important;
 }

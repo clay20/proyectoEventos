@@ -22,7 +22,7 @@ class Usuario extends CI_Controller {
 
 	
 	function formLogin()
-   	 {
+	{
 		$this->load->view('inc/default/header');
 		// $this->load->view('inc/default/menu');
 		$this->load->view('login');
@@ -31,27 +31,27 @@ class Usuario extends CI_Controller {
 		
 	}
 
-	 function login()
-	 {
+	function login()
+	{
 		//nivel de seguridad esto se puede aplicar en todo los campo acceso a la vistas
-	        
-	    if($this->session->userdata('login'))
+
+		if($this->session->userdata('login'))
 		{
 			redirect('usuario/panel','refresh');
 		}
-		 else
-		 {
-		 	$data['msg']=$this->uri->segment(3);
-		 	$this->load->view('inc/default/header');
+		else
+		{
+			$data['msg']=$this->uri->segment(3);
+			$this->load->view('inc/default/header');
 		 	// $this->load->view('inc/default/menu');
-		 	$this->load->view('login',$data);
+			$this->load->view('login',$data);
 			$this->load->view('inc/default/footer');
 		}
 
-	 }
+	}
 
 	
-	 
+
 
 
 	function validarPrueba()
@@ -68,7 +68,7 @@ class Usuario extends CI_Controller {
 			$error=array(
 				'usuario'=> form_error('usuario'),
 				'password'=> form_error('password')
-			   );
+			);
 			echo json_encode($error);
 		}
 
@@ -84,14 +84,14 @@ class Usuario extends CI_Controller {
 				exit();
 			}
 
-			 if($consulta->num_rows()>0)
+			if($consulta->num_rows()>0)
 			{
 				// echo json_encode(array('msg'=>'Bienvenido'));
 				$url= base_url();
 
 				echo json_encode(array('url'=>$url.'index.php/usuario/panel'));
 
-			
+
 				foreach ($consulta->result() as $row) {
 					$this->session->set_userdata('idUsuario',$row->idUsuario);
 					$this->session->set_userdata('nombreUsuario',$row->nombreUsuario);
@@ -111,7 +111,7 @@ class Usuario extends CI_Controller {
 			
 		}	
 	}
-    
+
 
 	// function validarUsuario()
 	// {
@@ -137,13 +137,13 @@ class Usuario extends CI_Controller {
 
 
 
- 
+
 
 	function panel()
 	{
 		if($this->session->userdata('rolUsuario') =='admin')
 		{
-	   		redirect('usuario/homeAdmind','refresh');
+			redirect('usuario/homeAdmind','refresh');
 	   		//session de usaurio admin
 		}
 		elseif($this->session->userdata('rolUsuario') =='invitado')
@@ -175,7 +175,7 @@ class Usuario extends CI_Controller {
 	}
 
 	function homeAdmind()
- 	{
+	{
 		
 		// $lista=$this->usuario_model->listarUsuarios();
 		// $data['infoUsuario']=$lista;
@@ -185,9 +185,9 @@ class Usuario extends CI_Controller {
 		$this->load->view('inc/asidebarLti');
 		$this->load->view('admind/home');
 		$this->load->view('inc/footerLti');
- 	}
- 	function homeInvitado()
-{
+	}
+	function homeInvitado()
+	{
 
 // $lista=$this->usuario_model->listarUsuarios();
 // $data['infoUsuario']=$lista;
@@ -197,16 +197,16 @@ class Usuario extends CI_Controller {
 		$this->load->view('invitado/asideInv');
 		$this->load->view('admind/home');
 		$this->load->view('inc/footerLti');
-}
- 	
- 
+	}
+
+
 public function registrarUsuario()///registro de se lado cliente
 {
-		$usuario=$_POST['usuario'];
-		$email=$_POST['email'];
+	$usuario=$_POST['usuario'];
+	$email=$_POST['email'];
 
-		$password=md5($_POST['password']);
-		$password=md5($_POST['passwordRepeat']);
+	$password=md5($_POST['password']);
+	$password=md5($_POST['passwordRepeat']);
 
 		$consulta=$this->usuario_model->validarLogin($usuario,$email);//crearu un FUNCTION EN MODELOuSURIO
 
@@ -223,40 +223,60 @@ public function registrarUsuario()///registro de se lado cliente
 		{
 			redirect('usuario/login/1','refresh');
 		}	
-}
+	}
 public function agregarView()//metod donde agreaga usuario admini o usuario invitado y una consulta al db
 {
-			
 
-		if($this->session->userdata('rolUsuario') =='admin')
-		{
-			$lista=$this->usuario_model->tipoRol();
-			$data['rol']=$lista;
-			$lista=$this->empleado_model->cargo();
-			$data['cargo']=$lista;
-			$lista=$this->usuario_model->datosUsuariodb(1,$this->session->userdata('idUsuario'));
-			$data['usuarios']=$lista;
-	   		$this->load->view('inc/cabezeraLti');
-			$this->load->view('inc/navLti');
-			$this->load->view('inc/asidebarLti');
+
+	if($this->session->userdata('rolUsuario') =='admin')
+	{
+		$lista=$this->usuario_model->tipoRol();
+		$data['rol']=$lista;
+		$lista=$this->empleado_model->cargo();
+		$data['cargo']=$lista;
+		$lista=$this->usuario_model->datosUsuariodb(1,$this->session->userdata('idUsuario'));
+		$data['usuarios']=$lista;
+		$this->load->view('inc/cabezeraLti');
+		$this->load->view('inc/navLti');
+		$this->load->view('inc/asidebarLti');
 			// $this->load->view('usuariovLti',$data);
-			$this->load->view('admind/usuario/agregarUsuarioV',$data);
-			$this->load->view('inc/footerLti');
-		}else
-		{
-			$this->load->view('inc/cabezeraLti');
-			$this->load->view('error/404');
-			$this->load->view('inc/footerLti');
-		}
+		$this->load->view('admind/usuario/agregarUsuarioV',$data);
+		$this->load->view('inc/footerLti');
+	}else
+	{
+		$this->load->view('inc/cabezeraLti');
+		$this->load->view('error/404');
+		$this->load->view('inc/footerLti');
+	}
 }
 
+public function verificarConexion() {
+    $url = 'https://www.google.com'; // Puedes cambiar esta URL por la que desees verificar
 
-public function agregarUsuario()//metod donde agreaga usuario admini o usuario invitado
-{
-     	$this->load->library('phpmailer_lib');
-     		
-		if($this->session->userdata('rolUsuario') =='admin')
+    $cabecera = @get_headers($url);
+
+    if ($cabecera && strpos($cabecera[0], '200 OK') !== false) {
+        return true; // Conexión a Internet exitosa
+    } else {
+        return false; // No se pudo conectar a Internet
+    }
+}
+
+public function agregarUsuario() {
+    $this->load->library('phpmailer_lib');
+
+    if ($this->session->userdata('rolUsuario') == 'admin') {
+        $aux = $_POST['aux'];
+        $idEmpleado = $_POST['idE'];
+
+        
+
+if ($this->verificarConexion()) {
+
+			
+		if($aux==0 && $idEmpleado==0 )
 		{
+			
 			$nombre=letraCapital($_POST['nombre']);
 			$data1['nombre']=$nombre;
 			$data1['primerApellido']=letraCapital($_POST['primerApellido']);
@@ -271,48 +291,110 @@ public function agregarUsuario()//metod donde agreaga usuario admini o usuario i
 			$data2['idTipoUsuario']=$_POST['rol'];	
 			$data2['idUsuario']=$this->session->userdata('idUsuario');
 			$correo =$_POST['email'];
-			$nombre=letraCapital($_POST['nombre']);
-
+			
+			
 			$nameUsuario=$this->usuario_model->agregarUsuariodb($data1,$data2,$nombre);
 
-			$data=array();
 			if(is_string($nameUsuario)){
 				//reistro de dsto con exitos
 
 				if($this->phpmailer_lib->load($correo,$nombre,$nameUsuario,$pwd)){
 					//reistro de email exit
-					$url= base_url();
-					$data['msg1']='Envio de datos correcto';
-					$data['url']=$url.'index.php/usuario/agregarUsuarioV';
+				
+						$data['msg1']='Envio de datos correcto';
+					$data['estado']=1;
 
 				}
 				else 
 				{
-					
-					$data['msg']='Fallo de envio de datos';
-
+					$data['estado']=0;
+					$data['msg2']='Fallo  envio de credenciales';
 				}
 				
-				$data['msg2']='Registro en vace de datos correcto';
+				$data['msg2']='Registro en base de datos correcto';
+					$data['db']=1;
+
 			}else
 			{
 				
-				$data['msg']='Fallo de envio de y registros';
-				//no se completo la transaccions
+				$data['msg']='Fallo envio de credenciales y registros usuario';
+					$data['db']=0;
+
+				
 			}
-
-
-     			 echo json_encode($data);
-
-	   		
-		}else
-		{
-			$this->load->view('inc/cabezeraLti');
 			
-			$this->load->view('error/404');
-
-			$this->load->view('inc/footerLti');
 		}
+		else if($aux==1 && $idEmpleado!=0 && $this->verificarConexion())//ojo hay que verficar el nombre usuario
+		{		
+
+			$pwd=generarPwd('text');
+			$correo =$_POST['email'];
+			$nombreUsuario=letraCapital($_POST['nombreUsuario']);
+			$usuario=$nombreUsuario.$idEmpleado;
+
+			$data2['id']=$idEmpleado;
+			$data2['nombreUsuario']=$usuario;
+			$data2['password']=md5($pwd);
+			$data2['email']=$correo;
+			$data2['idTipoUsuario']=$_POST['rol'];	
+			$data2['idUsuario']=$this->session->userdata('idUsuario');
+
+
+			$numerofila=$this->usuario_model->convertirEmpleadoAUsuariodb($data2);
+			// if(//consultat l base dedtso que si exite con ese id un usuario)
+			if($numerofila>0){
+				//reistro de dsto con exitos
+
+				if($this->phpmailer_lib->load($correo,$nombreUsuario,$usuario,$pwd)){
+					//reistro de email exit
+					$data['msg1']='Envio de datos correcto'; 
+					$data['estado']=1;
+
+				}
+				else 
+				{
+					$data['estado']=0;
+					$data['msg1']='Fallo  envio de credenciales';
+				}
+				
+				$data['msg2']='Registro en base de datos correcto';
+					$data['db']=1;
+
+			}else
+			{
+				
+				$data['msg2']='Fallo envio de credenciales y registros usuario';
+					$data['db']=0;
+
+				
+			}
+		}
+		else
+		{
+			$data['msg']='error ';
+			$data['uri']=1;
+
+		}
+		echo json_encode($data);
+	}else
+	{
+
+		$data['msg']='no hay conexin al internet ';
+		$data['uri']=1;
+
+
+		echo json_encode($data);
+	}
+
+	}
+	else
+	{
+		$this->load->view('inc/cabezeraLti');
+
+		$this->load->view('error/404');
+
+		$this->load->view('inc/footerLti');
+	}
 }
 
 
@@ -320,57 +402,64 @@ public function agregarUsuario()//metod donde agreaga usuario admini o usuario i
 
 public function modificarUsuario()//metod donde agreaga usuario admini o usuario invitado
 {
-     
-		if($this->session->userdata('rolUsuario') =='admin')
-		{
-			$id=$_POST['id'];
-			$data1['nombre']=letraCapital($_POST['nombre']);
-			$data1['primerApellido']=letraCapital($_POST['primerApellido']);
-			$data1['segundoApellido']=letraCapital($_POST['segundoApellido']);
-			$data1['ci']=$_POST['ci'];
-			$data1['fechaNacimiento']=$_POST['fechaNacimiento'];
-			$data1['sexo']=$_POST['genero'];
-			$data1['idUsuario']=$this->session->userdata('idUsuario');
-			$data2['email']=$_POST['email'];
-			$data2['idTipoUsuario']=$_POST['rol'];	
-			$data2['idUsuario']=$this->session->userdata('idUsuario');
+
+	if($this->session->userdata('rolUsuario') =='admin')
+	{
+		$id=$_POST['id'];
+		$data1['nombre']=letraCapital($_POST['nombre']);
+		$data1['primerApellido']=letraCapital($_POST['primerApellido']);
+		$data1['segundoApellido']=letraCapital($_POST['segundoApellido']);
+		$data1['ci']=$_POST['ci'];
+		$data1['fechaNacimiento']=$_POST['fechaNacimiento'];
+		$data1['sexo']=$_POST['genero'];
+		$data1['idUsuario']=$this->session->userdata('idUsuario');
+		$data2['email']=$_POST['email'];
+		$data2['idTipoUsuario']=$_POST['rol'];	
+		$data2['idUsuario']=$this->session->userdata('idUsuario');
 		
-			$ban=$this->usuario_model->modificarUsuariodb($data1,$data2,$id);
-			if ($ban) {
-				$url=base_url();
-				echo json_encode(array('url'=>$url.'index.php/usuario/agregarView'));
-			}
-			
-     			
-		}else
-		{
-			$this->load->view('inc/cabezeraLti');
-			$this->load->view('error/404');
-			$this->load->view('inc/footerLti');
+		$ban=$this->usuario_model->modificarUsuariodb($data1,$data2,$id);
+		if ($ban) {
+			// $url=base_url();
+			// echo json_encode(array('url'=>$url.'index.php/usuario/agregarView'));
+			 echo json_encode(array('msg'=>'ok'));
+
 		}
+		else
+		{
+			 echo json_encode(array('msg'=>'error'));
+
+		}
+
+
+	}else
+	{
+		$this->load->view('inc/cabezeraLti');
+		$this->load->view('error/404');
+		$this->load->view('inc/footerLti');
+	}
 }
 public function modificarDatosPersonales()//metod donde agreaga usuario admini o usuario invitado
 {
-     
-			$id=$_POST['id'];
-			$data1['nombre']=letraCapital($_POST['nombre']);
-			$data1['primerApellido']=letraCapital($_POST['primerApellido']);
-			$data1['segundoApellido']=letraCapital($_POST['segundoApellido']);
-			$data1['ci']=$_POST['ci'];
-			$data1['fechaNacimiento']=$_POST['fechaNacimiento'];
-			$data1['sexo']=$_POST['genero'];
-			$data1['idUsuario']=$this->session->userdata('idUsuario');
-			$data2['email']=$_POST['email'];
-			
-		
-			$ban=$this->usuario_model->modificarUsuariodb($data1,$data2,$id);
-			if ($ban) {
-				$url=base_url();
-				echo json_encode(array('url'=>$url.'index.php/usuario/datosUsuario'));
-			}
-			
-     			
-		
+
+	$id=$_POST['id'];
+	$data1['nombre']=letraCapital($_POST['nombre']);
+	$data1['primerApellido']=letraCapital($_POST['primerApellido']);
+	$data1['segundoApellido']=letraCapital($_POST['segundoApellido']);
+	$data1['ci']=$_POST['ci'];
+	$data1['fechaNacimiento']=$_POST['fechaNacimiento'];
+	$data1['sexo']=$_POST['genero'];
+	$data1['idUsuario']=$this->session->userdata('idUsuario');
+	$data2['email']=$_POST['email'];
+
+
+	$ban=$this->usuario_model->modificarUsuariodb($data1,$data2,$id);
+	if ($ban) {
+		$url=base_url();
+		echo json_encode(array('url'=>$url.'index.php/usuario/datosUsuario'));
+	}
+
+
+
 }
 
 
@@ -406,7 +495,9 @@ public function usuarioDatosBuscar()//modifcar gestion Usuarios
 	// $listaArray = $lista->row_array();
 	echo json_encode($listaArray);
 }
-public function usuarioDatosBuscarDesabilitados()//modifcar gestion Usuarios
+
+
+public function usuarioDatosBuscarDesabilitados()//buscar usuarios eliminado en la base de datos
 {
 	$valor=$_POST['valor'];
 	
@@ -433,8 +524,18 @@ public function eliminarDatosUsuarioa()//modifcar gestion Usuarios
 {
 	if(isset($_POST['id'])){
 		$id =$_POST['id'];
-	
-	$this->usuario_model->elimnarHabiltarDatosUsuariodb($id,0);
+
+		$this->usuario_model->elimnarHabiltarDatosUsuariodb($id,0);
+	}
+}
+
+
+public function activarDatosUsuarioa()//modifcar gestion Usuarios
+{
+	if(isset($_POST['id'])){
+		$id =$_POST['id'];
+
+		$this->usuario_model->elimnarHabiltarDatosUsuariodb($id,1);
 	}
 }
 
@@ -445,15 +546,15 @@ public function datosUsuario()//datos personales
 {
 			// $lista=$this->usuario_model->listarUsuarios();
 			// $data['infoUsuario']=$lista;
-		$id=$this->session->userdata('idUsuario');;
-		$lista=$this->usuario_model->datosUsuarioID($id,1);
-		$data['datos']=$lista;
+	$id=$this->session->userdata('idUsuario');;
+	$lista=$this->usuario_model->datosUsuarioID($id,1);
+	$data['datos']=$lista;
 
-			$this->load->view('inc/cabezeraLti');
-			$this->load->view('inc/navLti');
-			$this->load->view('inc/asidebarLti');
-			$this->load->view('admind/perfil/perfil',$data);
-			$this->load->view('inc/footerLti');
+	$this->load->view('inc/cabezeraLti');
+	$this->load->view('inc/navLti');
+	$this->load->view('inc/asidebarLti');
+	$this->load->view('admind/perfil/perfil',$data);
+	$this->load->view('inc/footerLti');
 }
 
 
@@ -472,9 +573,9 @@ public function cambioPwd()
 			$msg=$this->usuario_model->cambiarpwddb($pwdNueva,$idUsuario);
 			$url=base_url();
 			echo json_encode(array('msg'=>'Contraseña Cambiado',
-						'uri'=>'1',
-						'url'=>$url.'index.php/usuario/formLogin'
-		));
+				'uri'=>'1',
+				'url'=>$url.'index.php/usuario/formLogin'
+			));
 			$this->session->sess_destroy();
 
 		}
@@ -487,151 +588,153 @@ public function cambioPwd()
 	else
 	{
 
-			echo json_encode(array('msg'=>'La contraseña repetida no coincide con la nueva'));
+		echo json_encode(array('msg'=>'La contraseña repetida no coincide con la nueva'));
 	}
 }
 
+
+
 public function calendario()
 {
-			$this->load->view('inc/cabezeraLti');
-			$this->load->view('inc/navLti');
-			$this->load->view('inc/asidebarLti');
+	$this->load->view('inc/cabezeraLti');
+	$this->load->view('inc/navLti');
+	$this->load->view('inc/asidebarLti');
 			// $this->load->view('usuariovLti',$data);
-			$this->load->view('admind/calendario/calendario');
+	$this->load->view('admind/calendario/calendario');
 
-			$this->load->view('inc/footerLti');
+	$this->load->view('inc/footerLti');
 }
 
 public function calAnual()
 {
-			$this->load->view('inc/cabezeraLti');
-			$this->load->view('inc/navLti');
-			$this->load->view('inc/asidebarLti');
+	$this->load->view('inc/cabezeraLti');
+	$this->load->view('inc/navLti');
+	$this->load->view('inc/asidebarLti');
 			// $this->load->view('usuariovLti',$data);
-			$this->load->view('admind/calendario/anual');
+	$this->load->view('admind/calendario/anual');
 
-			$this->load->view('inc/footerLti');
+	$this->load->view('inc/footerLti');
 }
 
 
-	
-	function index()
-	{
-  
 
-		$lista=$this->usuario_model->listarUsuarios();
-		$data['infoUsuario']=$lista;
+function index()
+{
 
-		$this->load->view('inc/default/header');
-		$this->load->view('inc/default/menu');
-		$this->load->view('default/usuario',$data);
-		$this->load->view('inc/default/footer');
-		
-	}
-	
 
-	
-	function agregardb()
-			{
-		     $data['nombre']=$_POST['nombre'];
-		     $data['primerApellido']=$_POST['apellido1'];
-		     $data['segundoApellido']=$_POST['apellido2'];
-		     $data['ci']=$_POST['ci'];
-		     $data['fechaNacimiento']='1996-03-06';
-		     $data['sexo']=$_POST['sexo'];
-		     $data['login']=$_POST['nombre'];
-		     $data['claveUsuario']='1';
-		     $data['rolUsuario']=$_POST['rol'];
+	$lista=$this->usuario_model->listarUsuarios();
+	$data['infoUsuario']=$lista;
 
-		    $this->usuario_model->agregarUsuario($data);
-		     redirect('usuario/index','refresh');
-	}
-	
+	$this->load->view('inc/default/header');
+	$this->load->view('inc/default/menu');
+	$this->load->view('default/usuario',$data);
+	$this->load->view('inc/default/footer');
 
- 	function modificardb()
- 	{
- 	$id=$_POST['id'];	
- 	 $data['nombre']=$_POST['nombre'];
-     $data['primerApellido']=$_POST['apellido1'];
-     $data['segundoApellido']=$_POST['apellido2'];
-     $data['ci']=$_POST['ci'];
-     $data['fechaNacimiento']='1996-03-06';
-     $data['sexo']=$_POST['sexo'];
-     $data['login']=$_POST['nombre'];
-     $data['claveUsuario']='1';
-     $data['rolUsuario']=$_POST['rol'];
+}
+
+
+
+function agregardb()
+{
+	$data['nombre']=$_POST['nombre'];
+	$data['primerApellido']=$_POST['apellido1'];
+	$data['segundoApellido']=$_POST['apellido2'];
+	$data['ci']=$_POST['ci'];
+	$data['fechaNacimiento']='1996-03-06';
+	$data['sexo']=$_POST['sexo'];
+	$data['login']=$_POST['nombre'];
+	$data['claveUsuario']='1';
+	$data['rolUsuario']=$_POST['rol'];
+
+	$this->usuario_model->agregarUsuario($data);
+	redirect('usuario/index','refresh');
+}
+
+
+function modificardb()
+{
+	$id=$_POST['id'];	
+	$data['nombre']=$_POST['nombre'];
+	$data['primerApellido']=$_POST['apellido1'];
+	$data['segundoApellido']=$_POST['apellido2'];
+	$data['ci']=$_POST['ci'];
+	$data['fechaNacimiento']='1996-03-06';
+	$data['sexo']=$_POST['sexo'];
+	$data['login']=$_POST['nombre'];
+	$data['claveUsuario']='1';
+	$data['rolUsuario']=$_POST['rol'];
 
 	$this->usuario_model->modificarUsuariodb($id,$data);
-     redirect('usuario/index','refresh');
+	redirect('usuario/index','refresh');
 
 
- 	}
+}
 
- 	function eliminar()
- 	{
- 		$id=$_POST['id'];	
- 		$this->usuario_model->eliminarUsuariodb($id);
-     redirect('usuario/index','refresh');
- 	}
+function eliminar()
+{
+	$id=$_POST['id'];	
+	$this->usuario_model->eliminarUsuariodb($id);
+	redirect('usuario/index','refresh');
+}
 
-	 function usuariovLti()
- 	{
-		
-		$lista=$this->usuario_model->listarUsuarios();
-		$data['infoUsuario']=$lista;
+function usuariovLti()
+{
 
-		$this->load->view('inc/cabezeraLti');
-		$this->load->view('inc/navLti');
-		$this->load->view('inc/asidebarLti');
-		$this->load->view('usuarioAdminLti',$data);
-		$this->load->view('inc/footerLti');
- 	}
- 	 
-     
-     
+	$lista=$this->usuario_model->listarUsuarios();
+	$data['infoUsuario']=$lista;
+
+	$this->load->view('inc/cabezeraLti');
+	$this->load->view('inc/navLti');
+	$this->load->view('inc/asidebarLti');
+	$this->load->view('usuarioAdminLti',$data);
+	$this->load->view('inc/footerLti');
+}
+
+
+
 // subri fot
 
 function subiFoto()
+{
+	$id=$_POST['id'];
+
+	$data['idUsuario']= $this->usuario_model->buscarIdDB($id);
+
+	$this->load->view('inc/cabezeraLti');
+	$this->load->view('inc/navLti');
+	$this->load->view('inc/asidebarLti');
+	$this->load->view('subirfotoV',$data);
+	$this->load->view('inc/footerLti');
+
+}
+
+public function subir()
+{
+
+	$idUsuario=$_POST['idUsuario'];
+	$nombreArchivo=$idUsuario.'.jpg';
+	$config['upload_path']='./uploads/usuario/';
+	$config['file_name']=$nombreArchivo;
+	$direccion='./uploads/usuario/'.$nombreArchivo;
+	if(file_exists($direccion))
 	{
-     $id=$_POST['id'];
-
-    $data['idUsuario']= $this->usuario_model->buscarIdDB($id);
-
-		$this->load->view('inc/cabezeraLti');
-		$this->load->view('inc/navLti');
-		$this->load->view('inc/asidebarLti');
-		$this->load->view('subirfotoV',$data);
-		$this->load->view('inc/footerLti');
-
- 	}
-
- 	public function subir()
- 	{
- 			
-			$idUsuario=$_POST['idUsuario'];
-			$nombreArchivo=$idUsuario.'.jpg';
-			$config['upload_path']='./uploads/usuario/';
-			$config['file_name']=$nombreArchivo;
-			$direccion='./uploads/usuario/'.$nombreArchivo;
-			if(file_exists($direccion))
-			{
-				unlink($direccion);
-			}
-			$config['allowed_types']='jpg';
-			$this->load->library('upload',$config);
-			if(!$this->upload->do_upload())
-			{
-				$data['error']=$this->upload->display_errors();
-			}
-			else
-			{
-				$data['foto']=$nombreArchivo;
-				$this->usuario_model->modificarUsuariodb($idUsuario,$data);
-				$this->upload->data();
-			}
+		unlink($direccion);
+	}
+	$config['allowed_types']='jpg';
+	$this->load->library('upload',$config);
+	if(!$this->upload->do_upload())
+	{
+		$data['error']=$this->upload->display_errors();
+	}
+	else
+	{
+		$data['foto']=$nombreArchivo;
+		$this->usuario_model->modificarUsuariodb($idUsuario,$data);
+		$this->upload->data();
+	}
 		//  if($this->session->userdata('login'))
 		// {
-		
+
 		// }
 		//  else
 		//  {
@@ -639,16 +742,19 @@ function subiFoto()
 		//  	$this->load->view('inc/cabezera');
 		//  	$this->load->view('loginV',$data);
 		// }
-		redirect('usuario/panel/','refresh');
- 	}
-	 
+	redirect('usuario/panel/','refresh');
+}
+
+
+
+
 
 
 public function agregarActividad()
 {
 			// $foto='name';
-			$data['nombre']=$_POST['nombre'];
-			$data['descripcion']=$_POST['descripcion'];
+	$data['nombre']=$_POST['nombre'];
+	$data['descripcion']=$_POST['descripcion'];
 			$data['idUsuario']=1;//recupera usuario desde datos de sessciones 
 
 
@@ -679,13 +785,13 @@ public function agregarActividad()
 				
 			}
 
-			 redirect('usuario/datosUsuario/','refresh');
+			redirect('usuario/datosUsuario/','refresh');
 		// 
-}
+		}
 	 // function de crear reportesss
 
- 	function functionPdf()
- 	{
+		function functionPdf()
+		{
         //  if($this->session->userdata('login'))
 		// {
 			
@@ -717,16 +823,16 @@ public function agregarActividad()
 			$this->pdf->Cell(50,10,'Segundo Apellido',1,0,'C',0);
 			$this->pdf->Cell(30,10,'Edad',1,0,'C',0);
 			
-				for ($i=0; $i <10 ; $i++) { 
+			for ($i=0; $i <10 ; $i++) { 
 					// code...
 
-			$this->pdf->SetTextColor(0,200,0);
+				$this->pdf->SetTextColor(0,200,0);
 
-			$this->pdf->Ln(10);
-			$this->pdf->Cell(50,10,'nombre','LB',0,'C',0);
-			$this->pdf->Cell(50,10,'Primer Apellido','B',0,'c',0);
-			$this->pdf->Cell(50,10,'Segundo Apellido','B',0,'C',0);
-			$this->pdf->Cell(30,10,$i,"BR",0,'C',0);
+				$this->pdf->Ln(10);
+				$this->pdf->Cell(50,10,'nombre','LB',0,'C',0);
+				$this->pdf->Cell(50,10,'Primer Apellido','B',0,'c',0);
+				$this->pdf->Cell(50,10,'Segundo Apellido','B',0,'C',0);
+				$this->pdf->Cell(30,10,$i,"BR",0,'C',0);
 
 
 			}
@@ -734,7 +840,7 @@ public function agregarActividad()
 			$this->pdf->SetTextColor(0,00,150);
 
 
-				$this->pdf->Cell(50,10,'Segundo Apellido','B',0,'C',0);
+			$this->pdf->Cell(50,10,'Segundo Apellido','B',0,'C',0);
 			$this->pdf->Cell(30,10,'ss',"BR",2,'C',0);
 
 
@@ -743,7 +849,7 @@ public function agregarActividad()
 
 			// 	$this->pdf->Cell(120,10,$usuario,'TBLR',0,'L',2);
 			// 	$this->pdf->Ln(10);
-				
+
 			// }
 
 
@@ -756,11 +862,11 @@ public function agregarActividad()
 		//  	$this->load->view('inc/cabezera');
 		//  	$this->load->view('loginV',$data);
 		// }
- 	}
+		}
 
 
-function reporteTare()
- 	{
+		function reporteTare()
+		{
         //  if($this->session->userdata('login'))
 		// {
 			
@@ -827,8 +933,8 @@ function reporteTare()
 			$this->pdf->Cell(25,10,'0,0000','LBR',0,'C',0);
 
 
-$this->pdf->Ln(15);
-$this->pdf->SetFont('Arial','B','8');
+			$this->pdf->Ln(15);
+			$this->pdf->SetFont('Arial','B','8');
 			$this->pdf->SetFillColor(239,209,39);
 			// $this->pdf->SetFillColor(7,4,66);
 			$this->pdf->Cell(30,10,'Saldo Inicial',1,0,'C',1);
@@ -878,7 +984,7 @@ $this->pdf->SetFont('Arial','B','8');
 
 			// 	$this->pdf->Cell(120,10,$usuario,'TBLR',0,'L',2);
 			// 	$this->pdf->Ln(10);
-				
+
 			// }
 
 
@@ -891,22 +997,22 @@ $this->pdf->SetFont('Arial','B','8');
 		//  	$this->load->view('inc/cabezera');
 		//  	$this->load->view('loginV',$data);
 		// }
- 	}
+		}
 
 
 
- 	
+
 		public function reporteExcel()
-{
+		{
     // Crear un nuevo libro de Excel
-    $spreadsheet = new Spreadsheet();
-    $sheet = $spreadsheet->getActiveSheet();
-    $sheet->setCellValue('A1', 'ID');
-    $sheet->setCellValue('B1', 'Nombre');
-    $sheet->setCellValue('C1', 'Primer apellido');
-    $sheet->setCellValue('D1', 'Segundo apellido');
-    $sheet->setCellValue('E1', 'nota');
-    $sn = 2;
+			$spreadsheet = new Spreadsheet();
+			$sheet = $spreadsheet->getActiveSheet();
+			$sheet->setCellValue('A1', 'ID');
+			$sheet->setCellValue('B1', 'Nombre');
+			$sheet->setCellValue('C1', 'Primer apellido');
+			$sheet->setCellValue('D1', 'Segundo apellido');
+			$sheet->setCellValue('E1', 'nota');
+			$sn = 2;
 
     // Obtener los datos de tu modelo (debe descomentar esta parte y ajustarla según tu modelo)
     // $lista = $this->estudiante_model->listaestudiantes();
@@ -922,28 +1028,28 @@ $this->pdf->SetFont('Arial','B','8');
     // }
 
     // Crear un objeto de escritura en formato XLSX
-    $writer = new Xlsx($spreadsheet);
+			$writer = new Xlsx($spreadsheet);
 
     // Configurar los encabezados
-    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Disposition: attachment;filename="estudiantes.xlsx"');
-    header('Cache-Control: max-age=0');
+			header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			header('Content-Disposition: attachment;filename="estudiantes.xlsx"');
+			header('Cache-Control: max-age=0');
 
     // Enviar el archivo al navegador
-    $writer->save('php://output');
-}
-	public function reporteExcel2()
- 	{
+			$writer->save('php://output');
+		}
+		public function reporteExcel2()
+		{
  		// $lista=$this->estudiante_model->listaestudiantes();
 		//  $lista=$lista->result();
 
-		 header('Content-Type: application/vnd.ms-excel');
-		 header('Content-Disposition: attachment;filename="estudiantes.xlsx"');
-		 $spreadsheet = new Spreadsheet();
+			header('Content-Type: application/vnd.ms-excel');
+			header('Content-Disposition: attachment;filename="estudiantes.xlsx"');
+			$spreadsheet = new Spreadsheet();
 
 // Metadatos
 
- 		$spreadsheet
+			$spreadsheet
 			->getProperties()
 			->setCreator("Nombre del autor")
 			->setLastModifiedBy("Juan Perez")
@@ -953,32 +1059,32 @@ $this->pdf->SetFont('Arial','B','8');
 			->setKeywords('Lista estudiantes')
 			->setCategory('Categoria de prueba');
 
-		 $sheet = $spreadsheet->getActiveSheet();
+			$sheet = $spreadsheet->getActiveSheet();
 		$sheet->setTitle("Reporte de excel 2");//titulo de  hoja
 
 		$sheet->getStyle('A1:E1')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
 		$sheet->getStyle('A1:E1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffff00');
 
-		 $sheet->setCellValue('A1', 'ID');
-		 $sheet->setCellValue('B1', 'Nombre');
-		 $sheet->setCellValue('C1', 'Primer apellido');
-		 $sheet->setCellValue('D1', 'Segundo apellido');
-		 $sheet->setCellValue('E1', 'nota');
-		 $sn=2;
-		 for ($i=2; $i <12 ; $i++) { 
-		 	 $sheet->setCellValue('A'.$i, 'ID');
-			 $sheet->setCellValue('B'.$i, 'Nombre');
-			 $sheet->setCellValue('C'.$i, 'Primer apellido');
-			 $sheet->setCellValue('D'.$i, 'Segundo apellido');
-			 $sheet->setCellValue('E'.$i, 'nota');
-		 }
+		$sheet->setCellValue('A1', 'ID');
+		$sheet->setCellValue('B1', 'Nombre');
+		$sheet->setCellValue('C1', 'Primer apellido');
+		$sheet->setCellValue('D1', 'Segundo apellido');
+		$sheet->setCellValue('E1', 'nota');
+		$sn=2;
+		for ($i=2; $i <12 ; $i++) { 
+			$sheet->setCellValue('A'.$i, 'ID');
+			$sheet->setCellValue('B'.$i, 'Nombre');
+			$sheet->setCellValue('C'.$i, 'Primer apellido');
+			$sheet->setCellValue('D'.$i, 'Segundo apellido');
+			$sheet->setCellValue('E'.$i, 'nota');
+		}
 
 
-		 $writer = new Xlsx($spreadsheet);
- 		$writer->save("php://output");
+		$writer = new Xlsx($spreadsheet);
+		$writer->save("php://output");
 
 
 
 	}
- 	
+
 }

@@ -96,7 +96,13 @@ public function agregarActiviadadBD($data)
 		}
 		
 	}
-  
+  public function convertirEmpleadoAUsuariodb($data2)//esta agregar un usuario aun empleado
+  {
+  	 //incioo transaccion
+	
+		$this->db->insert('usuario',$data2);
+	 return $this->db->affected_rows();
+  }
 
 
   public function datosUsuariodb($estado,$idSession)// gestion usuarios
@@ -111,7 +117,7 @@ public function agregarActiviadadBD($data)
 		return $this->db->get();
   }
 
-  public function usuarioDatosBuscardb($estado,$idSession,$valor)
+  public function usuarioDatosBuscardb($estado,$idSession,$valor)// revisar las
   {
   	$this->db->select('P.id, P.nombre,P.primerApellido,IFNULL(P.segundoApellido,"") AS segundoApellido,P.ci,P.fechaNacimiento,P.sexo ,U.nombreUsuario,U.email,T.id AS idRol, T.rol ');
 		$this->db->from('persona P');
@@ -119,7 +125,9 @@ public function agregarActiviadadBD($data)
 		$this->db->join('tipoUsuario T','T.id=U.idTipoUsuario');
 		$this->db->where('U.estado',$estado);
 		$this->db->where('U.id !=',$idSession);
-		 $this->db->where("U.nombreUsuario like %".$valor."%");
+    $this->db->like('U.nombreUsuario',$valor);
+    $this->db->or_like('P.nombre', $valor);
+    $this->db->or_like('T.rol', $valor);
 		
 		return $this->db->get();
   }

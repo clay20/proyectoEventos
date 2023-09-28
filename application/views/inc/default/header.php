@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>Navbar Template · Bootstrap v5.1</title>
+    <title>INICIAR SESION</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/navbars/">
  
@@ -17,10 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <!-- Bootstrap cSore CSS -->
 <link href="<?php echo base_url();?>bootstrap/css/bootstrap.css" rel="stylesheet">
-
 <link href="<?php echo base_url();?>miestilos/login.css" rel="stylesheet">
 <link rel="stylesheet" href="<?php echo base_url();?>/icon/css/all.min.css">
-
-
 <body  class=" bg-linght"  style=" background: #D28C58;">
  

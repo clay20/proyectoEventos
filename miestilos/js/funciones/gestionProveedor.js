@@ -15,7 +15,7 @@ function listarUsuario()
       let proveedor= JSON.parse(response);
       let template= "";
       var i=1;
-      console.log(response);
+      // console.log(response);
       proveedor.forEach(proveedor=>{
         template+=`
         <tr proveedorId=${proveedor.id}>
@@ -234,7 +234,8 @@ inciarMapa() ;
          
           if (json.uri===1) {
               $("#ModificarProveedor").modal("hide");
-                alert(json.msg+' Campos modificas '+ json.campos);
+                
+                 toastr.success(json.msg+' Campos modificas '+ json.campos);  
            listarUsuario();
           }
 
@@ -242,7 +243,7 @@ inciarMapa() ;
           {
             console.log(json.uri);
              $("#ModificarProveedor").modal("hide");
-             alert(json.msg);
+                 toastr.success(json.msg);  
           }
        
       },
@@ -279,14 +280,15 @@ inciarMapa() ;
       data: $(this).serialize(),
       success: function(data){
 
-        console.log(data);
+        // console.log(data);
         var json= JSON.parse(data);
                 if (json.uri===1) {
-              $("#ModificarProveedor").modal("hide");
+             
                window.location.replace(json.url);
                 listarUsuario();
 
                 alert(json.msg);
+               
           }
 
           else

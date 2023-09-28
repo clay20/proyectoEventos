@@ -251,7 +251,6 @@ $(document).on('click','.abilitarEmpleado', function(){
       data: $(this).serialize(),
       success: function(data){
 
-        console.log(data);
         var json= JSON.parse(data);
        
         alert(json.msg);

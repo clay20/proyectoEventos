@@ -60,45 +60,14 @@
               <li class="nav-item">
                 <a href="<?php echo base_url();?>/adminlti/index2.html" class="nav-link">
                   <i class='bx bxs-edit'></i>
-                  <p>Gestion Alquiler</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url();?>/adminlti/index3.html" class="nav-link">
-
-                  <i class='bx bxs-calendar-exclamation'></i>
-                  <p>Reserva</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item" >
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa-solid fa-file-invoice-dollar t-acent"></i>
-              <p class="t-primary">
-                Cotizaciones
-                <i class="right fas fa-angle-left  "></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview" style="margin-left:10px">
-              <li class="nav-item" >
-                <a href="<?php echo base_url();?>/adminlti/index.html" class="nav-link">
-
                   <p>Cotizaciones</p>
-
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url();?>/adminlti/index2.html" class="nav-link">
-                  <i class='bx bxs-edit'></i>
-                  <p>Paquetes</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="<?php echo base_url();?>/adminlti/index3.html" class="nav-link">
 
                   <i class='bx bxs-calendar-exclamation'></i>
-                  <p>Servicios</p>
+                  <p>Reserva Reservas</p>
                 </a>
               </li>
             </ul>
@@ -182,7 +151,6 @@
                   <p>Nuevo</p>
                 </a>
               </li>
-              
             </ul>
 
             <li class="nav-item">
@@ -203,19 +171,7 @@
 
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a href="<?php echo base_url();?>/adminlti/index2.html" class="nav-link">
-                    <i class='bx bxs-edit'></i>
-                    <p>nnnnnnnn</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<?php echo base_url();?>/adminlti/index3.html" class="nav-link">
-
-                    <i class='bx bxs-calendar-exclamation'></i>
-                    <p>nnnnnnnn</p>
-                  </a>
-                </li>
+        
               </ul>
 
 
@@ -232,7 +188,7 @@
             </a>
             <ul class="nav nav-treeview" style="margin-left:10px">
               <li class="nav-item" >
-                <a href="<?php echo base_url();?>/adminlti/index.html" class="nav-link">
+                <a href="<?php echo base_url();?>index.php/servicios/index" class="nav-link">
                   <i class='bx bx-calendar-edit' style="color:red"></i>
 
                   <p>Agregar Servicio</p>

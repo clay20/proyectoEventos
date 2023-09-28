@@ -50,8 +50,6 @@ class Empleado extends CI_Controller {
 			echo json_encode($listaArray);
  }
  
-
-
  public function listaEmpleadosDesabilitados() //lista de usuario desabilitados
  {
  	$lista=$this->empleado_model->listEmpleadoDisabilitadosdb();
@@ -133,6 +131,21 @@ class Empleado extends CI_Controller {
 		$this->empleado_model->eliminarEmpleado($id,$data);
      redirect('empleado/index','refresh');
 	}
+	public function empleadoBuscar()
+	{
+		  	$valor=$_POST['valor'];
+ 				$lista=$this->empleado_model->buscarEmpleadoBud($valor);
+				$listaArray = $lista->result_array();
+	// $listaArray = $lista->row_array();
+				echo json_encode($listaArray);
+	}
 
-
+	public function empleadoBuscarUsuario()
+	{
+		  	$valor=$_POST['valor'];
+ 				$lista=$this->empleado_model->buscarEmpleadodbUsuario($valor);
+				$listaArray = $lista->result_array();
+	// $listaArray = $lista->row_array();
+				echo json_encode($listaArray);
+	}
 }

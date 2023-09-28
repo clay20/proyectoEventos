@@ -45,9 +45,10 @@
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionUsuario.js"></script> 
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionEmpleados.js"></script> 
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionProveedor.js"></script> 
+<script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionServicio.js"></script> 
 
-
-
+<!-- alertas -->
+<script type="text/javascript" src="<?php echo base_url();?>miestilos/js/alert/mensaje.js"></script> 
 
 
 <!-- Page specific script -->

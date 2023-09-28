@@ -21,8 +21,8 @@
           <div class="card-header p-0 bgt-acent" >
             <ul class="nav nav-pills">
 
-              <li class="nav-item"><a class="nav-link active" href="#tabUsuarios" data-toggle="tab"><i class="fa-solid fa-users"></i> Usuarios</a></li>
-              <li class="nav-item"><a class="nav-link " href="#agregarUsuario" data-toggle="tab"><i class="fas fa-user-plus"></i>Agregar </a></li>
+              <li class="nav-item"><a class="nav-link active" href="#tabUsuarios" id="tabUsuariosLink" data-toggle="tab"><i class="fa-solid fa-users"></i> Usuarios</a></li>
+              <li class="nav-item"><a class="nav-link " href="#agregarUsuario" id="agregarUsuarioLink" data-toggle="tab"><i class="fas fa-user-plus"></i>Agregar </a></li>
               <li class="nav-item"><a class="nav-link" href="#desabilitados" data-toggle="tab"><i class="fa-solid fa-user-xmark"></i> Desabilitados</a></li>
             </ul>
           </div><!-- /.card-header -->
@@ -44,10 +44,10 @@
 
                     <tr>
                       <th >Nombre Completo</th>
-                      <th class=" d-none d-lg-table-cell">C.I</th>
+                      <th class=" d-none d-md-table-cell d-lg-table-cell">C.I</th>
                       <th class="d-none d-lg-table-cell">Sexo</th>
                       <th class="d-none d-lg-table-cell">Fecha Nacimiento</th>
-                      <th class="d-none d-lg-table-cell">Email</th>
+                      <th class="d-none d-md-table-cell d-lg-table-cell">Email</th>
 
                       <th>Usuario</th>
                       <th>Rol</th>
@@ -191,7 +191,7 @@
 
                   </div>
 
-          
+
                   <div class="clearfix"></div>        
 
                 </div>
@@ -211,149 +211,181 @@
       </div>
       <!-- fin Usuarios -->
 
+
+
+
+
+
       <!--Inicio agregar  -->
       <div class="tab-pane" id="agregarUsuario">
         <!-- Post -->
         <div   style="">
           <form class="pt-3 mt-3" id="formRegistro2">
 
-            <div class="post myborder "  style="border-bottom: 2px solid;">
+            <div class="post myborder">
+              <div class="row">
+                <div class="col-sm-12 col-md-12" style="background:rgba(255, 171, 105, .3);">
+                  <div class="row">
+                    
+                 <div  class=" col-sm-6 col-md-6  col-12  ">
+                    <input type="hidden" id="aux" name="aux" value="0" required>
 
-              <div class="row ">
-                <div  class=" col-sm-6 col-md-4  col-12  ">
+                    <input type="hidden" id="idE" name="idE" value="0"> <div
+                    class="myBox">
+                  
+                    <input class="myImputField" type="text" id="ci" name="ci" onkeypress="return soloNumero(event)" list="informacion"  onchange="funcionmodificar(this)" minlength="7" maxlength="10"  required autofocus>
+                      <datalist id="informacion">
+                      
+                    </datalist>
+       
+                   <!-- <label><small></small></label> -->
+             
+                    <label class="mylabel" for="ci" >C.I.</label>
 
-                  <div class="myBox">
-                    <input class=" myImputField" type="text" id="nombreUsuario" name="nombre"  onkeypress="return soloLetras(event)" minlength="2" maxlength="25" required autofocus>
-                    <label class="mylabel" for="nombreUsuario" >Nombre</label>
                   </div>
                 </div>
-
-                <div  class=" col-sm-6 col-md-4  col-12  ">
-
-                  <div class="myBox">
-                    <input class=" myImputField" type="text" id="primerApellido" name="primerApellido"  onkeypress="return soloLetras(event)" minlength="2" maxlength="25" required>
-                    <label class="mylabel" for="primerApellido" >Primer Apellido</label>
+                
                   </div>
-                </div>
-                <div  class=" col-sm-6 col-md-4  col-12  ">
+                 <div class="row ">
+                  <div  class=" col-sm-6 col-md-4  col-12  ">
 
-                  <div class="myBox">
-                    <input class=" myImputField" type="text" id="segundoApellido" name="segundoApellido"  onkeypress="return soloLetras(event)" minlength="0" maxlength="25">
-                    <label class="mylabel" for="segundoApellido" >Segundo Apellido</label>
+                    <div class="myBox">
+                      <input class=" myImputField" type="text" id="nombre" name="nombre"  onkeypress="return soloLetras(event)" minlength="2" maxlength="25" required>
+                      <label class="mylabel" for="nombre" >Nombre</label>
+                    </div>
                   </div>
+                    <input type="hidden" name="nombreUsuario" id="nombreUsuario">
+                  <div  class=" col-sm-6 col-md-4  col-12 ">
+
+                    <div class="myBox">
+                      <input class=" myImputField" type="text" id="primerApellido" name="primerApellido"  onkeypress="return soloLetras(event)" minlength="2" maxlength="25" required>
+                      <label class="mylabel" for="primerApellido" >Primer Apellido</label>
+                    </div>
+                  </div>
+                  <div  class=" col-sm-6 col-md-4  col-12  ">
+
+                    <div class="myBox">
+                      <input class=" myImputField" type="text" id="segundoApellido" name="segundoApellido"  onkeypress="return soloLetras(event)" minlength="0" maxlength="25">
+                      <label class="mylabel" for="segundoApellido" >Segundo Apellido</label>
+                    </div>
+                  </div>
+
+
                 </div>
+                <div class="row ">
 
 
-              </div>
-              <div class="row ">
+                <div  class=" col-sm-6 col-md-6  col-12  ">
 
-               <div  class=" col-sm-6 col-md-6  col-12 d-flex justify-content-center ">
 
-                <div class="myBox">
-                  <input class="myImputField" type="text" id="ci" name="ci" onkeypress="return soloNumero(event)" minlength="7" maxlength="10"  required>
-                  <label class="mylabel" for="ci" >C.I.</label>
-                </div>
-              </div>
-
-              <div  class=" col-sm-6 col-md-6  col-12 d-flex justify-content-center  ">
-
-              
 
                   <div class="myBox">
                     <input class="myImputField" type="date" id="fechaNacimiento" name="fechaNacimiento"   max="2023-08-01" value="2020-01-01"   required>
                     <label class="mylabel" for="fechaNacimiento"  >Fecha Nacimiento</label>
 
-                 
+
+                  </div>
+                </div>
+                <div class=" col-sm-6 col-md-6  col-12  ">
+                  
+                <label class="form-label p-2 t-secondary" for="inlineRadio3">Genero</label>
+
+
+                <div class=" p-2 form-check form-check-inline">
+                  <input class="form-radio" type="radio" name="genero" id="radioFm" value="f" checked>
+                  <label class="form-check-label t-secondary-n" for="radioFm">Femenino</label>
+                </div>
+                <div class=" p-2 form-check form-check-inline">
+                  <input class="form-radio" type="radio" name="genero" id="radioMm" value="m">
+                  <label class="form-check-label t-secondary-n" for="radioMm">Masculino</label>
+                </div>
                 </div>
               </div>
 
-            </div>
-
-
-            <div class="row t-secondary d-flex justify-content-center align-items-center">
+              <div class="row t-secondary d-flex justify-content-center align-items-center">
 
 
 
 
-              <label class="form-label p-2 " for="inlineRadio3">Genero</label>
 
-
-              <div class=" p-2 form-check form-check-inline">
-                <input class="form-radio" type="radio" name="genero" id="radioF" value="f" checked>
-                <label class="form-check-label" for="radioF">Femenino</label>
-              </div>
-              <div class=" p-2 form-check form-check-inline">
-                <input class="form-radio" type="radio" name="genero" id="radioM" value="m">
-                <label class="form-check-label" for="radioM">Masculino</label>
               </div>
 
+
+
+              <div class="row ">
+
+               <div class=" col myborder" style=" border-bottom: 2px solid black;">  
+
+                <small class="t-secondary">Requesitos para acceso</small>
+
+
+              </div>
+
             </div>
 
-            <div class="row ">
+            <div class="row">
+              <div  class=" col-sm-6 col-md-6  col-12 ">
 
-             <div class=" col myborder" style=" border-bottom: 2px solid black;">  
+               <div class="myBox">
+                <input class="myImputField" type="email" id="emailA" name="email"  minlength="7" maxlength="25"  required>
+                <label class="mylabel" for="email" >Email</label>
+                <label class="mylabel-icon" for="email"><i class="fa-solid fa-envelope"></i></label>
 
-              <small class="t-secondary">Requesitos para acceso</small>
-
-
+              </div>
             </div>
-
-          </div>
-
-          <div class="row">
             <div  class=" col-sm-6 col-md-6  col-12 ">
+              <div class="myBox">
+                <select class="myImputField" name="rol">
 
-             <div class="myBox">
-              <input class="myImputField" type="email" id="email" name="email"  minlength="7" maxlength="25"  required>
-              <label class="mylabel" for="email" >Email</label>
-              <label class="mylabel-icon" for=""><i class="fa-solid fa-envelope"></i></label>
+                  <option selected disabled class="bgt-acent">Seleccione ... </option>
+                  <?php foreach ($rol ->result() as $row) { ?>
 
+                    <option  class="bgt-secondary" value="<?php echo $row->id; ?> " <?php if ($row->rol == 'invitado') echo 'selected'; ?>><?php echo $row->rol; ?></option>
+
+                  <?php  }  ?>
+
+                </select>
+                <label class="mylabel" for="email" >Rol Usuario</label>
+              </div>
             </div>
+
           </div>
-          <div  class=" col-sm-6 col-md-6  col-12 ">
-            <div class="myBox">
-              <select class="myImputField" name="rol">
+          <div class="row d-flex justify-content-around">
+            <button class=" btn btn-sm btnt-primary m-3 " type="button" id="limpiar" >Limpiar </button>
+            <button class="btn btn-sm btnt-primary m-3" type="submit" >
+              <i class="fas fa-save m-1 text-success"></i>Guardar</button>
 
-                <option selected disabled class="bgt-acent">Seleccione ... </option>
-                <?php foreach ($rol ->result() as $row) { ?>
 
-                  <option  class="bgt-secondary" value="<?php echo $row->id; ?> " <?php if ($row->rol == 'invitado') echo 'selected'; ?>><?php echo $row->rol; ?></option>
 
-                <?php  }  ?>
+            </div> 
 
-              </select>
-              <label class="mylabel" for="email" >Rol Usuario</label>
-            </div>
           </div>
-
+        
         </div>
 
+
+
+
       </div>
-      <div class="row d-flex justify-content-around">
-        <button class="btn btn-sm btnt-primary " type="submit">
-          <i class="fas fa-save m-1 text-success"></i>Guardar</button>
 
 
-
-        </div> 
-
-      </form>
-    </div>
+    </form>
   </div>
-  <!-- find agregar -->
+</div>
+<!-- find agregar -->
 
-  <!-- Inicio desabilidatos -->
+<!-- Inicio desabilidatos -->
 
-  <div class="tab-pane" id="desabilitados">
-    <div class="card-body m-0 p-0">
+<div class="tab-pane" id="desabilitados">
+  <div class="card-body m-0 p-0">
 
-        <div class="row d-flex justify-content-end">
-                <div class="myBox">
-                  <label class="mylabel-icon"><i class="fas fa-search"></i></label>
-                  <input class="myImputField" id="buscarUsuarioD" type="search" name="buscarUsuario" >
-                </div>
-              </div>
-<div style="max-height: 59vh;   overflow-y: auto;">
+    <div class="row d-flex justify-content-end">
+      <div class="myBox">
+        <label class="mylabel-icon"><i class="fas fa-search"></i></label>
+        <input class="myImputField" id="buscarUsuarioD" type="search" name="buscarUsuario" >
+      </div>
+    </div>
+    <div style="max-height: 59vh;   overflow-y: auto;">
       <table class="table">
         <thead class="t-secondary">
           <tr>
@@ -376,11 +408,11 @@
 
         </tbody>
       </table>
-      </div>
     </div>
-
   </div>
-  <!-- find desabilitados -->
+
+</div>
+<!-- find desabilitados -->
 </div>
 <!-- /.tab-content -->
 </div><!-- /.card-body -->

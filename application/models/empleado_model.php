@@ -57,7 +57,27 @@ class Empleado_model extends CI_Model
   
     return $this->db->get();
 }
+  public function buscarEmpleadodbUsuario($valor)// buscados para converitir en  usuarios para sistemas muy importantes
+{
 
+
+$this->db->select('P.id, P.nombre, P.primerApellido, IFNULL(P.segundoApellido, "") AS segundoApellido, P.ci, P.fechaNacimiento, IF(P.sexo="f", "Femenino", "Masculino") AS sexo, E.fechaInicio, E.salario, E.telefono');
+$this->db->from('empleados E');
+$this->db->join('persona P', 'P.id = E.id');
+$this->db->where('E.estado', 1);
+ $this->db->like('P.ci',$valor);
+
+$this->db->where("NOT EXISTS (
+    SELECT *
+    FROM persona P2
+    INNER JOIN usuario U ON P2.id = U.id
+    WHERE P2.id = P.id
+)");
+
+return $this->db->get();
+
+
+}
 
    public function datoEmpleadodb($id)
 {
