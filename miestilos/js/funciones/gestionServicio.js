@@ -20,9 +20,7 @@ function listarProveedores()//cargamo en la sellecion par combox
       proveedor.forEach(proveedor=>{
         template+=`
        
-         <option  value='${proveedor.id}'>
-                                ${proveedor.denominacion }
-                              </option>
+         <option  idProveedor="${proveedor.id}" value='${proveedor.denominacion}'></option>
         `
         i++;
       });

@@ -21,18 +21,21 @@
         
       </div>
 
-     
+    
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           
-           <li class="nav-item" >
-            <a href="<?php echo base_url();?>index.php/usuario/homeAdmind" class="nav-link">
+           <li class="nav-item " >
+            <a href="<?php echo base_url();?>index.php/usuario/homeAdmind" class="nav-link active">
               <i class="fa-solid nav-icon fa-house  t-acent"></i>
-              <p class="t-primary" ></i><b>Inicio</b></p>
+              <p class="t-primary" ><b>Inicio</b></p>
             </a>
 
           </li>
+
+         
+
           <li class="nav-item">
             <a href="<?php echo base_url();?>index.php/usuario/calendario" class="nav-link">
               <i class="fa-solid nav-icon far fa-calendar-alt t-acent"></i>
@@ -41,175 +44,68 @@
 
           </li>
           <li class="nav-item" >
-            <a href="#" class="nav-link">
+            <a href="<?php echo base_url();?>index.php/reservas/index" class="nav-link">
               <i class="nav-icon fas fa-calendar-plus t-acent"></i>
               <p class="t-primary">
                 Eventos
-                <i class="right fas fa-angle-left  "></i>
+              
               </p>
             </a>
-            <ul class="nav nav-treeview" style="margin-left:10px">
-              <li class="nav-item" >
-                <a href="<?php echo base_url();?>/adminlti/index.html" class="nav-link">
-                  <i class='bx bx-calendar-edit' style="color:red"></i>
-
-                  <p>Gestionar Eventos</p>
-
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url();?>/adminlti/index2.html" class="nav-link">
-                  <i class='bx bxs-edit'></i>
-                  <p>Cotizaciones</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url();?>/adminlti/index3.html" class="nav-link">
-
-                  <i class='bx bxs-calendar-exclamation'></i>
-                  <p>Reserva Reservas</p>
-                </a>
-              </li>
-            </ul>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo base_url();?>index.php/usuario/agregarView" class="nav-link">
               <i class="nav-icon fas fa-users t-acent"></i>
               <p class="t-primary">
                 Usuarios
-                <i class="fas fa-angle-left right"></i>
-                
+              
               </p>
             </a>
-            <ul class="nav nav-treeview" style="margin-left:10px">
-
-              <li class="nav-item">
-                <a href="<?php echo base_url();?>index.php/usuario/agregarView" class="nav-link">
-                  <i class='bx bxs-edit'></i>
-                  <p>Nuevo Usuario</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url();?>/adminlti/index3.html" class="nav-link">
-
-                  <i class='bx bxs-calendar-exclamation'></i>
-                  <p>Usuario</p>
-                </a>
-              </li>
-            </ul>
           </li>
 
           
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo base_url();?>index.php/cliente/index" class="nav-link">
               <i class="nav-icon fas fa-user-tie t-acent"></i>
               <p class="t-primary">
                 Clientes
-                <i class="fas fa-angle-left right"></i>
+             
                 
               </p>
             </a>
-            <ul class="nav nav-treeview" style="margin-left:10px">
-
-              <li class="nav-item">
-                <a href="<?php echo base_url();?>index.php/cliente/index" class="nav-link">
-                  <i class='bx bxs-edit'></i>
-
-                  <p>Clientes</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url();?>/adminlti/index3.html" class="nav-link">
-
-                  <i class='bx bxs-calendar-exclamation'></i>
-                  <p>nnnnHistorial Registro</p>
-                </a>
-              </li>
-            </ul>
+           
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo base_url();?>index.php/proveedor/index" class="nav-link">
               <i class="nav-icon fas fa-truck t-acent"></i>
               <p class="t-primary">
                 Proveedores
-                <i class="fas fa-angle-left right "></i>
-                
+               
               </p>
             </a>
-            <ul class="nav nav-treeview" style="margin-left:10px">
-              <li class="nav-item" >
-                <a href="<?php echo base_url();?>index.php/proveedor/index" class="nav-link">
-                  <i class='bx bx-calendar-edit' style="color:red"></i>
-                  <p>Proveedores</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url();?>/adminlti/index2.html" class="nav-link">
-                  <i class='bx bxs-edit'></i>
-                  <p>Nuevo</p>
-                </a>
-              </li>
-            </ul>
-
+             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?php echo base_url();?>index.php/empleado/index" class="nav-link">
                 <i class="nav-icon fas fa-people-carry t-acent"></i>
                 <p class="t-primary">
                   Empleados
-                  <i class="fas fa-angle-left right "></i>
+                
 
                 </p>
               </a>
-              <ul class="nav nav-treeview" style="margin-left:10px">
-                <li class="nav-item" >
-                  <a href="<?php echo base_url();?>index.php/empleado/index" class="nav-link">
-                    <i class='bx bx-calendar-edit' style="color:red"></i>
-
-                    <p>Empleado</p>
-
-                  </a>
-                </li>
-        
-              </ul>
-
-
-            </li>
+              
+           
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo base_url();?>index.php/servicios/index" class="nav-link">
               <i class="nav-icon fas fa-clipboard-list t-acent"></i>
               <p class="t-primary">
                 Servicios
-                <i class="fas fa-angle-left right"></i>
                 
               </p>
             </a>
-            <ul class="nav nav-treeview" style="margin-left:10px">
-              <li class="nav-item" >
-                <a href="<?php echo base_url();?>index.php/servicios/index" class="nav-link">
-                  <i class='bx bx-calendar-edit' style="color:red"></i>
-
-                  <p>Agregar Servicio</p>
-
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url();?>/adminlti/index2.html" class="nav-link">
-                  <i class='bx bxs-edit'></i>
-                  <p>Servicio</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url();?>/adminlti/index3.html" class="nav-link">
-
-                  <i class='bx bxs-calendar-exclamation'></i>
-                  <p>Servicios de baja</p>
-                </a>
-              </li>
-            </ul>
-
+          
             
           </li>
 
@@ -224,24 +120,11 @@
             </a>
             <ul class="nav nav-treeview" style="margin-left:10px">
               <li class="nav-item" >
-                <a href="<?php echo base_url();?>/adminlti/index.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class='bx bx-calendar-edit' style="color:red"></i>
 
                   <p>nnnnnnn</p>
 
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url();?>/adminlti/index2.html" class="nav-link">
-                  <i class='bx bxs-edit'></i>
-                  <p>nnnnnnn</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url();?>/adminlti/index3.html" class="nav-link">
-
-                  <i class='bx bxs-calendar-exclamation'></i>
-                  <p>nnnnnnnn</p>
                 </a>
               </li>
             </ul>
@@ -267,3 +150,20 @@
   </div>
   <!-- /.sidebar -->
 </aside>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var links = document.querySelectorAll('.nav-item');
+
+    links.forEach(function(link) {
+        link.addEventListener('click', function() {
+            // Eliminar la clase active de todos los elementos de menú
+            links.forEach(function(link) {
+                link.classList.remove('active');
+            });
+
+            // Agregar la clase active al elemento de menú actual
+            link.classList.add('active');
+        });
+    });
+});
+</script>

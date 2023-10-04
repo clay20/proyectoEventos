@@ -159,7 +159,7 @@
 
                             <select class="myImputField"  id="cargoId" name="cargo">
 
-                              <option></option>
+                             
                               <?php foreach ($cargo ->result() as $row) {
                                 ?>
 

@@ -35,17 +35,17 @@
 
 
 
-                         <h2><b>Iniciar sesion</b></h2>
+                         <h2><b>Iniciar sesión</b></h2>
 
                          <div class="input-box" id="idDivUsuario">
                             <span class="icon"><i class="fas fa-user"></i></span>
-                            <input type="text" id="usuario" name="usuario" onkeypress="return LetrasNumero(event)" minlength="5" maxlength="15" required  autofocus>
+                            <input type="text" id="usuario" name="usuario" onkeypress="return LetrasNumero(event)" minlength="1" maxlength="15" required  autofocus>
                             <label >Usuario</label>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="input-box" id="idDivPassword">
                               <span class="icon"><i class="fas fa-key"></i></span>
-                            <input type="password" name="password" id="password" minlength="8" maxlength="25" required >
+                            <input type="password" name="password" id="password" minlength="1" maxlength="25" required >
                             <label>Password</label>
                             <div class="invalid-feedback"></div>
 
@@ -53,11 +53,12 @@
 
                         <div class="forget-passs">
 
-                            <p><a  class="forgetPassword" href="#">Has olvidado la clave?</a></p>
+                            <p><a  class="forgetPassword" href="#">¿Has olvidado la clave?</a></p>
                         </div>
-                        <button type="submit" class="btn">Iniciar sesion</button>
+                        <button type="submit" class="btn">Iniciar sesión</button>
                         <div class="create-account">
-                            <p>Crear una cuenta nueva? <a href="#" class="register-link">crear</a></p>
+                            <!-- crear nueva cueentas -->
+                            <p> <a href="#" class="register-link"></a></p>
                         </div>
                         <div  id="alert"></div>
 
@@ -65,12 +66,12 @@
                 </div>
                 <div class="form-box forget d-flex justify-content-center mt-5">
                     <form action="">
-                       <h2><b>Olvidadeste tu contrasenia</b></h2>
+                       <h2><b>Olvidaste tu contraseña</b></h2>
 
                        <div class="input-box">
                         <span class="icon"><i class="fas fa-envelope"></i></span>
                         <input type="email" required>
-                        <label >Email</label>
+                        <label >email</label>
                     </div>
 
                     <button class="btn">Restablecer</button>

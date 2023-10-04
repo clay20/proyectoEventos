@@ -1,5 +1,4 @@
 
-
 <div class="wrapper" style="background: #C69F74;">
 
   <div class="content-wrapper"   style=" background-image: url('<?php echo base_url();?>/img/fondo.jpg');">
@@ -42,13 +41,13 @@
                             <tr>
                               <th>Nro</th>
                               <th>Producto/Servicio</th>
-                              <th>Medidad</th>
+                              <th>unidaMedida</th>
                               <th>Precio</th>
                               <th> Proveedor</th>
                               <th> Descriccion</th>
 
                               <th style="width:20px"><i class="fa-solid fa-file-pen fa-md text-warning  d-flex justify-content-center"></i></th>
-                              <th style="width:20px"><i class="fa-solid fa-trash fa-md text-danger d-flex justify-content-center"></i></th>
+                              <th style="width:20px"><i class="fa-solid fa-trash fa-md text-danger d-flex justify-content-center"  v></i></th>
                             </tr>
                           </thead>
                           <tbody  id="servicioT">
@@ -147,17 +146,24 @@
 
                           <div class=" col-12  d-flex  justify-content-center align-items-center p-0" >
                             <div class="col-12">
-                             <div class="row  d-flex" >
-                              <div  class="col-12 ">
+                             <div class="row d-flex" >
+                              <div  class="col-10">
 
                                 <div class="myBox">
-                                  <select class="myImputField" id="cargaProveedor" name="idProveedor">
+                                  <input class="myImputField " type="text" name="" list="cargaProveedor" >
 
-                                  </select>
+
+                                  <datalist  id="cargaProveedor" name="idProveedor">
+                                    
+                                  </datalist>
 
                                   <label class="mylabel" for="denominacion" >Proveedor</label>
                                 </div>
+                                 
                               </div>
+                               <div class="col-1 d-flex justify-content-center align-items-center" >
+              <button class="btnt-primary btn-lg"><i class="fa-solid fa-square-plus d-flex justify-content-center"></i></button>
+            </div>
 
                             </div>
                             <div class="row  d-flex" >

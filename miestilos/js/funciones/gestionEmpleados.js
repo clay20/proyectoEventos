@@ -176,9 +176,9 @@ $(document).on('click','.abilitarEmpleado', function(){
     $('#ci').val(json.ci);
     $('#sexo').val(json.sexo);
 
-    if (json.sexo === 'm') {
+    if (json.sexo == 'Femenino') {
     $("#radioF").prop("checked", true); // Selecciona el botón "Femenino"
-} else if (json.sexo === "f") {
+} else  {
     $("#radioM").prop("checked", true); // Selecciona el botón "Masculino"
 }
     $('#fechaNacimiento').val(json.fechaNacimiento);
@@ -186,11 +186,12 @@ $(document).on('click','.abilitarEmpleado', function(){
     $('#telefono').val(json.telefono);
     $('#fechaInicio').val(json.fechaInicio);
 
-    $("#cargoId option").filter(function() {
-      return $(this).text() === json.nombreCargo;
-    }).prop("selected", true);
 
+ $("#cargoId option").filter(function() {
+        return $(this).text() ===json.nombreCargo;
+      }).prop("selected", true);
     console.log(json.nombreCargo);
+
     $("#modificarEmpleado").modal("show");
   })
 
@@ -218,7 +219,7 @@ $(document).on('click','.abilitarEmpleado', function(){
           {
             console.log(json.msg);
           }
-        alert('hola');
+        
       },
 
       statusCode: {
