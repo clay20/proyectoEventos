@@ -150,10 +150,10 @@
                               <div  class="col-10">
 
                                 <div class="myBox">
-                                  <input class="myImputField " type="text" name="" list="cargaProveedor" >
+                                  <input class="myImputField " type="text" name="" list="cargaProveedor"  onchange="cargaId(this)">
 
-
-                                  <datalist  id="cargaProveedor" name="idProveedor">
+                                  <input type="hidden" id="idProveedor" name="idProveedor">
+                                  <datalist  id="cargaProveedor">
                                     
                                   </datalist>
 

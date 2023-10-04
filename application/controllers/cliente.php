@@ -38,7 +38,40 @@ class Cliente extends CI_Controller {
      	redirect('cliente/index','refresh');
 
 
+		}
+		public function nuevoCliente()//agregar cliente desde reservas
+
+	{
+			
+			
+
+			$data['nombre']=letraCapital(trim($_POST['nombre']));
+			$data['primerApellido']=letraCapital(trim($_POST['primerApellido']));
+			$data['segundoApellido']=letraCapital(trim($_POST['segundoApellido']));
+			$data['ci']=$_POST['ci'];
+			$data['celular']=$_POST['celular'];
+			$data['telefono']=$_POST['telefono'];			
+
+			$id= $this->cliente_model->nuevocliente($data);
+			if($id!=0){
+
+
+			$lista=$this->cliente_model->obtenerCliente($id);
+			// $listaArray = $lista->result_array();
+			$listaArray = $lista->row_array();
+			echo json_encode($listaArray);
+							
+			}else
+			{
+						echo json_encode(array('id'=>0));	
 			}
+
+		}
+
+
+
+
+
 		 public function modificar()
  		{
 
@@ -87,5 +120,16 @@ class Cliente extends CI_Controller {
 		$this->cliente_model->eliminarCliente($id,$data);
      redirect('cliente/index','refresh');
 	}
+	public function buscarCliente()
+	{
+	   	$valor=$_POST['valor'];
+ 				$lista=$this->cliente_model->buscarCliente($valor);
+				$listaArray = $lista->result_array();
+	// $listaArray = $lista->row_array();
+				echo json_encode($listaArray);
+	
+	}
+
+
 
 }

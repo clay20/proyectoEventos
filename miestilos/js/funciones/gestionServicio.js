@@ -198,3 +198,18 @@ function listarProveedores()//cargamo en la sellecion par combox
 
 
 //datos perosnales 
+//onchage de agregar proveedor
+function  cargaId(data) {
+ const idPro=document.getElementById('idProveedor');
+ const datalist =document.getElementById('cargaProveedor')
+ for (let i = 0; i < datalist.options.length; i++) {
+    if (datalist.options[i].value === data.value) {
+
+      id= datalist.options[i].getAttribute('idProveedor');
+         idPro.value=id
+  
+      break; 
+    }
+  }  
+  
+}
