@@ -1,5 +1,9 @@
 
 
+
+
+
+
 function validarNombre(nombre)
 {
 	//Patrón para el nombre
@@ -27,7 +31,6 @@ function email(email)
 	return resultado;
 }
 
-
 function soloLetras(e)
 {
 	var codigoCar=e.keyCode;	
@@ -39,6 +42,11 @@ function soloLetras(e)
 	else
 		return true;
 }
+
+
+
+
+
 function soloLetrasEspacio(e)
 {
 	var codigoCar=e.keyCode;	
