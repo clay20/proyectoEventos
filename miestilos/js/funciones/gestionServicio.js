@@ -68,11 +68,12 @@ function listarProveedores()//cargamo en la sellecion par combox
 
 
         
-        <td title="Editar"> 
-        <button type="submit" class="editarServicio btn btn-sm btnt-primary" data-target="#ModificarProveedor" ><i class="fa-solid fa-pen-to-square fa-lg text-warning"></i></button> 
-        </td>
-        <td title="Editar"> <button class="eliminarServicio btn btn-sm btnt-primary"><i class="fa-solid fa-trash  fa-lg text-danger"></i></button> </td>
-        </tr>
+        <td colSpan="2"> 
+        <div class ="row">
+        <button title="Editar"  type="submit" class="editarServicio btn btn-sm btnt-primary" data-target="#ModificarProveedor" ><i class="fa-solid fa-pen-to-square fa-lg text-warning"></i></button> 
+       <button title="Eliminar"  class="eliminarServicio btn btn-sm btnt-primary"><i class="fa-solid fa-trash  fa-lg text-danger"></i></button>
+        </div></td>
+       </tr>
         `
         i++;
       });
@@ -80,6 +81,8 @@ function listarProveedores()//cargamo en la sellecion par combox
     }
   });
  }//fin lista servicions
+
+//68522817
 
 //eliminar empleados 
  $(document).on('click','.eliminarServicio', function(){

@@ -80,10 +80,20 @@
             <!-- Sección para el nombre del evento -->
             <div class="col-12">
               <div class="myBox">
-                <input class="myImputField form-control" type="text" placeholder="Ej.Cena Graduación Compromiso Matrimonio..." autofocus autocomplete="off">
+                <input class="myImputField form-control" list="listaEventos" type="text" placeholder="Ej.Cena Graduación Compromiso Matrimonio..." autofocus autocomplete="off">
                 <label class="mylabel">Nombre del evento</label>
               </div>
             </div>
+            <datalist id="listaEventos">
+              <option>Matrimonio</option>
+              <option>15 años</option>
+              <option>Graduaciones</option>
+              <option>Bautizos</option>
+              <option>Cumpleaños</option>
+
+
+
+            </datalist>
 
             <!-- Sección para la capacidad y detalles del evento -->
             <div class="col-12">
@@ -94,7 +104,7 @@
                   maximo<input type="text" name="" value="400" disabled style="width: 40px; height: 25px;">
                 </div>
                 <div class="col-lg-12 col-md-4 col-4 d-flex justify-content-center">
-                  Nro Invitados<input type="number" name="" value="" style="width: 40px; height: 25px;">
+                  Nro Invitados<input type="text" name="" onkeypress="return soloNumero(event)" maxlength="3" minlength="1"   value="" style="width: 40px; height: 25px;">
                 </div>
 
                
@@ -174,58 +184,45 @@
             </div>
           </div>
 
-          <table class="p-1" rules="all" width="100%">
-            <thead class="bgt-primary">
-              <tr>
-                <tr>
-    <th style="text-align: center;"><small>Nom. Servicio</small></th>
-    <th style="text-align: center;"><small>Cant.</small></th>
-    <th style="text-align: center;"><small>Precio</small></th>
-    <th style="text-align: center;"><small>Total</small></th>
-    <th style="text-align: center;"><small>Descuento</small></th>
-    <th style="width:10px"></th>
-  </tr>
-              </thead>
-              <tbody id="servicioDetalle">
-                <tr>
-                  <td>Salon</td>
-                  <td style="text-align:right;"><input type="number" name="" style="width:40px ;height: 20px;" value="1" disabled></td>
-                  <td style="text-align:right;">3000</td>
-                  <td style="text-align:right;">2000</td>
-                  <td style="text-align:right;"><input class=""   type="number" name="" style="width:40px ;height: 20px;" value="10"></td>
+     <table class="p-1" rules="all" width="100%">
+  <thead class="bgt-primary">
+    <tr>
+      <th style="text-align: center;"><small>Nom. Servicio</small></th>
+      <th style="text-align: center;"><small>Cant.</small></th>
+      <th style="text-align: center;"><small>Precio(Bs)</small></th>
+      <th style="text-align: center;"><small>inporte(Bs)</small></th>
+      <th style="text-align: center;"><small>Descuento(Bs)</small></th>
+      <th style="width:10px"></th>
+    </tr>
+  </thead>
+  <tbody id="servicioDetalle" class="servicioDetalle">
+    <tr servicioId=0>
+      <td>Salon de Eventos</td>
+      <td style="text-align:right;"><input type="number" name="" id="cant1" style="width:40px ;height: 20px;" value="1" disabled></td>
+      <td style="text-align:right;">3000.00</td>
+      <td style="text-align:right;">3000.00</td>
+       <td style="text-align:right;"><input type="text"  id="" onkeypress="return soloNumero(event)"  class="" name=""  value="0.00"  style="width:80px; height: 20px; font: 10px; text-align: right;">bs.</td>
+      <td><button class="btn btn-sm text-danger p-1" disabled><i class="fa-solid fa-circle-minus fa-lg"></i></button></td>
+    </tr>
+  </tbody>
+  <tfoot class="bgt-primary">
+    <tr>
+      <th colspan="3"><small>Total general</small></th>
+      <td style="text-align:right;"><input type="text"  id="total" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right;" disabled>bs.</td>
+      <td style="text-align:right;"><input type="text"  id="descuento" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right;" disabled>bs.</td>
+    </tr>
+    <tr>
+      <td colspan="3"><small>Monto adelantado</small></td>
+      <th style="text-align:right;"><input type="text"  id="montoAdelantado" onkeypress="return soloNumero(event)"  class="" name=""  value="0.00"  style="width:80px; height: 20px; font: 10px; text-align: right;">bs.</th>
+    </tr>
+    <tr>
+      <th colspan="3"><small>Saldo a pagar</small></th>
+      <th style="text-align:right;"><input type="text"  id="saldoPagar" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right;" disabled>bs.</th>
+    </tr>
+  </tfoot>
+</table>
 
-                  <td><button class="btn btn-sm text-danger p-1" disabled><i class="fa-solid fa-circle-minus fa-lg"></i></button></td>
-                </tr>
-                 
 
-
-
-              </tbody>
-              <tfoot class="bgt-primary">
-               <tr>
-                <th colspan ="3"><small>Total general</small> </th>
-
-                <td style="text-align:right;">3000 Bs</td>
-                <th></th>
-
-              </tr>
-              <tr>
-                <td colspan ="3"><small>Monto adelantado</small> </td>
-
-                <th style="text-align:right;">1000 Bs</th>
-                
-
-              </tr>
-              <tr>
-                <th colspan ="3"><small>Saldo a pagar</small> </th>
-
-                <th style="text-align:right;">2000 Bs</th>
-               
-
-              </tr>
-
-            </tfoot>
-          </table>
 
         </div>
       </section>
@@ -517,7 +514,9 @@
 
     $("#modalAddEvent").modal({backdrop:"static"});
       mensaje();
-      ListaServicio()
+      ListaServicio();
+     actualizarPrecio();
+
 
 
   }
@@ -555,6 +554,8 @@ function mensaje(){
                 `
               });
               $('#listaCliente').html(template); 
+     actualizarPrecio();
+
             }
           } 
         })
@@ -659,22 +660,20 @@ function ListaServicio()
       
       let servicio= JSON.parse(response);
       let template= "";
-      
+      console.log(servicio);
       servicio.forEach(servicio=>{
         template+=`
         <option servicioId=${servicio.id}
         
 
-        value=${servicio.nombre}
-        nombre=${servicio.nombre}
+        value="${servicio.nombre}"
+        nombre="${servicio.nombre}"
 
         medida = ${servicio.medida}
         precio= ${servicio.precio} >
         ${servicio.descriccion+' '+servicio.proveedor}
         </option>
-
         `
-      
       });
       $('#listaServicio').html(template); 
     }
@@ -687,38 +686,129 @@ function seleccionarServicio(data) {
 
   for (let i = 0; i < datalist.options.length; i++) {
     if (datalist.options[i].value === data.value) {
-      id = datalist.options[i].getAttribute('clienteId');
+      id = datalist.options[i].getAttribute('servicioId');
       precio = datalist.options[i].getAttribute('precio');
       servicio = datalist.options[i].getAttribute('nombre');
+      if(!verificaExiste(id)){
 
+
+
+    
       let template = "";
-
-   
         template += `
         <tr servicioId=${id}>
-          <td>${servicio}</td>
-          <td style="text-align:right;"><input type="number" name="" style="width:40px ;height: 20px;" value="1"></td>
+          <td><small> ${servicio}</small></td>
+          <td style="text-align:right;"><input type="text" id="cant1" onkeypress="return soloNumero(event)"   name="" minlength="1" maxlength="3"  style="width:40px ;height: 20px;" value="1"></td>
           <td style="text-align:right;">${precio}</td>
-          <td style="text-align:right;">${'34234'}</td>
-          <td style="text-align:right;"><input class="" type="number" name="" style="width:40px ;height: 20px;" value="10"></td>
+          <td style="text-align:right;">${precio}</td>
+           <td style="text-align:right;"><input type="text"  onkeypress="return soloNumero(event)" id="descuento" class="" name=""  value="0.00"  style="width:80px; height: 20px; font: 10px; text-align: right;">bs.</td>
           <td><button class="btn btn-sm text-danger p-1 btnEliminarFila"><i class="fa-solid fa-circle-minus fa-lg"></i></button></td>
         </tr>`;
-      
-
       // Agregar las filas a la tabla usando append
       // $('#servicioDetalle').html('');  // Limpiar contenido anterior
       $('#servicioDetalle').append(template);
-     
-       buscarServicio.value="";
+       
+      }
+      else
+      {
+         alert('el servicio ya esta agregado');
+         // swal("", 'el servicio ya existe agregado por favor agregar mas antiad' "warning");
+      }
+      buscarServicio.value="";
+    actualizarPrecio();
+       
       break;
     }
   }
 }
 
+
+function verificaExiste(idSe) {
+    var total = 0;
+    var ban=false;
+    $(".servicioDetalle tr").each(function () {
+        total = total + Number($(this).find("td:eq(3)").text());
+        let id = $(this).attr('servicioId');
+        if (id == idSe) {
+            // Hacer algo si existe el elemento con el ID específico
+            console.log("Elemento encontrado con ID:"+idSe);
+            ban=true;
+        }
+    });
+        return ban;
+
+}
+
+  
+
+  
+
+
+
 $(document).on('click', '.btnEliminarFila', function() {
   // Obtener la fila padre y eliminarla
   $(this).closest('tr').remove();
+      actualizarPrecio();
+
 });
+
+
+
+   $(document).on("keyup", ".servicioDetalle #cant1", function () {
+      cant = Number($(this).val());
+      precio = Number($(this).closest("tr").find("td:eq(2)").text());
+      // stock = Number($(this).closest("tr").find("td:eq(3)").text());
+         if (!Number.isInteger(cant) || cant >= 300) {
+                $(this).addClass("is-invalid");
+                $(this).closest("tr").find("td:eq(5)").text(0);
+                actualizarPrecio();
+            } else {
+                $(this).removeClass("is-invalid");
+                importe = cant*precio;
+                $(this).closest("tr").find("td:eq(3)").text(importe.toFixed(2));
+                actualizarPrecio();
+            }
+      
+      // alert(cant+' precio'+precio);
+    });
+function actualizarPrecio() {
+    var total = 0;
+    var descuentoTotal = 0;
+
+    $(".servicioDetalle tr").each(function () {
+        total += Number($(this).find("td:eq(3)").text());
+        descuentoTotal += Number($(this).find("td:eq(4) input").val());
+    });
+
+    // alert(total);
+    // Actualizar campos en el DOM
+    $("#total").val(total.toFixed(2));
+    $("#descuento").val(descuentoTotal.toFixed(2));
+
+    var valorMontoAdelantado = $("#montoAdelantado").val();
+    total -= valorMontoAdelantado;
+    $("#saldoPagar").val(total.toFixed(2));
+
+}
+$(document).on('keyup', '#montoAdelantado', function () {
+    var total = parseFloat($("#total").val()) || 0;
+    var valorMontoAdelantado = parseFloat($(this).val()) || 0;
+
+    if (total >= valorMontoAdelantado) {
+        var saldo = total - valorMontoAdelantado;
+        $("#saldoPagar").val(saldo.toFixed(2));
+        $(this).css("border-bottom-color", ""); // Restaurar el color del borde inferior si cumple la condición
+    } else {
+        console.error('El monto a pagar no debe ser mayor al total.');
+        $(this).css("border-bottom-color", "red"); // Cambiar el color del borde inferior a rojo si no cumple
+    }
+
+    actualizarPrecio();
+});
+
+
+
+
 
 
 
