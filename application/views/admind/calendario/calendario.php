@@ -54,7 +54,7 @@
   <!-- ./wrapper -->
 
   <div class="modal modal-primary" id="modalAddEvent" aria-hidden="true"  >
-    <div class="modal-dialog modal-lg" >
+    <div class="modal-dialog modal-xl" >
       <div class="modal-content" style="background:rgba(251, 214, 169, .9);">
         <div class="modal-header  p-2 m-0  bgt-primary" >
           <div class="container">
@@ -113,6 +113,7 @@
               <div class="col-12 d-flex justify-content-start">
 
                 Horas contratadas: <span id="numberHrs">1</span>
+                <input type="range" name="">
               </div>
               <div class=" col-lg-12 col-md-6 col-sm-6 d-flex" style="background: red;">
 
@@ -121,7 +122,7 @@
 
                 </div>
                 <div class="col-6">
-                  <input type="text" id="startH" value="10:00 PM" style="width:80px">
+                  <input type="time" id="startH" value="10:00" style="width:80px">
 
                 </div>
               </div>
@@ -134,7 +135,7 @@
 
                 </div>
                 <div class="col-6">
-                  <input type="text" value="11:00 PM" disabled="" style="width:80px">
+                  <input type="time" value="11:00" disabled="" style="width:80px">
 
                 </div>
               </div>
@@ -758,10 +759,12 @@ $(document).on("keyup", ".servicioDetalle #cant1", function () {
   cant = Number($(this).val());
   precio = Number($(this).closest("tr").find("td:eq(2)").text());
       // stock = Number($(this).closest("tr").find("td:eq(3)").text());
-  if (!Number.isInteger(cant) || cant >= 300) {
+
+  if (!Number.isInteger(cant) || cant >= 400) {
     $(this).addClass("is-invalid");
     $(this).closest("tr").find("td:eq(5)").text(0);
     actualizarPrecio();
+    console.log("la cantidad deve ser menor ");
   } else {
     $(this).removeClass("is-invalid");
     importe = cant*precio;
@@ -776,6 +779,10 @@ $(document).on("keyup", ".servicioDetalle #cant1", function () {
   
     actualizarPrecio();
   });
+
+
+
+
 function actualizarPrecio() {
   var total = 0;
   var descuentoTotal = 0;
@@ -798,6 +805,9 @@ function actualizarPrecio() {
   $("#saldoPagar").val(totalPagar.toFixed(2));
 
 }
+
+
+
 
 $(document).on('keyup', '#montoAdelantado', function () {
   var total = parseFloat($("#total").val()) || 0;
