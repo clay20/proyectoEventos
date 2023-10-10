@@ -90,9 +90,6 @@
             <option>Graduaciones</option>
             <option>Bautizos</option>
             <option>Cumpleaños</option>
-
-
-
           </datalist>
 
           <!-- Sección para la capacidad y detalles del evento -->
@@ -115,30 +112,30 @@
                 Horas contratadas: <span id="numberHrs">1</span>
                 <input type="range" name="">
               </div>
-              <div class=" col-lg-12 col-md-6 col-sm-6 d-flex" style="background: red;">
+              <div class=" col-l2" style="background: red;">
 
-                <div class="col-6">
-                  <label>Hora Inicio</label>
+             
+                
+                
+                   <div class="col-6 col-sm-6 col-lg-6 col-md-6">
+                       <small>Hora Inicio</small> <input type="time" id="startH" value="10:00" style="width:80px">
+                  </div>
+                 
 
+                
+                <div class="col-6 col-sm-6 col-lg-6 col-md-6">
+                 <small>Hora Fin</small> <input type="time" value="11:00" disabled="" style="width:80px">
                 </div>
-                <div class="col-6">
-                  <input type="time" id="startH" value="10:00" style="width:80px">
+                 
+          
 
-                </div>
               </div>
 
 
-              <div class="col-lg-12 col-md-6 col-sm-6 d-flex" >
+  
 
-                <div class="col-6">
-                  <label>Hora Fin</label>
-
-                </div>
-                <div class="col-6">
-                  <input type="time" value="11:00" disabled="" style="width:80px">
-
-                </div>
-              </div>
+               
+              
             </div>
 
           </div>
@@ -179,6 +176,22 @@
             <datalist id="listaServicio">
 
             </datalist>
+
+
+
+
+            <input type="text" name="" list="listprueba">
+            <datalist id="listprueba">
+              <option>fsdfsfds</option>
+              
+
+            </datalist>
+
+
+
+
+
+
           </div>
           <div class="col-1 d-flex justify-content-center align-items-center" >
             <button class="btnt-primary btn-sm" disabled ><i class="fa-solid fa-magnifying-glass fa-sm"></i></button>
@@ -188,7 +201,8 @@
         <table class="p-1" rules="all" width="100%">
           <thead class="bgt-primary">
             <tr>
-              <th style="text-align: center;"><small>Nom. Servicio</small></th>
+              <th style="text-align: center;"><small>Nombre Servicio</small></th>
+              <th style="text-align: center;"><small>Fecha</small></th>
               <th style="text-align: center;"><small>Cant.</small></th>
               <th style="text-align: center;"><small>Precio(Bs)</small></th>
               <th style="text-align: center;"><small>inporte(Bs)</small></th>
@@ -199,6 +213,8 @@
           <tbody id="servicioDetalle" class="servicioDetalle">
             <tr servicioId=0>
               <td>Salon de Eventos</td>
+        <td style="text-align:right;"><input type="date" disabled /></td>
+
               <td style="text-align:right;"><input type="number" name="" id="cant1" style="width:40px ;height: 20px;" value="1" disabled></td>
               <td style="text-align:right;">3000.00</td>
               <td style="text-align:right;">3000.00</td>
@@ -208,22 +224,22 @@
           </tbody>
           <tfoot class="bgt-primary">
              <tr>
-              <th colspan="3"><small>Total</small></th>
+              <td colspan="4"><small>Total</small></td>
               <td style="text-align:right;"><input type="text"  id="total" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right;" disabled>bs.</td>
               <td style="text-align:right;"><input type="text"  id="descuento" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right;" disabled>bs.</td>
             </tr>
             <tr>
-              <th colspan="3"><small>Total a Pagar</small></th>
+              <td colspan="4"><small>Total a Pagar</small></td>
               <td style="text-align:right;"><input type="text"  id="totalPagar" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right;" disabled>bs.</td>
              
             </tr>
             <tr>
-              <td colspan="3"><small>Monto adelantado</small></td>
-              <th style="text-align:right;"><input type="text"  id="montoAdelantado" onkeypress="return soloNumero(event)"  class="" name=""  value="0.00"  style="width:80px; height: 20px; font: 10px; text-align: right;">bs.</th>
+              <td colspan="4"><small>Monto adelantado</small></td>
+              <td style="text-align:right;"><input type="text"  id="montoAdelantado" onkeypress="return soloNumero(event)"  class="" name=""  value="0.00"  style="width:80px; height: 20px; font: 10px; text-align: right;">bs.</td>
             </tr>
             <tr>
-              <th colspan="3"><small>Saldo a pagar</small></th>
-              <th style="text-align:right;"><input type="text"  id="saldoPagar" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right;" disabled>bs.</th>
+              <th colspan="4"><small>Saldo a pagar</small></th>
+              <td style="text-align:right;"><input type="text"  id="saldoPagar" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right;" disabled>bs.</td>
             </tr>
           </tfoot>
         </table>
@@ -699,6 +715,7 @@ function seleccionarServicio(data) {
         template += `
         <tr servicioId=${id}>
         <td><small> ${servicio}</small></td>
+        <td style="text-align:right;"><input type="date"/></td>
         <td style="text-align:right;"><input type="text" id="cant1" onkeypress="return soloNumero(event)"   name="" minlength="1" maxlength="3"  style="width:40px ;height: 20px;" value="1"></td>
         <td style="text-align:right;">${precio}</td>
         <td style="text-align:right;">${precio}</td>
@@ -725,10 +742,8 @@ function seleccionarServicio(data) {
 
 
 function verificaExiste(idSe) {
-  var total = 0;
   var ban=false;
   $(".servicioDetalle tr").each(function () {
-    total = total + Number($(this).find("td:eq(3)").text());
     let id = $(this).attr('servicioId');
     if (id == idSe) {
             // Hacer algo si existe el elemento con el ID específico
@@ -757,20 +772,22 @@ $(document).on('click', '.btnEliminarFila', function() {
 
 $(document).on("keyup", ".servicioDetalle #cant1", function () {
   cant = Number($(this).val());
-  precio = Number($(this).closest("tr").find("td:eq(2)").text());
+  precio = Number($(this).closest("tr").find("td:eq(3)").text());
       // stock = Number($(this).closest("tr").find("td:eq(3)").text());
 
   if (!Number.isInteger(cant) || cant >= 400) {
     $(this).addClass("is-invalid");
-    $(this).closest("tr").find("td:eq(5)").text(0);
+    // $(this).closest("tr").find("td:eq(5)").text(0);
     actualizarPrecio();
     console.log("la cantidad deve ser menor ");
+    $(this).val(400);
   } else {
     $(this).removeClass("is-invalid");
     importe = cant*precio;
-    $(this).closest("tr").find("td:eq(3)").text(importe.toFixed(2));
+    $(this).closest("tr").find("td:eq(4)").text(importe.toFixed(2));
     actualizarPrecio();
   }
+
 
 });
 
@@ -788,8 +805,8 @@ function actualizarPrecio() {
   var descuentoTotal = 0;
 
   $(".servicioDetalle tr").each(function () {
-    total += Number($(this).find("td:eq(3)").text());
-    descuentoTotal += Number($(this).find("td:eq(4) input").val());
+    total += Number($(this).find("td:eq(4)").text());
+    descuentoTotal += Number($(this).find("td:eq(5) input").val());
   });
 
     // alert(total);

@@ -71,7 +71,7 @@ class Proveedor extends CI_Controller {
 				$data['celular']=$_POST['telefonoM'];
 				$data['latitud']=$_POST['latitudM'];
 				$data['longitud']=$_POST['longitudM'];
-				$data['idUsuario']=$this->session->userdata('idUsuario');
+				// $data['idUsuario']=$this->session->userdata('idUsuario');
 			
 				$nro=$this->proveedor_model->modificarProveedordb($data,$id);
 				if ($nro>0) {
