@@ -25,27 +25,33 @@
               <div class="card-header p-0 ">
 
                 <ul class="nav nav-pills p-0 " style="background:rgba(0, 0, 0, .4);">
-                  <li class="nav-item"><a class="nav-link active" href="#listaServicios" data-toggle="tab">Servicios</a></li>
-                  <li class="nav-item"><a class=" nav-link " href="#agregarServicios" data-toggle="tab">Agregar</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#listaServicios" id="listaServicioLink" data-toggle="tab">Servicios</a></li>
+                  <li class="nav-item"><a class=" nav-link " href="#agregarServicios" id="agregarServiciolink" data-toggle="tab">Agregar</a></li>
                 </ul>
               </div><!-- /.card-header -->
-              <div class="card-body">
-                <div class="tab-content">
+              <div class="card-body m-0 p-0">
+                <div class="tab-content m-0 p-0">
                   <div class="tab-pane active" id="listaServicios">
                     <!-- Post -->
-
+                     <div class=" d-flex justify-content-end m-0 p-0" >
+                      <div class="myBox">
+                        
+                      <input class="myImputField form-control-sm" type="text" id="buscarCliente" name="" maxlength="18">
+                      <label class="mylabel-icon"><i class="fas fa-search"></i></label>
+                      </div>
+                    </div>
                     <div style="height: 60vh; overflow-y: auto;">
-                      <div class="card-body">
+                      <div class="card-body m-0 p-0" >
                         <table id="example11" class="table table-sm  " rules="rows">
                           <thead>
                             <tr>
                               <th>Nro</th>
-                              <th>Producto/Servicio</th>
-                              <th>unidaMedida</th>
+                              <th>Servicios</th>
+                              <th>unidad Medida</th>
                               <th>Precio</th>
-                              <th> Proveedor</th>
+                                <th>Cant.Maxima</th>
                               <th> Descriccion</th>
-
+                               
                               <th colspan="2" style="width:20px">acciones</th>
 
                             </tr>
@@ -87,14 +93,18 @@
                               <div class="row " >
                                 <div  class="col-12 ">
                                   <div class="myBox">
-                                    <input class=" myImputField" type="text" id="medida" name="medida" value="" onkeypress="return LetrasNumero(event)" minlength="2" maxlength="50" required autofocus>
+                                    <select class=" myImputField" type="text" id="medida" name="medida" value="" onkeypress="return LetrasNumero(event)" minlength="2" maxlength="50" required autofocus>
+                                       <option>dia</option>
+                                      <option>persona</option>
+                                    </select>
 
                                     <label class="mylabel" for="medida" >Unidad Medida</label>
+                                   
                                   </div>
                                 </div>
                                 <div  class="col-12 ">
                                   <div class="myBox">
-                                    <input class=" myImputField" type="text" id="precio" name="precio" value="" onkeypress="return LetrasNumero(event)" minlength="2" maxlength="50" required autofocus>
+                                    <input class=" myImputField" type="text" id="precio" name="precio" value="" onkeypress="return soloNumeroPunto(event)" minlength="2" maxlength="50" required autofocus>
 
                                     <label class="mylabel" for="precio" >Precio</label>
                                   </div>
@@ -102,7 +112,7 @@
                                 <div class="row  d-flex " >
                                   <div  class="col-12 ">
                                     <div class="myBox">
-                                      <input class=" myImputField" type="text" id="descripcion" name="descripcion"  onkeypress="return soloLetrasEspacio(event)" minlength="2" maxlength="75" required autofocus>
+                                      <input class=" myImputField" type="text" id="descripcion" name="descripcion"  onkeypress="return soloLetrasEspacio(event)" minlength="1" maxlength="200" required autofocus>
                                       <label class="mylabel" for="descripcion" >Descriccion</label>
                                     </div>
                                   </div>
@@ -146,26 +156,7 @@
 
                           <div class=" col-12  d-flex  justify-content-center align-items-center p-0" >
                             <div class="col-12">
-                             <div class="row d-flex" >
-                              <div  class="col-10">
-
-                                <div class="myBox">
-                                  <input class="myImputField " type="text" name="" list="cargaProveedor"  onchange="cargaId(this)" required>
-
-                                  <input type="hidden" id="idProveedor" name="idProveedor">
-                                  <datalist  id="cargaProveedor">
-
-                                  </datalist>
-
-                                  <label class="mylabel" for="denominacion" >Proveedor</label>
-                                </div>
-
-                              </div>
-                              <div class="col-1 d-flex justify-content-center align-items-center" >
-                                <button class="btnt-primary btn-lg"><i class="fa-solid fa-square-plus d-flex justify-content-center"></i></button>
-                              </div>
-
-                            </div>
+                           
                             <div class="row  d-flex" >
                               <div  class="col-12 ">
                                 <div class="myBox">
@@ -178,7 +169,7 @@
                             <div class="row " >
                               <div  class="col-12 ">
                                 <div class="myBox">
-                                  <input class=" myImputField" type="text" id="descripcion" name="descripcion"  onkeypress="return soloLetrasEspacio(event)" minlength="2" maxlength="25" required autofocus>
+                                  <input class=" myImputField" type="text" id="descripcion" name="descripcion"  onkeypress="return soloLetrasEspacio(event)" minlength="2" maxlength="225" required autofocus>
                                   <label class="mylabel" for="descripcion" >Descriccion</label>
                                 </div>
                               </div>
@@ -186,16 +177,24 @@
                             <div class="row " >
                               <div  class="col-12 ">
                                 <div class="myBox">
-                                  <input class=" myImputField" type="text" id="medida" name="medida" value="" onkeypress="return LetrasNumero(event)" minlength="2" maxlength="50" required autofocus>
+                                  <select class=" myImputField" type="text" id="medida" name="medida" value="" onkeypress="return LetrasNumero(event)" minlength="2" maxlength="50" required autofocus><option>dia</option>
+                                      <option selected>persona</option></select>
 
                                   <label class="mylabel" for="medida" >Unidad Medida</label>
                                 </div>
                               </div>
                               <div  class="col-12 ">
                                 <div class="myBox">
-                                  <input class=" myImputField" type="text" id="precio" name="precio" value="" onkeypress="return LetrasNumero(event)" minlength="2" maxlength="50" required autofocus>
+                                  <input class=" myImputField" type="text" id="precio" name="precio" value="" onkeypress="return LetrasNumero(event)" minlength="1" maxlength="5" required autofocus>
 
                                   <label class="mylabel" for="precio" >Precio</label>
+                                </div>
+                              </div>
+                               <div  class="col-12 ">
+                                <div class="myBox">
+                                  <input class=" myImputField" type="text" id="maximo" name="maximo" value="" onkeypress="return soloNumero(event)" minlength="1" maxlength="3" required autofocus>
+
+                                  <label class="mylabel" for="maximo" >Cantidad Maxima Servicio</label>
                                 </div>
                               </div>
                             </div> 

@@ -45,10 +45,15 @@ $(document).ready(function(){
         <td  class="d-none d-md-table-cell d-lg-table-cell">${usuario.email}</td>
         <td>${usuario.nombreUsuario}</td>
         <td>${usuario.rol}</td>
-        <td title="Editar"> 
-        <button type="submit" class="editaUsuario btn btn-sm btnt-primary" ><i class="fa-solid fa-pen-to-square fa-lg text-warning"></i></button> 
+        <td class="d-flex justify-content-center" > 
+
+           <button type="submit" class="editaUsuario btn btn-sm btnt-primary" title="Editar" ><i class="fa-solid fa-pen-to-square fa-lg text-warning"></i></button> 
+         <button class="eliminarUsuario btn btn-sm btnt-primary" title="Eliminar"><i class="fa-solid fa-trash  fa-lg text-danger"></i></button> 
+
+        
+          
         </td>
-        <td title="Eliminar"> <button class="eliminarUsuario btn btn-sm btnt-primary"><i class="fa-solid fa-trash  fa-lg text-danger"></i></button> </td>
+
         </tr>
         `
       });
@@ -79,10 +84,13 @@ $(document).ready(function(){
             <td  class="d-none d-md-table-cell  d-lg-table-cell">${usuario.email}</td>
             <td>${usuario.nombreUsuario}</td>
             <td>${usuario.rol}</td>
-            <td title="Editar"> 
-            <button type="submit" class="editaUsuario btn btn-sm btnt-primary" ><i class="fa-solid fa-pen-to-square fa-lg text-warning"></i></button> 
-            </td>
-            <td title="Eliminar"> <button class="eliminarUsuario btn btn-sm btnt-primary"><i class="fa-solid fa-trash  fa-lg text-danger"></i></button> </td>
+             <td  class="d-flex justify-content-center"> 
+      <button type="submit" class="editaUsuario btn btn-sm btnt-primary" title="Editar" ><i class="fa-solid fa-pen-to-square fa-lg text-warning"></i></button> 
+     
+         <button class="eliminarUsuario btn btn-sm btnt-primary" title="Eliminar"><i class="fa-solid fa-trash  fa-lg text-danger"></i></button> 
+
+          
+        </td>
             </tr>
             `
           });
@@ -203,81 +211,10 @@ $(document).ready(function(){
 })
 
 
-  $('#ci').keyup(function() {//buscamo al empledo para signiar un usuario
-
-    if($('#ci').val()) {
-      let valor = $('#ci').val();
-      $.ajax({
-          url:'../empleado/empleadoBuscarUsuario',// tenesmo ir dirento ala controlador de model usuario desde air llmaar
-          data: {valor},
-          type: 'POST',
-          success: function (response) {
-            if(!response.error) {
-              let emp= JSON.parse(response);
-              console.log(emp);
-              let template= "";
-              emp.forEach(emp=>{
-                template+=`
-                <option 
-                empId=${emp.id}                 
-                value="${emp.ci}" 
-                nombre="${emp.nombre}"
-                primerApellido='${emp.primerApellido}'
-                segundoApellido='${emp.segundoApellido}'
-                fechaNacimiento='${emp.fechaNacimiento}'
-                sexo='${emp.sexo}'>
-                ${emp.nombre+' '+emp.primerApellido}
-                </option>
-                `
-              });
-              $('#informacion').html(template); 
-            }
-          } 
-        })
-    }
-  });
+ 
 
 
 
-
-$(document).on('dblclick','.datosFormularioAgregarUsuario',function(){// modificaionde datos a nivel general
-  let element =$(this)[0].parentElement.parentElement;
-  let id= $(element).attr('empId');
-  console.log(id);
-  $.post('../empleado/datoEmpleado',{id},function(response){
-
-    var json=JSON.parse(response);
-    // console.log(json.email);
-    listarUsuario();
-    $('#aux').val(1);
-    $('#idE').val(json.id);
-    $('#nombre').val(json.nombre).prop('disabled',true);
-    $('#nombreUsuario').val(json.nombre);
-
-    $('#primerApellido').val(json.primerApellido).prop('disabled',true);
-    $('#segundoApellidoD').val(json.segundoApellido).prop('disabled',true);
-    $('#ci').val(json.ci).prop('disabled',true);
-    $('#fechaNacimiento').val(json.fechaNacimiento).prop('disabled',true);
-    $('#email').focus();
-
-    $('#limpiar').prop('disabled',false);
-
-      // $('#rolId').val(1);
-
-    if(json.sexo==="Femenino"){
-      $('#radioFm').prop(checked,true );
-
-      alert('femeni');
-    }
-    if(json.sexo==="Masculino"){
-     aLast('masc');
-     $('#radioMm').checked=true;
-
-   }
-
- })
-
-})
 
 
 function limpiarFormularioAgregar() {
@@ -306,7 +243,7 @@ function limpiarFormularioAgregar() {
   $(document).on('click','.editaUsuario',function(){// modificacion de datos personales
     let element =$(this)[0].parentElement.parentElement;
     let id= $(element).attr('usuarioId');
-    console.log(id);
+
     $.post('../usuario/modifiaDatosUsuarioa',{id},function(response){
 
       var json=JSON.parse(response);
@@ -446,53 +383,3 @@ function limpiarFormularioAgregar() {
 }); //cierre de documentos 
 
 
-//agre un usuario para empleado persona
-
-function funcionmodificar(data) {
-  const datalist = document.getElementById('informacion')                  
-  const inputci=document.getElementById('ci');
-  const inputnombre=document.getElementById('nombre');
-  const inputprimerApellido=document.getElementById('primerApellido');
-  const inputsegundoApellido=document.getElementById('segundoApellido');
-  const inputfechaNacimiento=document.getElementById('fechaNacimiento');
-  const inputF=document.getElementById('radioFm');
-  const inputM=document.getElementById('radioMm');
-  const btnlimpiar=document.getElementById('limpiar');
-  const inputnombreUsuario=document.getElementById('nombreUsuario');
-  
-
-
-  for (let i = 0; i < datalist.options.length; i++) {
-    if (datalist.options[i].value === data.value) {
-
-      inputci.disabled=true;
-      id= datalist.options[i].getAttribute('empId');
-      nombre= datalist.options[i].getAttribute('sexo');
-      
-      inputnombre.value=datalist.options[i].getAttribute('nombre');
-      inputnombre.disabled=true;
-      inputprimerApellido.value=datalist.options[i].getAttribute('primerApellido');
-      inputprimerApellido.disabled=true;
-      inputsegundoApellido.value=datalist.options[i].getAttribute('segundoApellido');
-      inputsegundoApellido.disabled=true;
-      inputfechaNacimiento.value=datalist.options[i].getAttribute('fechaNacimiento');
-      inputfechaNacimiento.disabled=true;
-      sexo=datalist.options[i].getAttribute('sexo');
-      inputnombreUsuario.value=datalist.options[i].getAttribute('nombre');
-
-      document.getElementById('aux').value=1;
-      document.getElementById('idE').value=id;
-      document.getElementById('emailA').focus();
-      if(sexo==='Femenino'){
-
-        inputF.checked=true;
-      }else
-      {
-        inputM.checked=true;
-      }
-      btnlimpiar.disabled=false;
-      break; 
-    }
-  }                             
-}
-//datos perosnales 

@@ -69,18 +69,22 @@
          </div>
        </div>
      </div>
+<script type="text/javascript">
+ 
+   
 
+</script>
 
 
 
      <div class="modal-body mx-1 p-1 fgt-secondary">
-      <section class="row p-1" >
+      <section class="row p-0" >
         <div class="col-sm-12 col-lg-4" >
-         <section class="row">
+         <section class="row" style="background:rgba(251, 214, 169, .4);">
           <!-- Sección para el nombre del evento -->
-          <div class="col-12">
+          <div class="col-12" >
             <div class="myBox">
-              <input class="myImputField form-control" list="listaEventos" type="text" placeholder="Ej.Cena Graduación Compromiso Matrimonio..." autofocus autocomplete="off">
+              <input class="myImputField form-control form-control-sm" list="listaEventos" type="text" placeholder="Ej.Cena Graduación Compromiso Matrimonio..." autofocus autocomplete="off">
               <label class="mylabel">Nombre del evento</label>
             </div>
           </div>
@@ -94,169 +98,145 @@
 
           <!-- Sección para la capacidad y detalles del evento -->
           <div class="col-12">
-            <label>Capacidad del salon</label>
+            <label >Capacidad del salon</label>
             <div class="row">
               <div class="col-lg-12 col-md-8 col-6">
                 minimo<input type="text" name="" value="100" disabled style="width: 40px; height: 25px;">
                 maximo<input type="text" name="" value="400" disabled style="width: 40px; height: 25px;">
-              </div>
-              <div class="col-lg-12 col-md-4 col-4 d-flex justify-content-center">
                 Nro Invitados<input type="text" name="" onkeypress="return soloNumero(event)" maxlength="3" minlength="1"   value="" style="width: 40px; height: 25px;">
               </div>
 
 
+
             </div>
-            <div class="row">
-              <div class="col-12 d-flex justify-content-start">
+           
+         
 
-                Horas contratadas: <span id="numberHrs">1</span>
-                <input type="range" name="">
-              </div>
-              <div class=" col-l2" style="background: red;">
+       </div>
+        <div class="col-12">
+              Duración del evento <input type="text" name="" maxlength="1" id="txtDia" value="1" required placeholder="dias" onchange="cargarFechasConsecutivas() ;agregarBloques()">
+        </div>
+         
+          <div class="row" id="contenedorBloques">
+            
+          </div>
 
-             
-                
-                
-                   <div class="col-6 col-sm-6 col-lg-6 col-md-6">
-                       <small>Hora Inicio</small> <input type="time" id="startH" value="10:00" style="width:80px">
-                  </div>
-                 
+    
+        
+      
+     </section>
 
-                
-                <div class="col-6 col-sm-6 col-lg-6 col-md-6">
-                 <small>Hora Fin</small> <input type="time" value="11:00" disabled="" style="width:80px">
-                </div>
-                 
-          
+   </div>
+   <div class="col-sm-12 col-lg-8 p-1">
+    <div class="col-12 d-flex ">
 
-              </div>
+      <div class="col-11">
+        <div class="myBox">
+
+          <input type="hidden" id="txtId" name="idCliente">
+          <input type="text" class="myImputField" id="nombreCliente" required placeholder="" list="listaCliente" onchange="seleccionCliente(this)" autocomplete="off"> 
+          <label class="mylabel" id="lbLeyenda">Persona que contrata el evento</label>
+        </div>
+
+        <datalist id="listaCliente">
+
+        </datalist>
+
+      </div>
+      <div class="col-1 d-flex justify-content-center align-items-center" >
+        <button class="btnt-primary btn-sm" title="Nuevo Cliente" data-toggle="modal" data-target="#agregarCliente"><i class="fa-solid fa-square-plus d-flex justify-content-center"></i></button>
+
+      </div>
+    </div>
+    <div class="col-12 d-flex">
+      <div class="col-4">
+        <div class="myBox d-flex justify-content-center">
+
+          <input class="myImputField" type="date" name="" id="fechaFin" >
+          <label class="mylabel">fin evento</label>
+          <label class="mylabel-icon"><i class="fa-solid fa-id-cald"></i></label>
+
+        </div>
+      </div>
+      <div class="col-7">
+        <div class="myBox">
 
 
+          <input type="text" class="myImputField" id="txtBuscaeServicio" required placeholder="" list="listaServicio"  onautocomplete="off" onchange="seleccionarServicio(this)"> 
+          <label class="mylabel" >Buscar Servicio</label>
+        </div>
+
+        <datalist id="listaServicio">
+
+        </datalist>
+      </div>
+      <div class="col-1 d-flex justify-content-center align-items-center" >
+        <button class="btnt-primary btn-sm" disabled ><i class="fa-solid fa-magnifying-glass fa-sm"></i></button>
+      </div>
+    </div >
+
+<div class="table-responsive">
   
+    <table class="p-1" rules="all" width="100%" id="detalleServicio">
+      <thead class="bgt-primary">
+        <tr>
+          <th style="text-align: center;"><small>Nombre Servicio</small></th>
+          <th style="text-align: center;"><small>Fecha</small></th>
+          <th style="text-align: center;"><small>Cant.</small></th>
+          <th style="text-align: center;"><small>Precio(Bs)</small></th>
+          <th style="text-align: center;"><small>inporte(Bs)</small></th>
+          <th style="text-align: center;"><small>Descuento(Bs)</small></th>
+          <th style="width:10px"></th>
+        </tr>
+      </thead>
+      <tbody id="servicioDetalle" class="servicioDetalle">
+        <tr servicioId=0 style="color:#001F3F">
+          <td>Salon de Eventos</td>
+          <td style="text-align:right; " class="myBox"><select  id="fechaSeleccion" class="fechaSeleccion myImputField"  onchange="seleccionarFila(this)"></select>   </td>
 
-               
-              
-            </div>
+          <td style="text-align:right;"><input type="number" name="" id="cant1" style="width:40px ;height: 20px;" value="1" disabled></td>
+          <td style="text-align:right;">3000.00</td>
+          <td style="text-align:right;">3000.00</td>
+          <td style="text-align:right;" class="myBox"><input type="text"  id="" class="descuentoParcial myImputField" onkeypress="return soloNumero(event)" maxlength="7" class="" name=""  value="0.00"  style=" text-align: right;padding-right: 28px;"><small class="mylabel-icon">bs.</small></td>
+          <td><button class="btn btn-sm text-danger p-1" disabled><i class="fa-solid fa-circle-minus fa-lg"></i></button></td>
+        </tr>
+      </tbody>
+      <tfoot class="bgt-primary">
+       <tr>
+        <td colspan="4"><small>Total</small></td>
+        <td style="text-align:right;"><input type="text"  id="total" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right;" disabled>bs.</td>
+        <td style="text-align:right;"><input type="text"  id="descuento" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right;" disabled>bs.</td>
+      </tr>
+      <tr>
+        <td colspan="4"><small>Total a Pagar</small></td>
+        <td style="text-align:right;"><input type="text"  id="totalPagar" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right;" disabled>bs.</td>
 
-          </div>
-        </section>
-
-      </div>
-      <div class="col-sm-12 col-lg-8 p-1">
-        <div class="col-12 d-flex">
-
-          <div class="col-11">
-            <div class="myBox">
-
-              <input type="hidden" id="txtId" name="idCliente">
-              <input type="text" class="myImputField" id="nombreCliente" required placeholder="" list="listaCliente" onchange="seleccionCliente(this)" autocomplete="off"> 
-              <label class="mylabel" id="lbLeyenda">Persona que contrata el evento</label>
-            </div>
-
-            <datalist id="listaCliente">
-
-            </datalist>
-
-          </div>
-          <div class="col-1 d-flex justify-content-center align-items-center" >
-            <button class="btnt-primary btn-sm" title="Nuevo Cliente" data-toggle="modal" data-target="#agregarCliente"><i class="fa-solid fa-square-plus d-flex justify-content-center"></i></button>
-
-          </div>
-        </div>
-        <div class="col-12 d-flex">
-
-          <div class="col-11">
-            <div class="myBox">
-
-
-              <input type="text" class="myImputField" id="txtBuscaeServicio" required placeholder="" list="listaServicio"  onautocomplete="off" onchange="seleccionarServicio(this)"> 
-              <label class="mylabel" >Buscar Servicio</label>
-            </div>
-
-            <datalist id="listaServicio">
-
-            </datalist>
-
-
-
-
-            <input type="text" name="" list="listprueba">
-            <datalist id="listprueba">
-              <option>fsdfsfds</option>
-              
-
-            </datalist>
+      </tr>
+      <tr>
+        <td colspan="4"><small>Monto adelantado</small></td>
+        <td style="text-align:right;"><input type="text"  id="montoAdelantado" onkeypress="return soloNumero(event)"  class="" name=""  value="0.00"  style="width:80px; height: 20px; font: 10px; text-align: right;">bs.</td>
+      </tr>
+      <tr>
+        <th colspan="4"><small>Saldo a pagar</small></th>
+        <td style="text-align:right;"><input type="text"  id="saldoPagar" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right;" disabled>bs.</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
 
 
 
+</div>
+</section>
 
 
+<!-- <div class="clearfix"></div>         -->
 
-          </div>
-          <div class="col-1 d-flex justify-content-center align-items-center" >
-            <button class="btnt-primary btn-sm" disabled ><i class="fa-solid fa-magnifying-glass fa-sm"></i></button>
-          </div>
-        </div>
-
-        <table class="p-1" rules="all" width="100%">
-          <thead class="bgt-primary">
-            <tr>
-              <th style="text-align: center;"><small>Nombre Servicio</small></th>
-              <th style="text-align: center;"><small>Fecha</small></th>
-              <th style="text-align: center;"><small>Cant.</small></th>
-              <th style="text-align: center;"><small>Precio(Bs)</small></th>
-              <th style="text-align: center;"><small>inporte(Bs)</small></th>
-              <th style="text-align: center;"><small>Descuento(Bs)</small></th>
-              <th style="width:10px"></th>
-            </tr>
-          </thead>
-          <tbody id="servicioDetalle" class="servicioDetalle">
-            <tr servicioId=0>
-              <td>Salon de Eventos</td>
-        <td style="text-align:right;"><input type="date" disabled /></td>
-
-              <td style="text-align:right;"><input type="number" name="" id="cant1" style="width:40px ;height: 20px;" value="1" disabled></td>
-              <td style="text-align:right;">3000.00</td>
-              <td style="text-align:right;">3000.00</td>
-              <td style="text-align:right;"><input type="text"  id="" class="descuentoParcial" onkeypress="return soloNumero(event)" maxlength="7" class="" name=""  value="0.00"  style="width:80px; height: 20px; font: 10px; text-align: right;">bs.</td>
-              <td><button class="btn btn-sm text-danger p-1" disabled><i class="fa-solid fa-circle-minus fa-lg"></i></button></td>
-            </tr>
-          </tbody>
-          <tfoot class="bgt-primary">
-             <tr>
-              <td colspan="4"><small>Total</small></td>
-              <td style="text-align:right;"><input type="text"  id="total" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right;" disabled>bs.</td>
-              <td style="text-align:right;"><input type="text"  id="descuento" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right;" disabled>bs.</td>
-            </tr>
-            <tr>
-              <td colspan="4"><small>Total a Pagar</small></td>
-              <td style="text-align:right;"><input type="text"  id="totalPagar" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right;" disabled>bs.</td>
-             
-            </tr>
-            <tr>
-              <td colspan="4"><small>Monto adelantado</small></td>
-              <td style="text-align:right;"><input type="text"  id="montoAdelantado" onkeypress="return soloNumero(event)"  class="" name=""  value="0.00"  style="width:80px; height: 20px; font: 10px; text-align: right;">bs.</td>
-            </tr>
-            <tr>
-              <th colspan="4"><small>Saldo a pagar</small></th>
-              <td style="text-align:right;"><input type="text"  id="saldoPagar" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right;" disabled>bs.</td>
-            </tr>
-          </tfoot>
-        </table>
-
-
-
-      </div>
-    </section>
-
-
-    <!-- <div class="clearfix"></div>         -->
-
-  </div>
-  <div class="modal-footer d-flex justify-content-around p-1 bgt-acent " >
-    <button type="button" class="btn-sm btnt-primary" id="addCalendarEvt" >Agregar</button>
-    <button type="button" class="btn-sm btnt-primary " data-dismiss="modal">Cancelar</button>
-  </div>
+</div>
+<div class="modal-footer d-flex justify-content-around p-1 bgt-acent " >
+  <button type="button" class="btn-sm btnt-primary" id="addCalendarEvt" >Agregar</button>
+  <button type="button" class="btn-sm btnt-primary " data-dismiss="modal">Cancelar</button>
+</div>
 </div>
 <!-- /.modal-content -->
 </div>
@@ -375,11 +355,11 @@
 
 
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  reservarsalon = ['UA', '114663401', '1' ];
-  gtag('config', reservarsalon.join("-"));
+  // window.dataLayer = window.dataLayer || [];
+  // function gtag(){dataLayer.push(arguments);}
+  // gtag('js', new Date());
+  // reservarsalon = ['UA', '114663401', '1' ];
+  // gtag('config', reservarsalon.join("-"));
 </script>
 
 <script id="calendar-template" type="text/template">  
@@ -538,6 +518,8 @@
     mensaje();
     ListaServicio();
     actualizarPrecio();
+    cargarFechasConsecutivas();
+    agregarBloques();
 
 
 
@@ -554,7 +536,7 @@
     if($('#nombreCliente').val()) {
       let valor = $('#nombreCliente').val();
       $.ajax({
-          url:'../cliente/buscarCliente',// tenesmo ir dirento ala controlador de model usuario desde air llmaar
+          url:'../cliente/buscarClientedatos',// tenesmo ir dirento ala controlador de model usuario desde air llmaar
           data: {valor},
           type: 'POST',
           success: function (response) {
@@ -715,7 +697,7 @@ function seleccionarServicio(data) {
         template += `
         <tr servicioId=${id}>
         <td><small> ${servicio}</small></td>
-        <td style="text-align:right;"><input type="date"/></td>
+        <td style="text-align:right;" class="myBox"><select class="fechaSeleccion myImputField" onchange="seleccionarFila(this)"></select>  </td>
         <td style="text-align:right;"><input type="text" id="cant1" onkeypress="return soloNumero(event)"   name="" minlength="1" maxlength="3"  style="width:40px ;height: 20px;" value="1"></td>
         <td style="text-align:right;">${precio}</td>
         <td style="text-align:right;">${precio}</td>
@@ -734,7 +716,7 @@ function seleccionarServicio(data) {
      }
      buscarServicio.value="";
      actualizarPrecio();
-
+      cargarFechasConsecutivas();
      break;
    }
  }
@@ -792,10 +774,10 @@ $(document).on("keyup", ".servicioDetalle #cant1", function () {
 });
 
 
- $(document).on("keyup", ".servicioDetalle .descuentoParcial", function () {
-  
-    actualizarPrecio();
-  });
+$(document).on("keyup", ".servicioDetalle .descuentoParcial", function () {
+
+  actualizarPrecio();
+});
 
 
 
@@ -847,7 +829,189 @@ $(document).on('keyup', '#montoAdelantado', function () {
     });
 
 
+ //mas funciones hora fechas interacti de la vistas
 
+ function cargarFechasConsecutivas() {
+  // Obtener el valor ingresado por el usuario en el campo de fecha
+  var fechaIngresada = document.getElementById("fecha").value;
+  var cantidadFechas = document.getElementById("txtDia").value;
+  var comboboxes = document.querySelectorAll(".fechaSeleccion");
+  var ultimaFechaInput = document.getElementById("fechaFin");
+
+  var fecha = new Date(fechaIngresada);
+
+  comboboxes.forEach(function(combobox) {
+    // Obtener la selección actual antes de limpiar el combobox
+    var seleccionActual = combobox.value;
+
+    combobox.innerHTML = "";
+
+    // Agregar la cantidad especificada de fechas consecutivas al combobox
+    for (var i = 0; i < cantidadFechas; i++) {
+      var nuevaFecha = new Date(fecha);
+      nuevaFecha.setDate(fecha.getDate() + i);
+
+      // Formatear la fecha como "YYYY-MM-DD"
+      var fechaFormateada = nuevaFecha.toISOString().split('T')[0];
+
+      // Crear una opción y agregarla al combobox
+      var opcion = document.createElement("option");
+      opcion.value = fechaFormateada;
+      opcion.text = fechaFormateada;
+      combobox.add(opcion);
+    }
+
+    // Establecer la selección actual o la primera fecha si no hay ninguna selección
+    combobox.value = seleccionActual || combobox.options[0].value;
+  });
+
+  // Mostrar la última fecha consecutiva en el campo de última fecha
+  var ultimaFecha = new Date(fecha);
+  ultimaFecha.setDate(fecha.getDate() + parseInt(cantidadFechas) - 1);
+  ultimaFechaInput.value = ultimaFecha.toISOString().split('T')[0];
+
+  // Guardar en localStorage
+  localStorage.setItem("ultimaFechaInput", ultimaFechaInput.value);
+}
+
+// Llamar a la función al cargar la página
+window.onload = function() {
+  // Recuperar la última fecha guardada en localStorage
+  var ultimaFechaGuardada = localStorage.getItem("ultimaFechaInput");
+
+  // Establecer el valor en el campo de última fecha
+  document.getElementById("ultimaFecha").value = ultimaFechaGuardada;
+};
+
+
+    function agregarBloques() {
+    // Obtener el valor ingresado por el usuario
+    var cantidadBloques = parseInt(document.getElementById("txtDia").value);
+
+    var contenedor = document.getElementById("contenedorBloques");
+    contenedor.innerHTML = "";
+    for (var i = 0; i < cantidadBloques; i++) {
+
+      var nuevoBloque = document.createElement("div");
+      nuevoBloque.className = "col-12";
+
+      var innerHTML = `
+            <div class="col-12 d-flex justify-content-start">
+          Horario dia ${i + 1}: <mark><span id="horas${i + 1}">8</span></mark>
+        </div>
+        <div class="col-12">
+          <input class="form-control" type="range" id="horaRange${i+1}" min="1" max="12" value="8" name="" onchange="actualizarHoraFin(this, ${i + 1})">
+        </div>
+        <div class="col-12">     
+          <small>Hora Inicio</small> <input type="time" id="inicioH${i + 1}" value="10:00" style="width:80px" onchange="actualizarHoraFinPorCambioHora(this, ${i + 1})">
+          <small>Hora Fin</small> <input type="time" id="finH${i + 1}" value="11:00" disabled="" style="width:80px">
+        </div>
+      `;
+
+      nuevoBloque.innerHTML = innerHTML;
+
+      // Agregar el nuevo bloque al contenedor
+      contenedor.appendChild(nuevoBloque);
+    }
+   var cantN=getElementById('txtId');
+   cantN.disabled=true;
+  }
+   function actualizarHoraFin(inputRange, index) {
+   
+    var valorRango = inputRange.value;
+    var horaFinElemento = document.getElementById(`finH${index}`);
+    var horaRange = document.getElementById(`horaRange${index}`);
+
+    var horas = document.getElementById(`horas${index}`);
+    horas.innerText=horaRange.value;
+    var horaInicio = new Date(`2000-01-01T${document.getElementById(`inicioH${index}`).value}:00`);
+    horaInicio.setHours(horaInicio.getHours() + parseInt(valorRango));
+    horaFinElemento.value = horaInicio.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+  }
+
+   function actualizarHoraFinPorCambioHora(inputHoraInicio, index) {
+    var valorHoraInicio = $(inputHoraInicio).val();
+    var horaFinElemento = $(`#finH${index}`);
+    var horasElemento = $(`#numberHrs${index}`);
+    var valorRango = $(`#horaRange${index}`).val();
+
+    horasElemento.text(valorRango);
+
+    var horaInicio = new Date(`2000-01-01T${valorHoraInicio}:00`);
+    horaInicio.setHours(horaInicio.getHours() + parseInt(valorRango));
+    horaFinElemento.val(horaInicio.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+  } 
+
+
+  function seleccionarFila(select) {
+  // Obtener la fila padre del select
+  var fila = select.parentNode.parentNode;
+  // var fechaSeleccionada = select.value;
+  // var fechaCelda = fila.getElementsByTagName("TD")[1].innerHTML;
+  var posicionOpcion = select.selectedIndex;
+
+  // Establecer la clase de color según la posición de la opción
+  if (posicionOpcion === 0) {
+    fila.style.background = '';
+  } else if (posicionOpcion === 1) {
+    fila.style.background = 'rgba(182,255,241,0.3)';
+  } else if (posicionOpcion === 2) {
+    fila.style.background = 'rgba(183,210,255,0.3)';
+  } else if (posicionOpcion === 3) {
+    fila.style.background = 'rgba(0,171,107,0.3)';
+  }
+
+  // Imprimir la posición de la opción seleccionada
+  console.log("Posición de la opción seleccionada:", posicionOpcion);
+  ordenarFilasPorFecha();
+}
+function ordenarFilasPorFecha(){
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("detalleServicio");
+  switching = true;
+
+  // Hacer un bucle hasta que no haya cambios para cambiar
+  while (switching) {
+    switching = false;
+    rows = table.rows;
+
+    // Hacer un bucle a través de todas las filas, excepto la primera (cabecera)
+    for (i = 1; i < rows.length - 1; i++) {
+      shouldSwitch = false;
+
+      // Obtener los dos elementos que se deben comparar, uno de la columna actual y otro de la siguiente
+      x = rows[i].getElementsByTagName("TD")[1];
+      y = rows[i + 1].getElementsByTagName("TD")[1];
+
+      // Comprobar si las dos fechas deben intercambiarse
+      if (new Date(x.children[0].value) > new Date(y.children[0].value)) {
+        // Marcar que se debe hacer el cambio y romper el bucle
+        shouldSwitch = true;
+        break;
+      }
+    }
+
+    if (shouldSwitch) {
+      // Intercambiar las filas y marcar que se ha hecho un cambio
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+
+  // Aplicar el color al fondo de la fila según la opción seleccionada
+  for (i = 0; i < rows.length; i++) {
+    // Obtener la fecha de la celda de la fila actual
+    var fechaCelda = rows[i].getElementsByTagName("TD")[1].children[0].value;
+
+    // Obtener el color asociado a la fecha desde el mapeo
+    var filaColor = colorMapping[fechaCelda];
+
+    // Asignar el color al fondo de la fila
+    rows[i].style.backgroundColor = filaColor;
+  }
+}
+alert();
+//fin
 
 
 

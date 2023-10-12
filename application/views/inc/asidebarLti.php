@@ -76,7 +76,7 @@
            
           </li>
 
-          <li class="nav-item">
+         <!--  <li class="nav-item">
             <a href="<?php echo base_url();?>index.php/proveedor/index" class="nav-link">
               <i class="nav-icon fas fa-truck t-acent"></i>
               <p class="t-primary">
@@ -96,7 +96,7 @@
               </a>
               
            
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="<?php echo base_url();?>index.php/servicios/index" class="nav-link">
               <i class="nav-icon fas fa-clipboard-list t-acent"></i>

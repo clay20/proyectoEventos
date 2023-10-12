@@ -18,11 +18,6 @@ class Usuario_model extends CI_Model
 		return $this->db->get();
     }
 
-
-
-
-
-
 	public function listarUsuarios()
 	{
 		$this->db->select('*');
@@ -34,115 +29,85 @@ class Usuario_model extends CI_Model
       
 	}
 
-
-
 	public function tipoRol()//importnte 
 	{
 		$this->db->select('*');
 		$this->db->from('tipoUsuario');
 		return $this->db->get();
 	}
+ public function datosUsuariodb($estado,$idSession)// ListarUsuarios usuarios
+  {
+  	$this->db->select('U.id, U.nombre,U.primerApellido,IFNULL(U.segundoApellido,"") AS segundoApellido,U.ci,U.fechaNacimiento,U.sexo ,U.nombreUsuario,U.email,T.id AS idRol, T.rol ');
+		$this->db->from('usuario U');
+		$this->db->join('tipoUsuario T','T.id=U.idTipoUsuario');
+		$this->db->where('U.estado',$estado);
+		$this->db->where('U.id !=',$idSession);
+
+		return $this->db->get();
+  }
 
 
 
 
 
-public function agregarActiviadadBD($data)
-{
 	
-		$this->db->trans_start(); //incioo transaccion
-		$this->db->insert('actividades',$data);
-		$id=$this->db->insert_id();
-		$data['foto']=$id.'.jpg';
-		$this->db->where('id',$id);
-		$this->db->update('actividades',$data);
-		$this->db->trans_complete(); //fin transaccion
+	public function agregarUsuariodb($data1, $nombreUsuario)
+{
+    $this->db->trans_start(); // Inicio de la transacción
 
-		if($this->db->trans_status()===FALSE)
-		{
-			return false;
-		}
-		return $id;
+    $this->db->insert('usuario', $data1);
+    $idUsuario = $this->db->insert_id();
+
+    $data2['nombreUsuario'] = generarUsuario($nombreUsuario . $idUsuario);
+    $this->db->where('id', $idUsuario);
+    $this->db->update('usuario', $data2);
+
+    $this->db->trans_complete(); // Fin de la transacción
+
+    if ($this->db->trans_status() === FALSE) {
+        return false;
+    }
+
+    return generarUsuario($nombreUsuario . $idUsuario);
 }
 
-	public function mostraActividadBd()//solo clientes
-	{
-		$this->db->select('*');
-		$this->db->from('actividades');
-		 $this->db->order_by('id', 'DESC');
-		return $this->db->get();
-	}
-
-	
 
 
 
-	
-	public function agregarUsuariodb($data1,$data2,$nombreUsuario)//agregar usuario
-	{
-
-		$this->db->trans_start(); //incioo transaccion
-
-		$this->db->insert('persona',$data1);
-		$idPersona=$this->db->insert_id();
-		$data2['id']=$idPersona;
-		$data2['nombreUsuario']=generarUsuario($nombreUsuario.$idPersona);
-		$this->db->insert('usuario',$data2);
-		$this->db->trans_complete(); //fin transaccion
-		return generarUsuario($nombreUsuario.$idPersona);
-		if($this->db->trans_status()===FALSE)
-		{
-			return false;
-		}
-		
-	}
-  public function convertirEmpleadoAUsuariodb($data2)//esta agregar un usuario aun empleado
-  {
-  	 //incioo transaccion
-	
-		$this->db->insert('usuario',$data2);
-	 return $this->db->affected_rows();
-  }
 
 
-  public function datosUsuariodb($estado,$idSession)// gestion usuarios
-  {
-  	$this->db->select('P.id, P.nombre,P.primerApellido,IFNULL(P.segundoApellido,"") AS segundoApellido,P.ci,P.fechaNacimiento,P.sexo ,U.nombreUsuario,U.email,T.id AS idRol, T.rol ');
-		$this->db->from('persona P');
-		$this->db->join('usuario U','P.id= U.id');
-		$this->db->join('tipoUsuario T','T.id=U.idTipoUsuario');
-		$this->db->where('U.estado',$estado);
-		$this->db->where('U.id !=',$idSession);
 
-		return $this->db->get();
-  }
 
-  public function usuarioDatosBuscardb($estado,$idSession,$valor)// revisar las
-  {
-  	$this->db->select('P.id, P.nombre,P.primerApellido,IFNULL(P.segundoApellido,"") AS segundoApellido,P.ci,P.fechaNacimiento,P.sexo ,U.nombreUsuario,U.email,T.id AS idRol, T.rol ');
-		$this->db->from('persona P');
-		$this->db->join('usuario U','P.id= U.id');
-		$this->db->join('tipoUsuario T','T.id=U.idTipoUsuario');
-		$this->db->where('U.estado',$estado);
-		$this->db->where('U.id !=',$idSession);
-    $this->db->like('U.nombreUsuario',$valor);
-    $this->db->or_like('P.nombre', $valor);
+
+public function usuarioDatosBuscardb($estado, $idSession, $valor)
+{
+    $this->db->select('U.id, U.nombre, U.primerApellido, IFNULL(U.segundoApellido,"") AS segundoApellido, U.ci, U.fechaNacimiento, U.sexo, U.nombreUsuario, U.email, T.id AS idRol, T.rol');
+    $this->db->from('usuario U');
+    $this->db->join('tipoUsuario T', 'T.id=U.idTipoUsuario');
+    $this->db->where('U.estado', $estado);
+    $this->db->where('U.id !=', $idSession);
+    $this->db->group_start();
+    $this->db->like('U.nombreUsuario', $valor);
+    $this->db->or_like('U.nombre', $valor);
+    $this->db->or_like('U.ci', $valor);
     $this->db->or_like('T.rol', $valor);
-		
-		return $this->db->get();
-  }
+    $this->db->group_end();
+    
+    return $this->db->get();
+}
+
+
+
   public function datosUsuarioID($id,$estado)// gestion usuairo
   {
-  	$this->db->select('P.id, P.nombre,P.primerApellido,IFNULL(P.segundoApellido,"") AS segundoApellido,P.ci,P.fechaNacimiento,P.sexo ,U.nombreUsuario,U.email,T.id AS idRol, T.rol ');
-		$this->db->from('persona P');
-		$this->db->join('usuario U','P.id= U.id');
+  	
+		$this->db->select('U.id, U.nombre,U.primerApellido,IFNULL(U.segundoApellido,"") AS segundoApellido,U.ci,U.fechaNacimiento,U.sexo ,U.nombreUsuario,U.email,T.id AS idRol, T.rol ');
+		$this->db->from('usuario U');
 		$this->db->join('tipoUsuario T','T.id=U.idTipoUsuario');
 		$this->db->where('U.estado',$estado);
-		$this->db->where('P.id',$id);
-
+		$this->db->where('U.id',$id);
 		return $this->db->get();
   }
-
 
   	public function elimnarHabiltarDatosUsuariodb($id,$estado)//eliminar gestion usurios
     {
@@ -151,18 +116,25 @@ public function agregarActiviadadBD($data)
     	$this->db->set('fechaActualizacion', 'CURRENT_TIMESTAMP', false); 
 		 $this->db->update('usuario',$data);
     }
-	public function modificarUsuariodb($data1,$data2,$id)//agregar usuario
+
+
+
+
+
+
+
+
+
+
+	public function modificarUsuariodb($data1,$id)//modificaar datosUsuarioa usuario
 	{
 
 		$this->db->trans_start(); //incioo transaccion
 
     	$this->db->set('fechaActualizacion', 'CURRENT_TIMESTAMP', false); 
     	$this->db->where('id',$id);
-		$this->db->update('persona',$data1);
-    	$this->db->set('fechaActualizacion', 'CURRENT_TIMESTAMP', false); 
-
-		$this->db->where('id',$id);
-		$this->db->update('usuario',$data2);
+		$this->db->update('usuario',$data1);
+    
 		$this->db->trans_complete(); //fin transaccion
 		
 		if($this->db->trans_status()===FALSE)

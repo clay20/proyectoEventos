@@ -35,6 +35,7 @@
 
 <!-- SweetAlert2 -->
 <script src="<?php echo base_url();?>/adminlti/plugins/sweetalert2/sweetalert2.min.js"></script>
+
 <!-- Toastr -->
 <script src="<?php echo base_url();?>/adminlti/plugins/toastr/toastr.min.js"></script>
 <!-- para validaciones de texbox propio -->
@@ -43,12 +44,12 @@
 <!-- mapas -->
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/validaciones.js"></script> 
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionUsuario.js"></script> 
-<script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionEmpleados.js"></script> 
-<script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionProveedor.js"></script> 
+<script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionClientes.js"></script> 
+
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionServicio.js"></script> 
 
 <!-- alertas -->
-<script type="text/javascript" src="<?php echo base_url();?>miestilos/js/alert/mensaje.js"></script> 
+<!-- <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/alert/sweetalert2.js"></script>  -->
 
 
 <!-- Page specific script -->

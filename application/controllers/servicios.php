@@ -28,26 +28,22 @@ class Servicios extends CI_Controller {
  			$data['descriccion']=$_POST['descripcion'];
  			$data['unidadMedida']=$_POST['medida'];
  			$data['precio']=$_POST['precio'];
+ 			$data['maximo']=$_POST['maximo'];
 
- 		
  			$data['idUsuario']=$this->session->userdata('idUsuario');
- 			$data['idProveedores']=$_POST['idProveedor'];
- 			$idProveedores=$_POST['idProveedor'];
 
-
-																			
-						$url=base_url().'index.php/servicios/index';
+						
  		if($this->servicios_model->agregarServiciosdb($data)>0){
 
 						echo json_encode(array('msg'=>'Ok',
-																			'url'=>$url,
+																			
 																				'uri'=>1));	
 
  		}
  		else
  		{
 						echo json_encode(array('msg'=>'fallo',
-																			'url'=>$url));	
+																			'uri'=>1));	
 
  		}
  		

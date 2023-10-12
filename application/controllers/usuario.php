@@ -31,6 +31,25 @@ class Usuario extends CI_Controller {
 		
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	function login()
 	{
 		//nivel de seguridad esto se puede aplicar en todo los campo acceso a la vistas
@@ -224,6 +243,11 @@ public function registrarUsuario()///registro de se lado cliente
 			redirect('usuario/login/1','refresh');
 		}	
 	}
+
+
+
+
+
 public function agregarView()//metod donde agreaga usuario admini o usuario invitado y una consulta al db
 {
 
@@ -232,8 +256,7 @@ public function agregarView()//metod donde agreaga usuario admini o usuario invi
 	{
 		$lista=$this->usuario_model->tipoRol();
 		$data['rol']=$lista;
-		$lista=$this->empleado_model->cargo();
-		$data['cargo']=$lista;
+
 		$lista=$this->usuario_model->datosUsuariodb(1,$this->session->userdata('idUsuario'));
 		$data['usuarios']=$lista;
 		$this->load->view('inc/cabezeraLti');
@@ -263,19 +286,17 @@ public function verificarConexion() {
 }
 
 public function agregarUsuario() {
-    $this->load->library('phpmailer_lib');
+	$this->load->library('phpmailer_lib');
 
-    if ($this->session->userdata('rolUsuario') == 'admin') {
-        $aux = $_POST['aux'];
-        $idEmpleado = $_POST['idE'];
+	if ($this->session->userdata('rolUsuario') == 'admin') {
 
-        
 
-if ($this->verificarConexion()) {
+
+
+		if ($this->verificarConexion()) {
 
 			
-		if($aux==0 && $idEmpleado==0 )
-		{
+
 			
 			$nombre=letraCapital($_POST['nombre']);
 			$data1['nombre']=$nombre;
@@ -286,22 +307,22 @@ if ($this->verificarConexion()) {
 			$data1['sexo']=$_POST['genero'];
 			$data1['idUsuario']=$this->session->userdata('idUsuario');
 			$pwd=generarPwd($_POST['primerApellido']);
-			$data2['password']=md5($pwd);
-			$data2['email']=$_POST['email'];
-			$data2['idTipoUsuario']=$_POST['rol'];	
-			$data2['idUsuario']=$this->session->userdata('idUsuario');
+
+			$data1['password']=md5($pwd);
+			$data1['email']=$_POST['email'];
+			$data1['idTipoUsuario']=$_POST['rol'];	
 			$correo =$_POST['email'];
 			
 			
-			$nameUsuario=$this->usuario_model->agregarUsuariodb($data1,$data2,$nombre);
+			$nameUsuario=$this->usuario_model->agregarUsuariodb($data1,$nombre);
 
 			if(is_string($nameUsuario)){
 				//reistro de dsto con exitos
 
 				if($this->phpmailer_lib->load($correo,$nombre,$nameUsuario,$pwd)){
 					//reistro de email exit
-				
-						$data['msg1']='Envio de datos correcto';
+
+					$data['msg1']='Envio de datos correcto';
 					$data['estado']=1;
 
 				}
@@ -312,79 +333,34 @@ if ($this->verificarConexion()) {
 				}
 				
 				$data['msg2']='Registro en base de datos correcto';
-					$data['db']=1;
+				$data['db']=1;
 
 			}else
 			{
 				
 				$data['msg']='Fallo envio de credenciales y registros usuario';
-					$data['db']=0;
+				$data['db']=0;
 
 				
 			}
 			
-		}
-		else if($aux==1 && $idEmpleado!=0 && $this->verificarConexion())//ojo hay que verficar el nombre usuario
-		{		
-
-			$pwd=generarPwd('text');
-			$correo =$_POST['email'];
-			$nombreUsuario=letraCapital($_POST['nombreUsuario']);
-			$usuario=$nombreUsuario.$idEmpleado;
-
-			$data2['id']=$idEmpleado;
-			$data2['nombreUsuario']=$usuario;
-			$data2['password']=md5($pwd);
-			$data2['email']=$correo;
-			$data2['idTipoUsuario']=$_POST['rol'];	
-			$data2['idUsuario']=$this->session->userdata('idUsuario');
 
 
-			$numerofila=$this->usuario_model->convertirEmpleadoAUsuariodb($data2);
-			// if(//consultat l base dedtso que si exite con ese id un usuario)
-			if($numerofila>0){
-				//reistro de dsto con exitos
+				$data['msg']='error ';
+				$data['uri']=1;
 
-				if($this->phpmailer_lib->load($correo,$nombreUsuario,$usuario,$pwd)){
-					//reistro de email exit
-					$data['msg1']='Envio de datos correcto'; 
-					$data['estado']=1;
-
-				}
-				else 
-				{
-					$data['estado']=0;
-					$data['msg1']='Fallo  envio de credenciales';
-				}
-				
-				$data['msg2']='Registro en base de datos correcto';
-					$data['db']=1;
-
-			}else
-			{
-				
-				$data['msg2']='Fallo envio de credenciales y registros usuario';
-					$data['db']=0;
-
-				
-			}
+			
+			echo json_encode($data);
 		}
 		else
 		{
-			$data['msg']='error ';
+
+			$data['msg']='no hay conexin al internet ';
 			$data['uri']=1;
 
+
+			echo json_encode($data);
 		}
-		echo json_encode($data);
-	}else
-	{
-
-		$data['msg']='no hay conexin al internet ';
-		$data['uri']=1;
-
-
-		echo json_encode($data);
-	}
 
 	}
 	else
@@ -413,20 +389,20 @@ public function modificarUsuario()//metod donde agreaga usuario admini o usuario
 		$data1['fechaNacimiento']=$_POST['fechaNacimiento'];
 		$data1['sexo']=$_POST['genero'];
 		$data1['idUsuario']=$this->session->userdata('idUsuario');
-		$data2['email']=$_POST['email'];
-		$data2['idTipoUsuario']=$_POST['rol'];	
-		$data2['idUsuario']=$this->session->userdata('idUsuario');
+		$data1['email']=$_POST['email'];
+		$data1['idTipoUsuario']=$_POST['rol'];	
+		$data1['idUsuario']=$this->session->userdata('idUsuario');
 		
-		$ban=$this->usuario_model->modificarUsuariodb($data1,$data2,$id);
+		$ban=$this->usuario_model->modificarUsuariodb($data1,$id);
 		if ($ban) {
 			// $url=base_url();
 			// echo json_encode(array('url'=>$url.'index.php/usuario/agregarView'));
-			 echo json_encode(array('msg'=>'ok'));
+			echo json_encode(array('msg'=>'ok'));
 
 		}
 		else
 		{
-			 echo json_encode(array('msg'=>'error'));
+			echo json_encode(array('msg'=>'error'));
 
 		}
 
@@ -449,10 +425,10 @@ public function modificarDatosPersonales()//metod donde agreaga usuario admini o
 	$data1['fechaNacimiento']=$_POST['fechaNacimiento'];
 	$data1['sexo']=$_POST['genero'];
 	$data1['idUsuario']=$this->session->userdata('idUsuario');
-	$data2['email']=$_POST['email'];
+	$data1['email']=$_POST['email'];
 
 
-	$ban=$this->usuario_model->modificarUsuariodb($data1,$data2,$id);
+	$ban=$this->usuario_model->modificarUsuariodb($data1,$id);
 	if ($ban) {
 		$url=base_url();
 		echo json_encode(array('url'=>$url.'index.php/usuario/datosUsuario'));

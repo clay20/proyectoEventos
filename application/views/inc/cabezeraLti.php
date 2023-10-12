@@ -18,9 +18,12 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
+<!-- sweetalert2 -->
+  <link rel="stylesheet" href="<?php echo base_url();?>/adminlti/plugins/sweetalert2/sweetalert2.min.css">
+
   <!-- CAlendario -->
     <!-- Toastr -->
-  <link rel="stylesheet" href="<?php echo base_url();?>/adminlti/plugins/toastr/toastr.min.css">
+     <link rel="stylesheet" href="<?php echo base_url();?>/adminlti/plugins/toastr/toastr.min.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>/calendario/res/clndr.css">  
 
 </head>

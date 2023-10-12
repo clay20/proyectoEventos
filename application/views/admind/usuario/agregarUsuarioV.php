@@ -37,9 +37,10 @@
                   <input id="buscarUsuario" class="myImputField" type="search" name="buscarUsuario" >
                 </div>
               </div>
+             
 
               <div class="card-body m-0 p-0" style="max-height: 59vh;   overflow-y: auto;">
-                <table class="table table-responsive-lg">
+                <table class="table table-responsive-lg " rules="rows">
                   <thead class="t-secondary">
 
                     <tr>
@@ -51,9 +52,8 @@
 
                       <th>Usuario</th>
                       <th>Rol</th>
-
-                      <th ><i class="fa-solid fa-user-pen fa-lg  " style="width: 10px; color:yellow;"></i></th>
-                      <th ><i class="fa-solid fa-trash  fa-lg " style="width: 10px; color:red"></i></th>
+                      <th style="width:20px">Acciones</th>
+                     
 
                     </tr>
 
@@ -233,7 +233,7 @@
                     <input type="hidden" id="idE" name="idE" value="0"> <div
                     class="myBox">
                   
-                    <input class="myImputField" type="text" id="ci" name="ci" onkeypress="return soloNumero(event)" list="informacion"  onchange="funcionmodificar(this)" minlength="7" maxlength="10"  required autofocus>
+                    <input class="myImputField" type="text" id="ci" name="ci" onkeypress="return soloNumero(event)" list="informacion"   minlength="7" maxlength="10"  required autofocus>
                       <datalist id="informacion">
                       
                     </datalist>

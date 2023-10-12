@@ -1,14 +1,13 @@
 
 
-<div class="wrapper">
+<div class="wrapper" style="background-image: url('<?php echo base_url();?>/img/fondo.jpg');">
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper"   style=" background:rgba(0, 0, 0, .3);">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row ">
-          <div class="col-sm-12 d-flex justify-content-center">
+          <div class="col-sm-12 d-flex justify-content-start text-light">
             <h1><b>Clientes</b></h1>
           </div>
           
@@ -26,345 +25,230 @@
 
         <div class="row">
           <div class="col-12">
-            <div class="card ">
+            <div class="card " style="background: rgba(0, 0, 0, .0);">
               <div class="card-header  p-0 bgt-acent ">
-                <ul class="nav nav-pills p-0 bgt-primary">
-                  <li class="nav-item"><a class="nav-link active " href="#activity" data-toggle="tab">Lista</a></li>
-                  <li class="nav-item"><a class=" nav-link " href="#agregarEmpleado" data-toggle="tab">Agregar</a></li>
-                  <li class="nav-item"><a class="nav-link " href="#settings" data-toggle="tab">Eliminados</a></li>
+                <ul class="nav nav-pills p-0">
+                  <li class="nav-item"><a class="nav-link active " href="#listaCliente"  id="listaclientelink" data-toggle="tab">Lista</a></li>
+                  <li class="nav-item"><a class=" nav-link " href="#agregarCliente" id="agregarclientelink"  data-toggle="tab">Agregar</a></li>
                 </ul>
               </div><!-- /.card-header -->
-              <div class="card-body bgt-acent">
-                <div class="tab-content">
-                  <div class="active tab-pane" id="activity">
+              <div class="card-body m-0 p-0 px-1 "style="background: rgba(251, 214, 169, .2);">
+                <div class="tab-content m-0 p-0">
+                  <div class="active tab-pane" id="listaCliente">
                     <!-- Post -->
                     
-                    
-                    <div class="card-body">
-                      <table id="example1" class="table table-bordered table-striped ">
+                      <div class=" d-flex justify-content-end m-0 p-0" >
+                      <div class="myBox">
+                        
+                      <input class="myImputField form-control-sm" type="search" id="buscarCliente" name="">
+                      <label class="mylabel-icon"><i class="fas fa-search"></i></label>
+                      </div>
+                    </div>
+                    <div class="card-body m-0 p-0" style="height: 60vh;">
+                      <table id="" class="table table-sm"  style="color: #001f3f;">
                         <thead>
-                          <tr>
+                          <tr class="">
                             <th>Nro</th>
                             <th>Nombre Completo</th>
                             
                             <th>Ci</th>
 
-                            <td> <i class="fa-solid fa-phone text-info"></i></td>
-                            <th><i class="fa-solid fa-file-pen fa-md text-warning  d-flex justify-content-center"></i></th>
-                            <th><i class="fa-solid fa-trash fa-md text-danger d-flex justify-content-center"></i></th>
+                            <th> Telefono</th>
+
+                            <th width="30px">Acciones</th>
                           </tr>
                         </thead>
-                        <tbody>
-
-                          <?php $i=0; ?>
-                          <?php foreach ($cliente ->result() as $row) {
-                            $i++;
-
-                            ?>
-                            <tr>
-                              <td><?php echo $i; ?></td>
-                              <td><?php echo $row->primerApellido.' '. $row->segundoApellido.' '.$row->nombre; ?></td>
-                              <td><?php echo $row->ci; ?></td>
-                              <td><?php echo $row->celular.'-'.$row->telefono; ?>
-                                 <a href="#" class="small-box-footer"  data-toggle="modal" data-target="#modaModificar">
-                    Modificar <i class="fas fa-arrow-circle-right"></i>
-                  </a>
-                              </td>
+                        <tbody id="tbCliente" style="color: #001f3f;">
 
 
 
-
-                              <td class="" title="Modificar"> <?php echo form_open_multipart('cliente/modificar'); ?>
-                              <input type="hidden" value="<?php echo $row->id;?>" name="idCliente">
-                              <button class="btn btn-outline-warning btn-ls "><i class="fa-solid fa-file-pen fa-md"></i></button>
-
-                              <?php echo form_close(); ?></td>
-                              <td class="" title="Eliminar"> <?php echo form_open_multipart('cliente/eliminar'); ?>
-                              <input type="hidden" value="<?php echo $row->id;?>" name="idCliente">
-                              <button class="btn btn-outline-danger btn-ls"><i class="fa-solid fa-trash fa-md"></i></button>
-                              <?php echo form_close(); ?></td>
-                            </tr>
-                            <?php
-
-                          } 
-                          ?>
-                          
 
                         </tbody>
-                        <tfoot>
-                         <tr>
-                          <th>Nro</th>
-                          <th>Nombre Completo</th>
 
-                          <th>Ci</th>
+                      </table>
+                    </div>
 
-                          <td> <i class="fa-solid fa-phone text-info"></i></td>
-                          <th><i class="fa-solid fa-file-pen fa-md text-warning  d-flex justify-content-center"></i></th>
-                          <th><i class="fa-solid fa-trash fa-md text-danger d-flex justify-content-center"></i></th>
-                        </tr>
-                      </tfoot>
-                    </table>
+
+
                   </div>
 
+                  <div class="tab-pane " id="agregarCliente">
+                    <!-- Post -->                  
+                    <form id="nuevoCliente">
 
+                      <!-- Post -->        
 
-                </div>
+                      <div class="row">
 
-                <div class="tab-pane " id="agregarEmpleado">
-                  <!-- Post -->
-                  <?php  echo form_open_multipart('cliente/agregarCliente'); ?>
-                  
-
-                  <div class="row">
-
-                    <div class="col col-sm-6 col-md-4   col-12">
-                     <div class="myBox">
-
-                      <input  class="myImputField" type="text" required  />
-                      <label class="mylabel" for="">Nombre</label>
-                      <label class="mylabel-icon" for=""><i class="fas fa-chart-pie"></i></label>
-
-                    </div>
-                        </div>
-                        <div class="col col-sm-6 col-md-4  col-12">
+                        <div class=" col-md-12 ">
                          <div class="myBox">
 
-                          <input  class="myImputField form-control-md" type="text" required  />
-                          <label class="mylabel" for="">Primer Apellido</label>
-                          <label class="mylabel-icon" for=""><i class="fas fa-chart-pie"></i></label>
+                          <input  class="myImputField" type="text" name="nombre" id="txtNombre" onkeypress="return soloLetrasEspacio(event)" minlength="1" maxlength="25" required autofocus />
+                          <label class="mylabel" for="">Nombre</label>
+
 
                         </div>
                       </div>
-                      <div class="col col-sm-8 col-md-4  col-12">
+                      <div class=" col-sm-12 col-md-6">
                        <div class="myBox">
 
-                        <input  class="myImputField form-control-sm" type="text" required  />
-                        <label class="mylabel" for="">Segundo Apellido</label>
-                        <label class="mylabel-icon" for=""><i class="fas fa-chart-pie"></i></label>
+                        <input  class="myImputField form-control-md" type="text" name="primerApellido" id="txtApellido1" onkeypress="return soloLetrasEspacio(event)" minlength="1" maxlength="25" required  />
+                        <label class="mylabel" for="">Primer Apellido</label>
+
 
                       </div>
                     </div>
+                    <div class=" col-sm-12 col-md-6 ">
+                     <div class="myBox">
+
+                      <input  class="myImputField form-control-sm" type="text" name="segundoApellido" id="txtApellido2" onkeypress="return soloLetrasEspacio(event)" minlength="1" maxlength="25"  />
+                      <label class="mylabel" for="">Segundo Apellido</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                 <div class=" col-md-12 col-sm-12">
+                   <div class="myBox">
+
+                    <input  class="myImputField" type="text" name="ci" id="txtCi" onkeypress="return LetrasNumero(event)" minlength ="1" maxlength ="9"  required  />
+                    <label class="mylabel" for="">C.I.</label>
+                    <label class="mylabel-icon" for=""><i class="fa-solid fa-id-card"></i></label>
 
                   </div>
+                </div>
+                <div  class=" col-sm-12 col-md-6  ">
+                  <div class="myBox">
 
+                    <input  class="myImputField" type="text" name="celular" id="txtCelular" onkeypress="return soloNumero(event)" minlength ="1" maxlength ="9"  required  />
+                    <label class="mylabel" for="">Celular</label>
+                    <label class="mylabel-icon" for=""><i class="fa-solid fa-mobile-retro"></i></label>
 
-                      <div class="row ">
+                  </div>
+                </div>
+                <div  class=" col-sm-12 col-md-6">
+                  <div class="myBox">
 
+                    <input  class="myImputField" type="text" name="telefono" id="txtTelefono"  onkeypress="return soloNumero(event)"minlength ="1" maxlength ="9"/>
+                    <label class="mylabel" for="">Telefono</label>
+                    <label class="mylabel-icon" for=""><i class="fa-solid fa-phone"></i></label>
 
-                       <div class="col col-sm-4 col-md-4  col-12">
-                         <div class="myBox">
+                  </div>
+                </div>
+              </div>
+              <div class="row d-flex justify-content-around m-3">
+                <button class="btn btn-sm btnt-primary btn-save" type="submit">
+                  <i class="fas fa-save"></i>Guardar</button>
 
-                          <input  class="myImputField" type="number" required  />
-                          <label class="mylabel" for="">CI-NIT</label>
-                          <label class="mylabel-icon" for=""><i class="fas fa-chart-pie"></i></label>
-
-                        </div>
-                      </div>
-                      <div  class=" col-sm-4 col-md-4  col-12  ">
-                        <div class="myBox">
-
-                          <input  class="myImputField" type="number" required  />
-                          <label class="mylabel" for="">Celular</label>
-                          <label class="mylabel-icon" for=""><i class="fas fa-chart-pie"></i></label>
-
-                        </div>
-                      </div>
-                      <div  class=" col-sm-4 col-md-4  col-12 ">
-                        <div class="myBox">
-
-                          <input  class="myImputField" type="number" required  />
-                          <label class="mylabel" for="">Telefono</label>
-                          <label class="mylabel-icon" for=""><i class="fa-solid fa-phone-flip fa-lg"></i></label>
-
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row d-flex justify-content-around m-3">
-                      <button class="btn btn-sm btn-outline-success btn-save" type="submit">
-                        <i class="fas fa-save"></i>Guardar</button>
-
-
-
-                        <button class="btn btn-sm btn-outline-warning" type="button"><i class="fas fa-times"></i>Cancelar</button>
-
-
-                      </div>
-
-                      <?php echo form_close(); ?>
-
+                  <button class="btn btn-sm btnt-primary" type="button" onclick="limmpiarCampos()"><i class="fas fa-times"></i>limpiar</button>
                 </div>
 
-
-
-          <!-- /.tab-pane -->
-
-          <div class="tab-pane" id="settings">
-            <div class="card-body">
-
-              <table id="example1" class="table table-bordered table-striped ">
-                <thead>
-                  <tr>
-                    <th>Nro</th>
-                    <th>Nombre Completo</th>
-
-                    <th>Ci</th>
-
-                    <td> <i class="fa-solid fa-phone text-info"></i></td>
-                    <td>Abilitar</td>
-
-                  </tr>
-                </thead>
-                <tbody>
-
-                  <?php $i=0; ?>
-                  <?php foreach ($desabilitados ->result() as $row) {
-                    $i++;
-
-                    ?>
-                    <tr>
-                      <td><?php echo $i; ?></td>
-                      <td><?php echo $row->primerApellido.' '. $row->segundoApellido.' '.$row->nombre; ?></td>
-                      <td><?php echo $row->ci; ?></td>
-                      <td><?php echo $row->celular.'-'.$row->telefono; ?></td>
-
-
-
-
-                      <td class="" title="abilitar"> <?php echo form_open_multipart('cliente/abilitar'); ?>
-                      <input type="hidden" value="<?php echo $row->id;?>" name="idCliente">
-                      <button class="btn btn-outline-success"><i class="fa-solid fa-reply "></i></i></button>
-                      <?php echo form_close(); ?></td>
-                    </tr>
-                    <?php
-
-                  } 
-                  ?>
-
-
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th>Nro</th>
-                    <th>Nombre Completo</th>
-
-                    <th>Ci</th>
-
-                    <td> <i class="fa-solid fa-phone text-info"></i></td>
-                    <td>Abilitar</td>
-
-                  </tr>
-                </tfoot>
-              </table>
-
-
+              </form>
             </div>
           </div>
-
-
         </div>
       </div>
+
     </div>
   </div>
-
-</div>
-</div>
 
 
 </div>
 </section>
 
- <div class="modal modal-primary" id="modaModificar" aria-hidden="true"  data-backdrop="static"  >
-    <div class="modal-dialog modal-dialog-centered" >
-      <div class="modal-content bgt-secondary" >
-        <div class="modal-header bgt-acent" >
-          <div class="container">
-            <div class="row">
-             
-              <h5 class="modal-title">Modificar Datos <span id="titleModalDay">Nombre</span></h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span  aria-hidden="true">×</span></button>
-              </div>
+<div class="modal modal-primary" id="ModificarCliente" aria-hidden="true"  data-backdrop="static"  >
+  <div class="modal-dialog modal-dialog-centered" >
+    <div class="modal-content bgt-secondary" >
+      <div class="modal-header bgt-primary" >
+        <div class="container">
+          <div class="row">
+
+            <h5 class="modal-title">Modificar Datos <span id="titleModalDay">Nombre</span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span  aria-hidden="true">×</span></button>
             </div>
           </div>
-          <div class="modal-body">
-            
-            <div class="row">
+        </div>
+        <div class="modal-body">
+            <form id="forModificarCliente">
 
-                    <div class="col col-sm-6 col-md-6   col-12">
+                    <!-- Post -->        
+
+                    <div class="row">
+
+                      <div class=" col-md-12 ">
+                       <div class="myBox">
+<input type="hidden" name="id" id="idM">
+                        <input  class="myImputField" type="text" name="nombre" id="txtNombreM" onkeypress="return soloLetrasEspacio(event)" minlength="1" maxlength="25" required autofocus />
+                        <label class="mylabel" for="">Nombre</label>
+
+
+                      </div>
+                    </div>
+                    <div class=" col-sm-12 col-md-6">
                      <div class="myBox">
 
-                      <input  class="myImputField" type="text" required  />
-                      <label class="mylabel" for="">Nombre</label>
-                      <label class="mylabel-icon" for=""><i class="fas fa-chart-pie"></i></label>
+                      <input  class="myImputField form-control-md" type="text" name="primerApellido" id="txtApellido1M" onkeypress="return soloLetrasEspacio(event)" minlength="1" maxlength="25" required  />
+                      <label class="mylabel" for="">Primer Apellido</label>
+
 
                     </div>
-                        </div>
-                        <div class="col col-sm-6 col-md-6  col-12">
-                         <div class="myBox">
-
-                          <input  class="myImputField form-control-md" type="text" required  />
-                          <label class="mylabel" for="">Primer Apellido</label>
-                          <label class="mylabel-icon" for=""><i class="fas fa-chart-pie"></i></label>
-
-                        </div>
-                      </div>
-                      <div class="col col-sm-8 col-md-6  col-12">
-                       <div class="myBox">
-
-                        <input  class="myImputField form-control-sm" type="text" required  />
-                        <label class="mylabel" for="">Segundo Apellido</label>
-                        <label class="mylabel-icon" for=""><i class="fas fa-chart-pie"></i></label>
-
-                      </div>
-                    </div>
-
                   </div>
+                  <div class=" col-sm-12 col-md-6 ">
+                   <div class="myBox">
+
+                    <input  class="myImputField form-control-sm" type="text" name="segundoApellido" id="txtApellido2M" onkeypress="return soloLetrasEspacio(event)" minlength="1" maxlength="25"  />
+                    <label class="mylabel" for="">Segundo Apellido</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+               <div class=" col-md-12 col-sm-12">
+                 <div class="myBox">
+
+                  <input  class="myImputField" type="text" name="ci" id="txtCiM" onkeypress="return LetrasNumero(event)" minlength ="1" maxlength ="9"  required  />
+                  <label class="mylabel" for="">C.I.</label>
+                  <label class="mylabel-icon" for=""><i class="fa-solid fa-id-card"></i></label>
+
+                </div>
+              </div>
+              <div  class=" col-sm-12 col-md-6  ">
+                <div class="myBox">
+
+                  <input  class="myImputField" type="text" name="celular" id="txtCelularM" onkeypress="return soloNumero(event)" minlength ="1" maxlength ="9"  required  />
+                  <label class="mylabel" for="">Celular</label>
+                  <label class="mylabel-icon" for=""><i class="fa-solid fa-mobile-retro"></i></label>
+
+                </div>
+              </div>
+              <div  class=" col-sm-12 col-md-6">
+                <div class="myBox">
+
+                  <input  class="myImputField" type="text" name="telefono" id="txtTelefonoM"  onkeypress="return soloNumero(event)"minlength ="1" maxlength ="9"/>
+                  <label class="mylabel" for="">Telefono</label>
+                  <label class="mylabel-icon" for=""><i class="fa-solid fa-phone"></i></label>
+
+                </div>
+              </div>
+            </div>
+          <div class="row d-flex justify-content-around m-3">
+            <button class="btn btn-sm btnt-primary btn-save" type="submit">
+              <i class="fas fa-save"></i>Guardar</button>
+
+              <button class="btn btn-sm btnt-primary" type="button" onclick="limmpiarCamposModal()"><i class="fas fa-times"></i>limpiar</button>
+            </div>
+             
+          </form>
 
 
-                      <div class="row ">
 
+        </div>        
 
-                       <div class="col col-sm-4 col-md-6  col-12">
-                         <div class="myBox">
-
-                          <input  class="myImputField" type="number" required  />
-                          <label class="mylabel" for="">CI-NIT</label>
-                          <label class="mylabel-icon" for=""><i class="fas fa-chart-pie"></i></label>
-
-                        </div>
-                      </div>
-                      <div  class=" col-sm-4 col-md-6  col-12  ">
-                        <div class="myBox">
-
-                          <input  class="myImputField" type="number" required  />
-                          <label class="mylabel" for="">Celular</label>
-                          <label class="mylabel-icon" for=""><i class="fas fa-chart-pie"></i></label>
-
-                        </div>
-                      </div>
-                      <div  class=" col-sm-4 col-md-8  col-12 ">
-                        <div class="myBox">
-
-                          <input  class="myImputField" type="number" required  />
-                          <label class="mylabel" for="">Telefono</label>
-                          <label class="mylabel-icon" for=""><i class="fa-solid fa-phone-flip fa-md"></i></label>
-
-                        </div>
-                      </div>
-                    </div>
-          </section>
-          <div class="clearfix"></div>        
-
-        </div>
-        <div class="modal-footer d-flex justify-content-around bgt-secondary" >
-          <button type="button" class="btn btn-sm btnt-primary" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-sm btnt-primary" id="" onclick="addCalendarEvt( &quot;2023-08-12&quot;)">Guardar</button>
-        </div>
       </div>
-      <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
+    <!-- /.modal-content -->
   </div>
+  <!-- /.modal-dialog -->
+</div>
 
 
 </div>
