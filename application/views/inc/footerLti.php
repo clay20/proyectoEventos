@@ -47,6 +47,8 @@
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionClientes.js"></script> 
 
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionServicio.js"></script> 
+<script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/calendarioPrincipal.js"></script> 
+
 
 <!-- alertas -->
 <!-- <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/alert/sweetalert2.js"></script>  -->

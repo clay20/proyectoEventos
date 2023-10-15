@@ -38,7 +38,7 @@ $(document).ready(function(){
       usuario.forEach(usuario=>{
         template+=`
         <tr usuarioId=${usuario.id}>
-        <td>${usuario.nombre+' '+usuario.primerApellido+' '+usuario.segundoApellido}</td>
+        <td>${usuario.nombre+' '+usuario.primerApellido+' '+usuario.segundoApellido} <input class="usuarioId" value ="${usuario.id}" ></td>
         <td class="d-none d-md-table-cell d-lg-table-cell">${usuario.ci}</td>
         <td class="d-none d-lg-table-cell">${usuario.sexo=='f'?'Femenino':'Masculino'}</td>
         <td class="d-none d-lg-table-cell">${usuario.fechaNacimiento}</td>

@@ -22,6 +22,16 @@ class Servicios extends CI_Controller {
 		echo json_encode($listaArray);
  
  }
+  public function listaServiciosNOAgregados()//lista servicio que no esta agregado aldetralle reserva 
+ {
+  $ids=$_POST['ids'];
+ 		$estado=1;
+ 		$lista=$this->servicios_model->listaServiciosNOAgregadosdb($estado,$ids);
+ 		$listaArray = $lista->result_array();
+	// $listaArray = $lista->row_array();
+		echo json_encode($listaArray);
+ 
+ }
   public function agregarServicio()
  {
  			$data['nombre']=$_POST['nombreServicio'];

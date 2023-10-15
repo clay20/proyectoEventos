@@ -39,13 +39,13 @@
 
                          <div class="input-box" id="idDivUsuario">
                             <span class="icon"><i class="fas fa-user"></i></span>
-                            <input type="text" id="usuario" name="usuario" onkeypress="return LetrasNumero(event)" minlength="1" maxlength="15" required  autofocus>
+                            <input type="text" id="usuario" name="usuario" onkeypress="return LetrasNumero(event)" minlength="1" maxlength="15" required  autofocus autocomplete="off">
                             <label >Usuario</label>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="input-box" id="idDivPassword">
                               <span class="icon"><i class="fas fa-key"></i></span>
-                            <input type="password" name="password" id="password" minlength="1" maxlength="25" required >
+                            <input type="password" name="password" id="password" minlength="1" maxlength="25" required autocomplete="off">
                             <label>Password</label>
                             <div class="invalid-feedback"></div>
 
@@ -70,7 +70,7 @@
 
                        <div class="input-box">
                         <span class="icon"><i class="fas fa-envelope"></i></span>
-                        <input type="email" required>
+                        <input type="email" required autocomplete="off">
                         <label >email</label>
                     </div>
 
