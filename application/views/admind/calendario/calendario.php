@@ -96,7 +96,7 @@
             <option>Cumpleaños</option>
           </datalist>
 
-          <!-- Sección para la capacidad y detalles del evento -->
+          <!-- Secciódn para la capacidad y detalles del evento -->
           <div class="col-12">
             <label >Capacidad del salon:</label>
 
