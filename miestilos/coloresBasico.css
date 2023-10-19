@@ -82,7 +82,10 @@
 .t-acent {
   color: var(--bs-acent) !important;
 }
+.tt-primary{
+  color: var(--bs-primary) !important;
 
+}
 
 .btnt-primary {
   color: var(--text-primary) !important;

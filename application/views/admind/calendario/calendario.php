@@ -1,132 +1,143 @@
    <!--  -->
 
- <div class="wrapper" style="background-image: url('<?php echo base_url();?>/img/fondo.jpg');">
+   <div class="wrapper" style="background-image: url('<?php echo base_url();?>/img/fondo.jpg');">
 
-  <div class="content-wrapper"   style=" background:rgba(0, 0, 0, .3);">
+    <div class="content-wrapper"   style=" background:rgba(0, 0, 0, .3);">
 
-    <!-- Content Header (Pa  ge header) -->
-    <section class="content-header " >
-
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="t-primary">Calendario de eventos</h1>
-          </div>
-          <div class="col-sm-6 d-flex justify-content-end ">
-            <ol class="row breadcrumb float-sm-right">
-              <li><a href="<?php echo base_url();  ?>index.php/usuario/calAnual"> anual</a> 
-                <i class= "fa fa-square text-green"></i> Pagados
-                <i class="fa fa-square text-aqua"></i> Reservados
-                <i class="fa fa-square text-yellow"></i> Pendientes</li>
-              </ol>
-            </div>
-          </div>
-        </div><!-- /.container-fluid -->
-
-      </section>
-
-      <!-- Main content -->
-      <section class="content " style=" " >
+      <!-- Content Header (Pa  ge header) -->
+      <section class="content-header " >
 
         <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="t-primary">Calendario de eventos</h1>
+            </div>
+            <div class="col-sm-6 d-flex justify-content-end ">
+              <ol class="row breadcrumb float-sm-right">
+                <li><a href="<?php echo base_url();  ?>index.php/usuario/calAnual"> anual</a> 
+                  <i class= "fa fa-square text-green"></i> Pagados
+                  <i class="fa fa-square text-aqua"></i> Reservados
+                  <i class="fa fa-square text-yellow"></i> Pendientes</li>
+                </ol>
+              </div>
+            </div>
+          </div><!-- /.container-fluid -->
 
-          <div class="box box-primary no-border">
-            <div class="box-body no-padding">
-              <!-- THE CALENDAR -->
-              <div id="mini-clndr" >
-                <div class="clndr">  
+        </section>
 
+        <!-- Main content -->
+        <section class="content " style=" " >
+
+          <div class="container-fluid">
+
+            <div class="box box-primary no-border">
+              <div class="box-body no-padding">
+                <!-- THE CALENDAR -->
+                <div id="mini-clndr" >
+                  <div class="clndr">  
+
+                  </div>
                 </div>
               </div>
             </div>
+
           </div>
+          <!-- /.row -->
 
-        </div>
-        <!-- /.row -->
+        </section>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
 
-      </section>
-      <!-- /.content -->
+
     </div>
-    <!-- /.content-wrapper -->
+    <!-- ./wrapper -->
 
+    <div class="modal modal-primary" id="modalAddEvent" aria-hidden="true"  >
+      <div class="modal-dialog modal-xl" >
+        <div class="modal-content" style="background:rgba(251, 214, 169, .9);">
+          <div class="modal-header  p-2 m-0  bgt-primary" >
+            <div class="container">
+             <div class="row">
 
-  </div>
-  <!-- ./wrapper -->
+              <div class="col-11  d-flex justify-content-start align-items-center">
+                <h5 class="modal-title ">Agregar un evento para el dia <span id="titleModalDay">2023-08-12</span> </h5>
+              </div>
+              <div class="col-1 d-flex justify-content-end align-items-center m-0 p-0">
+               <button type="button" class="btn " data-dismiss="modal" aria-label="Close"><span  aria-hidden="true"><i class="fa-solid fa-x fa-lg t-light" style="color:red"></i></span></button>
+             </div>
 
-  <div class="modal modal-primary" id="modalAddEvent" aria-hidden="true"  >
-    <div class="modal-dialog modal-xl" >
-      <div class="modal-content" style="background:rgba(251, 214, 169, .9);">
-        <div class="modal-header  p-2 m-0  bgt-primary" >
-          <div class="container">
-           <div class="row">
-
-            <h5 class="modal-title ">Agregar un evento para el dia <span id="titleModalDay">2023-08-12</span>  <div class="row">
-             <input type="hidden" id="fecha" name="fechaEvento" >
-           </div></h5>
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span  aria-hidden="true">×</span></button>
-
-
+             <input type="hidden" name="fecha" id="fecha" >
+           </div>
          </div>
        </div>
-     </div>
-<script type="text/javascript">
- 
-   
-
-</script>
+       <script type="text/javascript">
 
 
 
-     <div class="modal-body mx-1 p-1 fgt-secondary">
-      <section class="row p-0" >
-        <div class="col-sm-12 col-lg-4" >
-         <section class="row" style="background:rgba(251, 214, 169, .4);">
-          <!-- Sección para el nombre del evento -->
-          <div class="col-12" >
-            <div class="myBox">
-              <input class="myImputField form-control form-control-sm" id="nombreEvento" list="listaEventos" type="text" placeholder="Ej.Cena Graduación Compromiso Matrimonio..." autofocus autocomplete="off">
-              <label class="mylabel">Tipo del Evento</label>
-            </div>
-          </div>
-          <datalist id="listaEventos">
-            <option>Matrimonio</option>
-            <option>15 años</option>
-            <option>Graduaciones</option>
-            <option>Bautizos</option>
-            <option>Cumpleaños</option>
-          </datalist>
+       </script>
 
-          <!-- Secciódn para la capacidad y detalles del evento -->
-          <div class="col-12">
-            <label >Capacidad del salon:</label>
 
-              <input type="text" name="" value="400" disabled style="width: 40px; height: 25px;">
-            <div class="row">
-              <div class="col-lg-12 col-md-8 col-6">
-       
-                Invitados:<input  type="text" id="nroInvitados" name="nroInvitados" onkeypress="return soloNumero(event)" maxlength="3" minlength="1"   value="20" style="width: 40px; height: 25px;" required onchange="cantidadInvitados()">
+
+       <div class="modal-body mx-1 p-1 fgt-secondary">
+        <section class="row p-0" >
+          <div class="col-sm-12 col-lg-4" >
+           <section class="row" style="background:rgba(251, 214, 169, .4);">
+            <!-- Sección para el nombre del evento -->
+            <div class="col-12" >
+              <div class="myBox">
+                <input class="myImputField form-control form-control-sm" id="nombreEvento" list="listaEventos" type="text" placeholder="Ej.Cena Graduación Compromiso Matrimonio..." autofocus autocomplete="off">
+                <label class="mylabel">Tipo del Evento</label>
               </div>
-
-
-
             </div>
-           
-         
+            <datalist id="listaEventos">
+              <option>Matrimonio</option>
+              <option>15 años</option>
+              <option>Graduaciones</option>
+              <option>Bautizos</option>
+              <option>Cumpleaños</option>
+            </datalist>
 
-       </div>
-        <div class="col-12">
-              Dias del Eevento:<input type="text" name="" maxlength="1" id="txtDia" value="1" required placeholder="dias" onchange="cargarFechasConsecutivas() ;agregarBloques() "style="width: 40px; height:25px">dias
-        </div>
-         
-          <div class="row" id="contenedorBloques">
-            <!-- muy impirta aqui se esta cargado lo ide de campos -->
+            <!-- Secciódn para la capacidad y detalles del evento -->
+            <div class="col-xl-12 col-lg-12  col-md-6  col-sm-12 col-12 d-flex">
+              <div class=" col-8">    <label >Capacidad del salon:</label>
+              </div>
+              <div class="col-4">
+               <input type="text" name="" value="400" disabled style="width: 40px; height: 25px;">
+               <input type="hidden" name="" id="maxCapacidad" value="400" >
+
+               <label><i class="fa-solid fa-person "></i></label> 
+             </div>
+
+             <div class="row">
+              <div class="">
+                <label>
+                </label><input  type="hidden" id="nroInvitados" name="nroInvitados" onkeypress="return soloNumero(event)" maxlength="3" minlength="1"   value="20" style="width: 40px; height: 25px;" required onchange="cantidadInvitados()">
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-12 col-lg-12  col-md-6  col-sm-12 col-12 d-flex">
+            <div class="col-8">
+              <label>  Dias del Evento:</label>
+            </div>
+            <div class="col-4">
+              <input type="text" name="" maxlength="1" id="txtDia" onkeypress="return soloNumero(event)"  value="1" required placeholder="dias" onchange="agregarBloques() "style="width: 40px; height:25px"> 
+
+              <i class="fa-solid fa-calendar-day"></i>
+            </div> 
           </div>
 
-  
-     </section>
+      <div class="col-12 p-0 " id="contenedorBloques" style="background: rgba(255, 255, 255, .4);">
+        <!-- muy impirta aqui se esta cargado lo ide de campos -->
+      </div>
 
-   </div>
-   <div class="col-sm-12 col-lg-8 p-1">
+ <hr class="bgt-primary " style="
+  height: 2px;
+">
+    </section>
+
+  </div>
+  <div class="col-sm-12 col-lg-8 p-1">
     <div class="col-12 d-flex ">
 
       <div class="col-11">
@@ -174,49 +185,39 @@
       </div>
     </div >
 
-<div class="table-responsive">
-  
-    <table class="p-1" rules="all" width="100%" id="detalleServicio">
-      <thead class="bgt-primary">
-        <tr>
-          <th style="text-align: center;"><small>Nombre Servicio</small></th>
-          <th style="text-align: center;"><small>Fecha</small></th>
-          <th style="text-align: center;"><small>Cant.</small></th>
-          <th style="text-align: center;"><small>Precio(Bs)</small></th>
-          <th style="text-align: center;"><small>inporte(Bs)</small></th>
-          <th style="text-align: center;"><small>Descuento(Bs)</small></th>
-          <th style="width:10px"></th>
-        </tr>
-      </thead>
-      <tbody id="servicioDetalle" class="servicioDetalle">
-       <!--  <tr servicioId=0 style="color:#001F3F">
-          <td>Salon de Eventos</td>
-          <td style="text-align:right; " class="myBox"><select  id="fechaSeleccion" class="fechaSeleccion myImputField"  onchange="seleccionarFila(this)"></select>   </td>
+    <div class="row p-1" style="overflow-x:auto; min-width:50px">
 
-          <td style="text-align:right;"><input type="number" name="" id="cant1" style="width:40px ;height: 20px;" value="1" disabled></td>
-          <td style="text-align:right;">3000.00</td>
-          <td style="text-align:right;">3000.00</td>
-          <td style="text-align:right;" class="myBox"><input type="text"  id="" class="descuentoParcial myImputField" onkeypress="return soloNumero(event)" maxlength="7" class="" name=""  value="0.00"  style=" text-align: right;padding-right: 28px;"><small class="mylabel-icon">bs.</small></td>
-          <td><button class="btn btn-sm text-danger p-1" disabled><i class="fa-solid fa-circle-minus fa-lg"></i></button></td>
-        </tr> -->
+      <table class="p-1" rules="all" width="100%" id="detalleServicio">
+        <thead class="bgt-primary">
+          <tr>
+            <th style="text-align: center; min-width: 150px; width: auto;"><small>Nombre Servicio</small></th>
+            <th style="text-align: center; min-width: 100px;"><small>dia/Cant</small></th>
+            <th style="text-align: center;  min-width: 50px;"><small>PU(Bs)</small></th>
+            <th style="text-align: center; min-width: 110px;"><small>inporte(Bs)</small></th>
+            <th style="text-align: center;  min-width: 120px;"><small>Descuento(Bs)</small></th>
+            <th style="width:7px"></th>
+          </tr>
+        </thead>
+        <tbody id="servicioDetalle" class="servicioDetalle">
+
       </tbody>
       <tfoot class="bgt-primary">
        <tr>
-        <td colspan="4"><small>Total</small></td>
+        <td colspan="3"><small>Total</small></td>
         <td style="text-align:right;"><input type="text"  id="total" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right; background: #CBDFFF;" readonly>bs.</td>
         <td style="text-align:right;"><input type="text"  id="descuento" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right; background: #CBDFFF;" readonly>bs.</td>
       </tr>
       <tr>
-        <td colspan="4"><small>Total a Pagar</small></td>
+        <td colspan="3"><small>Total a Pagar</small></td>
         <td style="text-align:right;"><input type="text"  id="totalPagar" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right; background: #CBDFFF;" readonly>bs.</td>
 
       </tr>
       <tr>
-        <td colspan="4"><small>Monto adelantado</small></td>
+        <td colspan="3"><small>Monto adelantado</small></td>
         <td style="text-align:right;"><input type="text"  id="montoAdelantado" onkeypress="return soloNumero(event)"  class="" name=""  value="0.00"  style="width:80px; height: 20px; font: 10px; text-align: right;">bs.</td>
       </tr>
       <tr>
-        <th colspan="4"><small>Saldo a pagar</small></th>
+        <th colspan="3"><small>Saldo a pagar</small></th>
         <td style="text-align:right;"><input type="text"  id="saldoPagar" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right; background: #CBDFFF;" readonly>bs.</td>
       </tr>
     </tfoot>
@@ -233,8 +234,8 @@
 
 </div>
 <div class="modal-footer d-flex justify-content-around p-1 bgt-acent " >
-  <button type="button" class="btn-sm btnt-primary" id="btnGuardar" >Agregar</button>
-  <button type="button" class="btn-sm btnt-primary " data-dismiss="modal">Cancelar</button>
+  <button type="button" class=" btn btn-md btnt-primary" id="btnGuardar" > <i class="fa-solid fa-floppy-disk text-success"></i> Agregar</button>
+  <button type="button" class=" btn btn-md btnt-primary " data-dismiss="modal"> <i class="fa-solid fa-xmark text-warning"></i>Cancelar</button>
 </div>
 </div>
 <!-- /.modal-content -->
@@ -568,7 +569,7 @@
 
 
 // loadBySection();
-cargarPorSeccion();
+  cargarPorSeccion();
 
 </script>
 

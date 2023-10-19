@@ -23,7 +23,7 @@
 
               <li class="nav-item"><a class="nav-link active" href="#tabUsuarios" id="tabUsuariosLink" data-toggle="tab"><i class="fa-solid fa-users"></i> Usuarios</a></li>
               <li class="nav-item"><a class="nav-link " href="#agregarUsuario" id="agregarUsuarioLink" data-toggle="tab"><i class="fas fa-user-plus"></i>Agregar </a></li>
-              <li class="nav-item"><a class="nav-link" href="#desabilitados" data-toggle="tab"><i class="fa-solid fa-user-xmark"></i> Desabilitados</a></li>
+              <!-- <li class="nav-item"><a class="nav-link" href="#desabilitados" data-toggle="tab"><i class="fa-solid fa-user-xmark"></i> Desabilitados</a></li> -->
             </ul>
           </div><!-- /.card-header -->
           <div class="card-body pe-2 ps-2 pb-2 pt-0 " >
@@ -31,12 +31,12 @@
 
               <!-- Inicio usuarios -->
               <div class="tab-pane active " id="tabUsuarios">
-               <div class="row d-flex justify-content-end">
+              <!--  <div class="row d-flex justify-content-end">
                 <div class="myBox">
                   <label class="mylabel-icon"><i class="fas fa-search"></i></label>
                   <input id="buscarUsuario" class="myImputField" type="search" name="buscarUsuario" >
                 </div>
-              </div>
+              </div> -->
              
 
               <div class="card-body m-0 p-0" style="max-height: 59vh;   overflow-y: auto;">

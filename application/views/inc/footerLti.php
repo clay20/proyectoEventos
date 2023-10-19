@@ -51,7 +51,7 @@
 
 
 <!-- alertas -->
-<!-- <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/alert/sweetalert2.js"></script>  -->
+<!-- <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/buscadorInterno/selectize.js"></script>  -->
 
 
 <!-- Page specific script -->

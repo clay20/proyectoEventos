@@ -35,6 +35,7 @@ $(document).ready(function() {
         $('#tbCliente').html(template); 
       }
     });
+ 
   }
 
 
@@ -238,6 +239,10 @@ $(document).ready(function() {
 
 
 });
+
+
+ 
+
 
 
 function limmpiarCampos()

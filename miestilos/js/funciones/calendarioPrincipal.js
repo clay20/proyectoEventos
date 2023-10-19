@@ -30,7 +30,6 @@ function prepareModalToAdd( clickedDay ){
 
   ListaServicio();
   actualizarPrecio();
-  cargarFechasConsecutivas();
   agregarBloques();
 
 
@@ -157,52 +156,55 @@ function limmpiarCampos()
 
 //buscar servicio en 
 function ListaServicio() {
-    ids = new Array();
+  var ids = [];
 
-    $(".servicioDetalle").find('tr').each(function() {
-        ids.push($(this).find("td:eq(0) input.idServicios").val());
-    });
+  $(".servicioDetalle").find('tr').each(function() {
+    var id = $(this).find(".ids").val();
+    ids.push(id);
+  });
+
 
     // Agregar un valor predeterminado de cero si el array está vacío
-    if (ids.length === 0) {
-        ids.push(0);
-    }
+  if (ids.length === 0) {
+    ids.push(0);
+  }
 
     // Continuar con la solicitud AJAX
-    $.ajax({
-        url: '../servicios/listaServiciosNOAgregados',
-        data: { ids },
-        type: 'POST',
-        success: function(response) {
-            let servicio = JSON.parse(response);
-            let template = "";
-            console.log(servicio+"desde aqui"+ids);
-            servicio.forEach(servicio => {
-                template += `
-                    <option servicioId=${servicio.id}
-                        value="${servicio.nombre}"
-                        nombre="${servicio.nombre}"
-                        medida="${servicio.medida}"
-                        precio="${servicio.precio}"
-                        maximo="${servicio.maximo}">
-                        ${servicio.descriccion}
-                    </option>
-                `;
-            });
-            $('#listaServicio').html(template);
-        }
-    });
+  $.ajax({
+    url: '../servicios/listaServiciosNOAgregados',
+    data: { ids },
+    type: 'POST',
+    success: function(response) {
+      let servicio = JSON.parse(response);
+      let template = "";
+      // console.log(servicio+"desde aqui"+ids);
+      servicio.forEach(servicio => {
+        template += `
+        <option servicioId=${servicio.id}
+        value="${servicio.nombre}"
+        nombre="${servicio.nombre}"
+        medida="${servicio.medida}"
+        precio="${servicio.precio}"
+        maximo="${servicio.maximo}">
+        ${servicio.descriccion}
+        </option>
+        `;
+      });
+      $('#listaServicio').html(template);
+    }
+  });
 }
+
 
 
 function seleccionarServicio(data) {
   const datalist = document.getElementById('listaServicio');
   const buscarServicio = document.getElementById('txtBuscaeServicio');
-  const nroInvitado=document.getElementById("nroInvitados");
-  const diasEventos=document.getElementById("txtDia");
-     var fecha=document.getElementById('fecha');
-    var horaInicio = $(`#inicioH1`).val();
-      var duracion = $(`#horaRange1`).val();
+  const nroInvitado = document.getElementById("nroInvitados");
+  const diasEventos = document.getElementById("txtDia").value;
+  var fecha = document.getElementById('fecha');
+  var horaInicio = $(`#inicioH1`).val();
+  var duracion = $(`#horaRange1`).val();
 
   for (let i = 0; i < datalist.options.length; i++) {
     if (datalist.options[i].value === data.value) {
@@ -211,117 +213,434 @@ function seleccionarServicio(data) {
       servicio = datalist.options[i].getAttribute('nombre');
       maximo = datalist.options[i].getAttribute('maximo');
       cant = Math.ceil(nroInvitado.value / 400 * maximo);
-      console.log(verificaExiste(id,diasEventos.value));
-      if(!verificaExiste(id,diasEventos.value)){
 
-
-
-
-        let template = "";
-        template += `
-        <tr servicioId=${id}>
-        <td><small> ${servicio}</small>  <input type="hidden" class="idServicios" value =${id} ></td>
-        <td style="text-align:right;" class="myBox"><select class="fechaSeleccion myImputField" onchange="seleccionarFila(this)"></select>  </td>
-        <td style="text-align:right;">
-        <input type="text" id="cant1" onkeypress="return soloNumero(event)"   name="" minlength="1" maxlength="3"  style="width:40px ;height: 20px;" value="${cant}">
-        <input type ="hidden" value="${maximo}" id="maximotd">
-        <input type="hidden" id="fechaHoraInicio" name="fechaHoraInicio" class=""  value="${fecha.value+' '+horaInicio}">
-        <input type="hidden" id="fechaHoraFin" name="fechaHoraFin" class="" value="${duracion}" >
-        <input type="hidden" id="duracion" name="duracion" class="" value="${duracion}" >
-
-        </td>
-        <td style="text-align:right;">${precio}</td>
-        <td style="text-align:right;">${precio*cant}</td>
-        <td style="text-align:right;"><input type="text"  onkeypress="return soloNumero(event)" id="descuentoParcial" class="descuentoParcial" name=""  maxlength="7"  value="0.00"  style="width:80px; height: 20px; font: 10px; text-align: right;">bs.</td>
-        <td><button class="btn btn-sm text-danger p-1 btnEliminarFila"><i class="fa-solid fa-circle-minus fa-lg"></i></button></td>
-        </tr>`;
-      // Agregar las filas a la tabla usando append
-      // $('#servicioDetalle').html('');  // Limpiar contenido anterior
-        $('#servicioDetalle').append(template);
-
-      }
-      else
-      {
-    toastr.info("servicio ya esta agregado");
-
-         // swal("", 'el servicio ya existe agregado por favor agregar mas antiad' "warning");
-     }
-     buscarServicio.value="";
-     actualizarPrecio();
-     cargarFechasConsecutivas();
-  ListaServicio();
-     break;
-   }
- }
-}
-
-
-function verificaExiste(idSe, diasEvento) {
-  var ban = false;
-  var cont = 1;
-
-  $(".servicioDetalle tr").each(function () {
-    let id = $(this).attr('servicioId');
-
-    if (id == idSe) {
-      // Hacer algo si existe el elemento con el ID específico
-      if (cont == diasEvento) {
-        ban = true;
-      }
-      cont += 1;
-      console.log("Elemento encontrado con ID:" + idSe + 'cont ' + cont + '' + diasEvento);
+            // Agregar aquí la lógica para procesar cada elemento seleccionado
+      generarNuevaFila(servicio,diasEventos,precio,id,cant,maximo);
+  
     }
-  });
+  }
 
-  return ban;
+    // Limpiar el campo de búsqueda después de procesar todos los elementos
+  buscarServicio.value = "";
+    // actualizarPrecio();
+  ListaServicio();
+}
+
+var estadosCheckboxes = [];
+var valoresInputsTexto = [];
+var valoresInputsDescuento = [];
+
+
+    function generarCheckboxes() {
+    // Obtener el número ingresado
+        var numero = document.getElementById("txtDia").value;
+        var tabla = document.getElementById("servicioDetalle");
+        var filas = tabla.getElementsByTagName("tr");
+
+        for (var i = 0; i <filas.length; i++) {
+            var celdaDiaCat = filas[i].cells[1];
+        celdaDiaCat.innerHTML = ""; 
+
+                 
+                 var max = filas[i].cells[0].querySelector("#maximo");
+            
+        // Recuperar estados de checkboxes y valores de inputs de texto
+        var checkboxes = estadosCheckboxes[i] || [];
+        var valoresTexto = valoresInputsTexto[i] || [];
+        var valorDescuento=valoresInputsDescuento[i] || [];
+
+        for (var j = 1; j <= numero; j++) {
+
+                var invitados = document.getElementById("nroInvitados" + (j)); 
+                 var cant = Math.ceil((invitados.value / 400) * max.value);
+            var divDia = document.createElement("div");
+            divDia.className = "d-flex justify-content-start align-items-center diaDiv";
+
+
+            var checkboxDia = document.createElement("input");
+            checkboxDia.type = "checkbox";
+            checkboxDia.id = "dia" + j;
+            checkboxDia.name = "dia" + j;
+            checkboxDia.style.width="22px"
+            checkboxDia.style.height="22px"
+            if(j<=checkboxes.length)
+            {
+
+            checkboxDia.checked = checkboxes[j-1] && true;
+          }else
+          {
+            checkboxDia.checked =  true;
+
+          }
+          
+
+
+            var lbDia = document.createElement("span");
+            lbDia.textContent = " Día " + j;
+
+            var inputDia = document.createElement("input");
+            inputDia.type = "text";
+            inputDia.id="cant"+j;
+            inputDia.className="inputCat";
+            inputDia.style.textAlign = "right"; 
+
+            inputDia.minLength=1;
+            inputDia.maxLength=3;
+
+            inputDia.onkeypress = function(event) {
+                return soloNumero(event);
+            };
+
+            inputDia.style.width="35px"
+            inputDia.style.height="22px" 
+            inputDia.value = valoresTexto[j-1] || cant;
+
+
+
+            divDia.appendChild(lbDia);
+            divDia.appendChild(checkboxDia);
+        divDia.appendChild(inputDia); // Agregar el input de texto
+
+
+        celdaDiaCat.appendChild(divDia);
+    }
+    console.log(valoresTexto);
+
+        // Celda de importe
+        // var celdaImporte = filas[i].Cells[3];
+    var celdaImporte = filas[i].cells[3];
+
+    celdaImporte.innerHTML = "";
+
+    celdaImporte.classList.add("text-right");
+
+    for (var k = 1; k <= numero; k++) {
+        var divImporte = document.createElement("div");
+        divImporte.className="divImporte";
+        var labelDia = document.createElement("span");
+        labelDia.textContent = "0.00";
+        labelDia.id = "importe"+k;
+        labelDia.className = "";     
+        divImporte.appendChild(labelDia);
+
+        celdaImporte.appendChild(divImporte);
+    }
+
+        // Celda de descuento
+    var celdaDescuento = filas[i].cells[4];
+    celdaDescuento.classList.add("text-right");
+        celdaDescuento.innerHTML = ""; 
+
+
+    for (var j = 1; j <= numero; j++) {
+        var divDiaDes = document.createElement("div");
+        divDiaDes.className="d-flex justify-content-end align-items-center divDes"
+        var inputDiaSDes = document.createElement("input");
+        inputDiaSDes.type = "text";
+        inputDiaSDes.id="descuento"+j;
+        inputDiaSDes.value=valorDescuento[j-1]|| 0.00 ;
+        // console.log(valorDescuento[j-1]);
+        inputDiaSDes.className = "descuentoT";  
+        inputDiaSDes.onkeypress = function(event) {
+            return soloNumero(event);
+        };
+
+        inputDiaSDes.style.width = "60px";
+        inputDiaSDes.style.height = "22px";   
+        inputDiaSDes.style.textAlign = "right"; 
+        divDiaDes.appendChild(inputDiaSDes);
+        celdaDescuento.appendChild(divDiaDes);
+    }
 }
 
 
-$(document).on('click', '.btnEliminarFila', function() {
-  // Obtener la fila padre y eliminarla
+ cantidadPrecio();
+}
+
+
+
+
+//persistencia de datos temporales
+
+function actualizarCheckboxes() {
+            // Obtener la tabla
+  var tabla = document.getElementById("servicioDetalle");
+  var filas = tabla.getElementsByTagName("tr");
+
+            // Guardar los estados de los checkboxes y valores de inputs de texto antes de limpiar la tabla
+  estadosCheckboxes = [];
+  valoresInputsTexto = [];
+  valoresInputsDescuento = [];
+
+  for (var i = 0; i < filas.length; i++) {
+    var celdaDiaCat = filas[i].cells[1];
+    var divsDia = celdaDiaCat.getElementsByClassName("diaDiv");
+
+
+    
+  var celdaDiaCat = filas[i].cells[4];
+    var divDes = celdaDiaCat.getElementsByClassName("divDes");
+    var descuentos = [];
+
+    var estados = [];
+    var valores = [];
+    for (var j = 0; j <divsDia.length; j++) {
+      var checkbox = divsDia[j].querySelector("input[type=checkbox]");
+      var inputTexto = divsDia[j].querySelector("input[type=text]");
+
+      var inputTextoDes = divDes[j].querySelector("input[type=text]");
+
+     
+      estados.push(checkbox.checked);
+      valores.push(inputTexto.value);
+        descuentos.push(inputTextoDes.value);
+
+    }
+
+    estadosCheckboxes.push(estados);
+    valoresInputsTexto.push(valores);
+valoresInputsDescuento.push(descuentos);
+  
+
+
+  }
+            // Actualizar la tabla
+  generarCheckboxes();
+}
+
+
+
+
+
+
+
+
+function generarNuevaFila(nombreServicio, dias,pu,id,cant,max,) {
+    // Obtener la tabla
+  var tabla = document.getElementById("servicioDetalle");
+  var numero = dias;
+  var nuevaFila = tabla.insertRow();
+  var celdaNombreServicio = nuevaFila.insertCell();
+  var divNmbre = document.createElement("div");
+
+
+  var inputId = document.createElement("input");
+  inputId.value=id;
+  var maximo = document.createElement("input");
+  maximo.value=max;
+  maximo.id="maximo";
+  maximo.type="hidden";
+  var labelNombre = document.createElement("label");
+  labelNombre.textContent =  nombreServicio;
+  inputId.type = "hidden";
+
+
+
+  inputId.className = "ids"; 
+  divNmbre.appendChild(inputId);
+  divNmbre.appendChild(maximo);
+
+  divNmbre.appendChild(labelNombre);
+
+
+  celdaNombreServicio.appendChild(divNmbre);
+
+    // Segunda celda para checkboxes con etiquetas y cantidad
+  var celdaDiaCat = nuevaFila.insertCell();
+ 
+  for (var i = 1; i <= numero; i++) {
+
+     var invitados = document.getElementById("nroInvitados" + i);
+    var cant = Math.ceil((invitados.value / 400) * max);
+    var divDia = document.createElement("div");
+    divDia.className = "d-flex  justify-content-start align-items-center diaDiv";
+ 
+    var checkboxDia = document.createElement("input");
+    checkboxDia.type = "checkbox";
+    checkboxDia.id = "dia" + i;
+    checkboxDia.name = "dia" + i;
+
+    checkboxDia.style.width="22px"
+    checkboxDia.style.height="22px"
+    checkboxDia.checked=true;
+
+
+    var lbDia = document.createElement("span");
+    lbDia.textContent = " Día " + i;
+
+    var inputDia = document.createElement("input");
+    inputDia.type = "text";
+    inputDia.id="cant"+i;
+    inputDia.className="inputCat";
+    inputDia.style.textAlign = "right"; 
+
+    inputDia.minLength=1;
+    inputDia.maxLength=3;
+  
+    inputDia.onkeypress = function(event) {
+    return soloNumero(event);
+    };
+
+    inputDia.style.width="35px"
+
+    inputDia.style.height="22px" 
+    inputDia.value=cant;
+
+
+    divDia.appendChild(lbDia);
+    divDia.appendChild(checkboxDia);
+        divDia.appendChild(inputDia); // Agregar el input de texto
+
+
+        celdaDiaCat.appendChild(divDia);
+
+      }
+
+    // Tercera celda para precio
+      var celdaPrecio = nuevaFila.insertCell();
+      celdaPrecio.classList.add("text-right");
+      celdaPrecio.innerHTML = pu;
+
+
+
+
+
+
+      var celdaInporte = nuevaFila.insertCell();
+      celdaInporte.classList.add("text-right");
+
+      for (var i = 1; i <= numero; i++) {
+        var divImporte = document.createElement("div");
+        divImporte.className="divImporte";
+        var labelDia = document.createElement("span");
+        labelDia.textContent = "0.00";
+        labelDia.id = "importe"+i;
+            // labelDia.style.marginTop = '4px';
+
+
+        labelDia.className = "";     
+        divImporte.appendChild(labelDia);
+
+        celdaInporte.appendChild(divImporte);
+      }
+      var celdaDescuento = nuevaFila.insertCell();
+      celdaDescuento.classList.add("text-right");
+
+      for (var i = 1; i <= numero; i++) {
+        var divDiaDes = document.createElement("div");
+     
+         divDiaDes.className="d-flex justify-content-end align-items-center divDes"
+        var inputDiaSDes = document.createElement("input");
+        inputDiaSDes.type = "text";
+        inputDiaSDes.id="descuento"+i;
+        inputDiaSDes.value="0.00";
+        inputDiaSDes.className = "descuentoT";  
+          inputDiaSDes.onkeypress = function(event) {
+    return soloNumero(event);
+    };
+        inputDiaSDes.style.width = "60px";
+        inputDiaSDes.style.height = "22px";   
+        inputDiaSDes.style.textAlign = "right"; 
+        divDiaDes.appendChild(inputDiaSDes);
+        celdaDescuento.appendChild(divDiaDes);
+      }
+// Cuarta celda para el botón eliminar
+      var celdaBotonEliminar = nuevaFila.insertCell();
+      var btnEliminar = document.createElement("button");
+      btnEliminar.type = "button";
+      btnEliminar.id = "eliminar";
+btnEliminar.className = "btn btn-sm"; // Agregar clase de Bootstrap para un botón rojo
+btnEliminar.title = "Eliminar";
+var ico = document.createElement("i");
+ico.className = "fa-solid fa-circle-minus fa-xl text-danger m-0 ";
+btnEliminar.appendChild(ico);  // <-- Corregido de btn a btnEliminar
+btnEliminar.addEventListener("click", function() {
   $(this).closest('tr').remove();
   actualizarPrecio();
+  actualizarCheckboxes();
 
 });
 
+celdaBotonEliminar.appendChild(btnEliminar);
+    // actualizarCheckboxes();
+cantidadPrecio();
+}
+function cantidadPrecio() {
+  // Obtener la tabla
+  var tabla = document.getElementById("servicioDetalle");
+  var filas = tabla.getElementsByTagName("tr");
+
+  for (var i = 0; i < filas.length; i++) {
+    var celdaDiaCat = filas[i].cells[1];
+    var precio = filas[i].cells[2].textContent;
+    var celdaImporte = filas[i].cells[3];
+
+    var divsDia = celdaDiaCat.getElementsByClassName("diaDiv");
+    var divsImporte = celdaImporte.getElementsByClassName("divImporte");
+   
+  
+    for (var j = 0; j < divsDia.length; j++) {
+
+      var inputTexto = divsDia[j].querySelector("input[type=text]");
+       cant=inputTexto.value;
+       var label = divsImporte[j].querySelector("span");
+     label.textContent = (cant * precio).toFixed(2);
 
 
-$(document).on("keyup", ".servicioDetalle #cant1", function () {
+   
+    }
+  }
+  actualizarPrecio();
+}
+
+
+$(document).on("keyup", ".servicioDetalle .descuentoT", function () {
+  actualizarPrecio();
+})
+
+
+
+
+$(document).on("keyup", ".servicioDetalle .inputCat", function () {
   cant = Number($(this).val());
-  precio = Number($(this).closest("tr").find("td:eq(3)").text());
+  precio = Number($(this).closest("tr").find("td:eq(2)").text());
+ var importe=0;
+   var divActual = $(this).closest("div.diaDiv");
+  var indiceDiv = divActual.index();
 
+// alert('indeic '+indiceDiv);
+  maximo = Number($(this).closest("tr").find("td:eq(0) #maximo").val());  //es como es stok en un 
+ nombreservicio = $(this).closest("tr").find("td:eq(0) label").html();
 
-  maximo = Number($(this).closest("tr").find("td:eq(2) #maximotd").val());
-  nombreservicio = $(this).closest("tr").find("td:eq(0)").text();
-
-
-
-  nroInvitado=Number($("#nroInvitados").val());
-
-      // stock = Number($(this).closest("tr").find("td:eq(3)").text());
 
   if (!Number.isInteger(cant) || cant >= maximo) {
     $(this).addClass("is-invalid");
     // $(this).closest("tr").find("td:eq(5)").text(0);
-    actualizarPrecio();
+
+
+    $(this).val(maximo);
+    importe = maximo*precio;
     console.log(nombreservicio+"  deve ser menor "+maximo+" es cantidad maxima");
     toastr.info(nombreservicio+"  deve ser menor a "+maximo+" es cantidad maxima");
 
-    $(this).val(maximo);
   } else {
     $(this).removeClass("is-invalid");
-    importe = cant*precio;
-    $(this).closest("tr").find("td:eq(4)").text(importe.toFixed(2));
-    actualizarPrecio();
+    importe = (cant*precio).toFixed(2);
+
+   
+
+
   }
-
+var sudElement = $(this).closest("tr").find("td:eq(3) span#importe" + (indiceDiv + 1));
+sudElement.text(importe); 
+actualizarPrecio();
 
 });
 
 
-$(document).on("keyup", ".servicioDetalle .descuentoParcial", function () {
-  actualizarPrecio();
-});
+// $(document).on("keyup", ".servicioDetalle .descuentoParcial", function () {
+//   actualizarPrecio();
+// });
 
 
 
@@ -329,14 +648,34 @@ $(document).on("keyup", ".servicioDetalle .descuentoParcial", function () {
 function actualizarPrecio() {
   var total = 0;
   var descuentoTotal = 0;
+   var subtotal = 0;
+  var subdescuentoTotal = 0;
 
-  $(".servicioDetalle tr").each(function () {
-    total += Number($(this).find("td:eq(4)").text());
-    descuentoTotal += Number($(this).find("td:eq(5) input").val());
-  });
+   var tabla = document.getElementById("servicioDetalle");
+  var filas = tabla.getElementsByTagName("tr");
 
-    // alert(total);
-    // Actualizar campos en el DOM
+  for (var i = 0; i < filas.length; i++) {
+
+    var celdaImporte = filas[i].cells[3];//
+    var celdaDes = filas[i].cells[4];//
+
+    var divsImporte = celdaImporte.getElementsByClassName("divImporte");  
+    var divDes = celdaDes.getElementsByClassName("divDes");  
+
+    for (var j = 0; j < divsImporte.length; j++) {
+
+  
+       var label = divsImporte[j].querySelector("span");
+          subtotal=subtotal+ parseFloat(label.textContent) ;
+     var des = divDes[j].querySelector("input");
+      subdescuentoTotal =subdescuentoTotal+ parseFloat(des.value);
+    }
+    total+=parseFloat(subtotal);
+    subtotal=0;
+    descuentoTotal+=subdescuentoTotal;
+    subdescuentoTotal=0;
+  }
+
   $("#total").val(total.toFixed(2));
   $("#descuento").val(descuentoTotal.toFixed(2));
   
@@ -346,7 +685,6 @@ function actualizarPrecio() {
 
   totalPagar =totalPagar- valorMontoAdelantado;
   $("#saldoPagar").val(totalPagar.toFixed(2));
-
 }
 
 
@@ -372,62 +710,19 @@ $(document).on('keyup', '#montoAdelantado', function () {
       actualizarPrecio();
     });
 
+var estadoInvitados = [];
 
- //mas funciones hora fechas interacti de la vistas
+function valoresInvitados(dias) {
+  estadoInvitados = [];
 
-function cargarFechasConsecutivas() {
-  // Obtener el valor ingresado por el usuario en el campo de fecha
-  var fechaIngresada = document.getElementById("fecha").value;
-  var cantidadFechas = document.getElementById("txtDia").value;
-  var comboboxes = document.querySelectorAll(".fechaSeleccion");
-  var ultimaFechaInput = document.getElementById("fechaFin");
+  for (var i = 0; i < dias; i++) {
+    var nInv = document.getElementById("nroInvitados" + (i+1));
 
-  var fecha = new Date(fechaIngresada);
+      estadoInvitados[i] =  nInv.value;
+  }
 
-  comboboxes.forEach(function(combobox) {
-    // Obtener la selección actual antes de limpiar el combobox
-    var seleccionActual = combobox.value;
-
-    combobox.innerHTML = "";
-
-    // Agregar la cantidad especificada de fechas consecutivas al combobox
-    for (var i = 0; i < cantidadFechas; i++) {
-      var nuevaFecha = new Date(fecha);
-      nuevaFecha.setDate(fecha.getDate() + i);
-
-      // Formatear la fecha como "YYYY-MM-DD"
-      var fechaFormateada = nuevaFecha.toISOString().split('T')[0];
-
-      // Crear una opción y agregarla al combobox
-      var opcion = document.createElement("option");
-      opcion.value = fechaFormateada;
-      opcion.text = fechaFormateada;
-      combobox.add(opcion);
-    }
-
-    // Establecer la selección actual o la primera fecha si no hay ninguna selección
-    combobox.value = seleccionActual || combobox.options[0].value;
-  });
-
-  // Mostrar la última fecha consecutiva en el campo de última fecha
-  var ultimaFecha = new Date(fecha);
-  ultimaFecha.setDate(fecha.getDate() + parseInt(cantidadFechas) - 1);
-  ultimaFechaInput.value = ultimaFecha.toISOString().split('T')[0];
-
-  // Guardar en localStorage
-  localStorage.setItem("ultimaFechaInput", ultimaFechaInput.value);
 }
 
-// Llamar a la función al cargar la página
-window.onload = function() {
-  var ultimaFechaGuardada = localStorage.getItem("ultimaFechaInput");
-  document.getElementById("ultimaFecha").value = ultimaFechaGuardada;
-};
-
-function sumasFEchas(fecha)
-{  
-     
-}
 
 function agregarBloques() {
     // Obtener el valor ingresado por el usuario
@@ -436,31 +731,68 @@ function agregarBloques() {
 
   var contenedor = document.getElementById("contenedorBloques");
   contenedor.innerHTML = "";
+      var resValores;
+  var fFin;
   for (var i = 0; i < cantidadBloques; i++) {
 
     var nuevoBloque = document.createElement("div");
     nuevoBloque.className = "col-12";
 
-
+if (i < estadoInvitados.length && estadoInvitados.length!=0) {
+  resValores = estadoInvitados[i];
+} else {
+  resValores = 100;
+}
     // fechas sumas 
-        var fechaObjeto = new Date(fechaIngresada);
+    var fechaObjeto = new Date(fechaIngresada);
     var nuevaFecha = new Date(fechaObjeto);
     nuevaFecha.setDate(fechaObjeto.getDate() + i);
     var nuevaFechaFormateada = nuevaFecha.toISOString().slice(0, 10);
+    fFin=nuevaFechaFormateada;
     // fechas sumas 
 
     var innerHTML = `
-    <div class="col-12 d-flex justify-content-start">
-    Horario dia ${i + 1}: <mark><span id="horas${i + 1}" name="">8</span></mark>
-    </div>
-    <div class="col-12">
-    <input class="form-control" type="range" id="horaRange${i+1}" min="1" max="12" value="8" name="horaRange${i+1}" onchange="actualizarHoraFin(this, ${i + 1})" >
-    </div>
-    <div class="col-12">     
-    <small>Hora Inicio</small> <input type="time" id="inicioH${i + 1}" step="3600" name="inicioH${i + 1}" value="10:00" style="width:80px" onchange="actualizarHoraFinPorCambioHora(this, ${i + 1})">
-    <small>Hora Fin</small> <input type="time" id="finH${i + 1}" step="3600" name="finH${i + 1}" value="11:00" readonly style="width:80px">
-    <input type="datetime" id="fecha${i + 1}" name="fecha${i + 1}" class="" value="${nuevaFechaFormateada}" >
-    </div>
+        <div class="col-12 m-0 p-0">
+        
+          <div class="row">
+            <div class="col-xl-7 col-lg-12 col-md-7 col-sm-7 col-7 d-flex">
+             <div class="col-12">
+              <strong> Horario dia ${i + 1}:</strong>  <mark><b><span id="horas${i + 1}" name="">8</span></b></mark> Horas
+            </div>
+
+          </div>
+          <div class="col-xl-5 col-lg-12 col-md-5 col-sm-5 col-5 d-flex">
+
+            <div class="col-6">
+              <label>
+              Invitados:</label>
+            </div>
+            <div class="col-6">
+              <input class="invitados"  type="text" id="nroInvitados${i+1}" name="nroInvitados" onkeypress="return soloNumero(event)" maxlength="3" minlength="1"   value="${resValores}" style="width: 40px; height: 25px;" required ">
+
+            </div>  
+          </div>
+        </div>
+        <div class="row">
+          <input class="form-control" type="range" id="horaRange${i+1}" min="1" max="12" value="8" name="horaRange${i+1}" onchange="actualizarHoraFin(this, ${i + 1})" >
+        </div>
+        <div class="row">  
+           <div class="col-12 d-flex">
+             <div class="col-6 d-flex">
+                <span>Hora Inicio</span> <input type="time" id="inicioH${i + 1}" step="3600" name="inicioH${i + 1}" value="10:00" style="width:80px" onchange="actualizarHoraFinPorCambioHora(this, ${i + 1})">
+             </div>
+             <div class="col-6 d-flex">
+                <span>Hora Fin</span> <input type="time" id="finH${i + 1}" step="3600" name="finH${i + 1}" value="11:00" readonly style="width:80px">
+             </div>
+
+           </div>
+         
+         
+          <input type="hidden" id="fecha${i + 1}" name="fecha${i + 1}" class="" value="${nuevaFechaFormateada}" >
+        </div>
+      </div>
+      <hr class="bgt-primary">
+
     `;
 
     nuevoBloque.innerHTML = innerHTML;
@@ -468,22 +800,65 @@ function agregarBloques() {
       // Agregar el nuevo bloque al contenedor
     contenedor.appendChild(nuevoBloque);
   }
+  fechaFin=document.getElementById('fechaFin');
+  fechaFin.value=fFin;
   var cantN=document.getElementById('txtId');
   cantN.disabled=true;
-  eliminarFilas();
+ actualizarCheckboxes();
+ actualizarPrecio();
 }
 
-//elimninar la columnas que quedaron sin fecha  
-function eliminarFilas() {
-  var filas = document.querySelectorAll("#detalleServicio tbody tr");
 
-  filas.forEach(function (fila) {
-    var numeroEnSelect = fila.querySelector("select").value;
-    if (!numeroEnSelect) {
-      fila.remove();
+
+
+$(document).on("keyup", ".invitados", function () {
+  invitados = Number($(this).val());
+var id = $(this).attr('id');
+var indice=id[id.length-1]; //tenemos el id para manda ahora en la tabla que
+var capacidadMaxima= document.getElementById("maxCapacidad").value;
+
+//neceistamos hacer el calculo
+if( invitados<=capacidadMaxima)
+{
+ var tabla = document.getElementById("servicioDetalle");
+  var filas = tabla.getElementsByTagName("tr");
+
+  for (var i = 0; i < filas.length; i++) {
+    var celdaDiaCat = filas[i].cells[1];
+    var divsDia = celdaDiaCat.getElementsByClassName("diaDiv");
+     var max = filas[i].cells[0].querySelector("#maximo");
+
+
+    for (var j = 0; j < divsDia.length; j++) {
+
+         if(j==indice-1){
+              var cant = Math.ceil((invitados/ capacidadMaxima) * max.value);
+               var inputTexto = divsDia[j].querySelector("input[type=text]");
+               inputTexto.value=cant;
+                
+         }
+ 
+
     }
-  });
+  }
+
+
+}else
+{
+    $(this).val(capacidadMaxima);
+    toastr.info("Cantidad de invitados debe ser menor "+capacidadMaxima+"");
+
+
 }
+
+var dias =document.getElementById("txtDia");
+valoresInvitados(dias.value);
+
+cantidadPrecio();
+ 
+  });
+
+
 function actualizarHoraFin(inputRange, index) {
 
   var valorRango = inputRange.value;
@@ -509,168 +884,121 @@ function actualizarHoraFinPorCambioHora(inputHoraInicio, index) {
   horaInicio.setHours(horaInicio.getHours() + parseInt(valorRango));
   horaFinElemento.val(horaInicio.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
 } 
-function seleccionarFila(select) {
-  // Obtener la fila padre del select
-  var fila = select.parentNode.parentNode;
-  var fechaHoraIni = $(fila).find("td:eq(2) input#fechaHoraInicio");
-  var fechaHoraFin = $(fila).find("td:eq(2) input#fechaHoraFin");
-  var duracion = $(fila).find("td:eq(2) input#duracion");
 
-  
-
-
-  var posicionOpcion = select.selectedIndex;
-  var horaInicio = $(`#inicioH${posicionOpcion + 1}`).val();
-  var duracionR = $(`#horaRange${posicionOpcion + 1}`).val();
-
-
-
-  var seleValor = select.value;
-  fechaHoraIni.val(seleValor+' '+horaInicio);
-fechaHoraFin.val(duracionR);
-duracion.val(duracionR);
-
-  // Establecer la clase de color según la posición de la opción
-  if (posicionOpcion === 0) {
-    fila.style.background = '';
-  } else if (posicionOpcion === 1) {
-    fila.style.background = 'rgba(182,255,241,0.3)';
-  } else if (posicionOpcion === 2) {
-    fila.style.background = 'rgba(183,210,255,0.3)';
-  } else if (posicionOpcion === 3) {
-    fila.style.background = 'rgba(0,171,107,0.3)';
-  }
-
-  console.log("Posición de la opción seleccionada:", posicionOpcion);
-  // Imprimir la posición de la opción seleccionada
-
-  ordenarFilasPorFecha();
-}
-
-
-
-function ordenarFilasPorFecha(){
-  var table, rows, switching, i, x, y, shouldSwitch;
-  table = document.getElementById("detalleServicio");
-  switching = true;
-
-  // Hacer un bucle hasta que no haya cambios para cambiar
-  while (switching) {
-    switching = false;
-    rows = table.rows;
-
-    // Hacer un bucle a través de todas las filas, excepto la primera (cabecera)
-    for (i = 1; i < rows.length - 1; i++) {
-      shouldSwitch = false;
-
-      // Obtener los dos elementos que se deben comparar, uno de la columna actual y otro de la siguiente
-      x = rows[i].getElementsByTagName("TD")[1];
-      y = rows[i + 1].getElementsByTagName("TD")[1];
-
-      // Comprobar si las dos fechas deben intercambiarse
-      if (new Date(x.children[0].value) > new Date(y.children[0].value)) {
-        // Marcar que se debe hacer el cambio y romper el bucle
-        shouldSwitch = true;
-        break;
-      }
-    }
-
-    if (shouldSwitch) {
-      // Intercambiar las filas y marcar que se ha hecho un cambio
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-    }
-  }
-
-  // Aplicar el color al fondo de la fila según la opción seleccionada
-  for (i = 0; i < rows.length; i++) {
-    // Obtener la fecha de la celda de la fila actual
-    var fechaCelda = rows[i].getElementsByTagName("TD")[1].children[0].value;
-
-    // Obtener el color asociado a la fecha desde el mapeo
-    var filaColor = colorMapping[fechaCelda];
-
-    // Asignar el color al fondo de la fila
-    rows[i].style.backgroundColor = filaColor;
-  }
-}
 
 
 
 $(document).ready( function () {
  $("#btnGuardar").on("click", function(){ 
+  alert("holas");
   fechaInici=$("#fecha").val();
   nombreEvento= $('#nombreEvento').val();
-  numInvitados= $('#nroInvitados').val();
   dias= $('#txtDia').val();
-
-
-horaInicios = new Array();
-horaFines = new Array();
-duraciones = new Array();
-
-for (var i = 1; i <= dias; i++) {
-
-  horaInicio = $(`#inicioH${i}`).val();
-  duracion = $(`#horaRange${i}`).val();
-  horaFin = $(`#finH${i}`).val();
-
-  horaInicios[i] = horaInicio;
-  duraciones[i] = duracion;
-  horaFines[i] = horaFin;
-}
-
-
- fechaFin=$("#fechaFin").val();
-idCliente=$("#txtId").val();
+  fechaFin=$("#fechaFin").val();
 
 
 
+  horaInicios = new Array();
+  horaFines = new Array();
+  duraciones = new Array();
+  invitados=new Array();
+  fechas=new Array();
+  for (var i = 1; i <= dias; i++) {
+
+    horaInicio = $(`#inicioH${i}`).val();
+    duracion = $(`#horaRange${i}`).val();
+    horaFin = $(`#finH${i}`).val();
+    invitado=$(`#nroInvitados${i}`).val();
+    fecha=$(`#fecha${i}`).val();
+
+
+    horaInicios[i] = horaInicio;
+    duraciones[i] = duracion;
+    horaFines[i] = horaFin;
+    invitados[i]=invitado;
+    fechas[i]=fecha;
+  }
+
+  idCliente=$("#txtId").val();//el cliente que pide una reseerva
   ids=new Array();
- $(".servicioDetalle").find('tr').each(function() {
-  ids.push($(this).find("td:eq(0) input.idServicios").val());
-});
+  $(".servicioDetalle").find('tr').each(function() {
+    ids.push($(this).find("td:eq(0) input.idServicios").val());
+
+  });
+
+var ids = [];
+var cbxDia = [];
+var cantidades = [];
+var descuento = [];
+var importes=[];
+
+  var tabla = document.getElementById("servicioDetalle");
+  var filas = tabla.getElementsByTagName("tr");
+
+  for (var i = 0; i < filas.length; i++) {
+    var celdaDiaCat = filas[i].cells[1];
+    var id = filas[i].cells[0].querySelector("div input.ids").value;
+
+
+    var divsDia = celdaDiaCat.getElementsByClassName("diaDiv");
+    var celdaDiaCat = filas[i].cells[4];
+
+    var divDes = celdaDiaCat.getElementsByClassName("divDes");
+    var descuentos = [];
+    var estados = [];
+    var valores = [];
+
+
+    var celdImporte = filas[i].cells[3];//celda donde esta importe
+    var divimpo = celdImporte.getElementsByClassName("divImporte");
+    var importe=[];
+   
+    for (var j = 0; j <divsDia.length; j++) {
+      var checkbox = divsDia[j].querySelector("input[type=checkbox]");
+      var inputTexto = divsDia[j].querySelector("input[type=text]");
+      var inputTextoDes = divDes[j].querySelector("input[type=text]");
+      var importeServicio=divimpo[j].querySelector("span");
+     
+      estados.push(checkbox.checked);
+      valores.push(inputTexto.value);
+      descuentos.push(inputTextoDes.value);
+      importe.push(importeServicio.innerText);
+      // console.log(importeServicio);
+    }
+
+    cbxDia.push(estados);
+    cantidades.push(valores);
+    descuento.push(descuentos);
+    ids.push(id);
+    importes.push(fechas);
+  
+  }
+
+console.log(ids);
+console.log(cbxDia);
+console.log(importes);
+console.log(cantidades);
+console.log(descuentos);
+console.log(fecha);
+
+
+
+
+
+
  // fecha
- fechaHoraInicio=new Array();
-  $(".servicioDetalle").find('tr').each (function() {
-    fechaHoraInicio.push($(this).find("td:eq(2)input#fechaHoraInicio").val());
-  }); 
- fechaHoraFin=new Array();
-  $(".servicioDetalle").find('tr').each (function() {
-    fechaHoraFin.push($(this).find("td:eq(2)input#fechaHoraFin").val());
-  }); 
- horasDuracion=new Array();
-  $(".servicioDetalle").find('tr').each (function() {
-    horasDuracion.push($(this).find("td:eq(2)input#duracion").val());
-  }); 
- cants=new Array();
-  $(".servicioDetalle").find('tr').each (function() {
-    cants.push($(this).find("td:eq(2)input#cant1").val());
-  }); 
-
- precios=new Array();
-  $(".servicioDetalle").find('tr').each (function() {
-    precios.push($(this).find("td:eq(3)").text());
-  }); 
-
- importes=new Array();
-  $(".servicioDetalle").find('tr').each (function() {
-    importes.push($(this).find("td:eq(4)").text());
-  }); 
-descuentos=new Array();
-  $(".servicioDetalle").find('tr').each (function() {
-    descuentos.push($(this).find("td:eq(5)#descuentoParcial").val());
-  }); 
+ var pu = new Array();
+$(".servicioDetalle").find('tr').each(function() {
+  pu.push($(this).find("td:eq(2)").text());
+});
 
 
 
-
-
- totalSinDescuento=$("#total").val();
- totalDescuento=$("#descuento").val();
- totalPagar=$("#totalPagar").val();
- adelandto=$("#montoAdelantado").val();
- saldoPagar=$("#saldoPagar").val();
+  totalSinDescuento=$("#total").val();
+  totalDescuento=$("#descuento").val();
+  totalPagar=$("#totalPagar").val();//ya con descuento de anterior
+  adelandto=$("#montoAdelantado").val();
+  saldoPagar=$("#saldoPagar").val();
 
 
 
@@ -680,13 +1008,13 @@ descuentos=new Array();
   //   cants.push($(this).find("#cant").val());
   // }); 
 
-  agregarReservar(fechaInici,nombreEvento,numInvitados,dias,horaInicios,horaFines,duraciones,fechaFin,idCliente,
-ids, fechaHoraInicio,fechaHoraFin,horasDuracion,cants,precios,importes,descuentos,totalSinDescuento,
-totalDescuento,totalPagar,adelandto,saldoPagar);
+  // agregarReservar(fechaInici,nombreEvento,numInvitados,dias,horaInicios,horaFines,duraciones,fechaFin,idCliente,
+  //   ids, fechaHoraInicio,fechaHoraFin,horasDuracion,cants,precios,importes,descuentos,totalSinDescuento,
+  //   totalDescuento,totalPagar,adelandto,saldoPagar);
 
-fechaInici,nombreEvento,numInvitados,dias,horaInicios,horaFines,duraciones,fechaFin,idCliente,
-ids, fechaHoraInicio,fechaHoraFin,horasDuracion,cants,precios,importes,descuentos,totalSinDescuento,
-totalDescuento,totalPagar,adelandto,saldoPagar
+  // fechaInici,nombreEvento,numInvitados,dias,horaInicios,horaFines,duraciones,fechaFin,idCliente,
+  // ids, fechaHoraInicio,fechaHoraFin,horasDuracion,cants,precios,importes,descuentos,totalSinDescuento,
+  // totalDescuento,totalPagar,adelandto,saldoPagar
 
 
 
@@ -696,26 +1024,26 @@ totalDescuento,totalPagar,adelandto,saldoPagar
 });
 
 function agregarReservar(
-fechaInici,nombreEvento,numInvitados,dias,horaInicios,horaFines,duraciones,fechaFin,idCliente,
-ids, fechaHoraInicio,fechaHoraFin,horasDuracion,cants,precios,importes,descuentos,totalSinDescuento,
-totalDescuento,totalPagar,adelandto,saldoPagar){
+  fechaInici,nombreEvento,numInvitados,dias,horaInicios,horaFines,duraciones,fechaFin,idCliente,
+  ids, fechaHoraInicio,fechaHoraFin,horasDuracion,cants,precios,importes,descuentos,totalSinDescuento,
+  totalDescuento,totalPagar,adelandto,saldoPagar){
   $.ajax({
     url: "../reservas/agregar",
     type: "POST",
     data:{
-fechaInici,nombreEvento,numInvitados,dias,horaInicios,horaFines,duraciones,fechaFin,idCliente,
-ids, fechaHoraInicio,fechaHoraFin,horasDuracion,cants,precios,importes,descuentos,totalSinDescuento,
-totalDescuento,totalPagar,adelandto,saldoPagar
-}
-,
+      fechaInici,nombreEvento,numInvitados,dias,horaInicios,horaFines,duraciones,fechaFin,idCliente,
+      ids, fechaHoraInicio,fechaHoraFin,horasDuracion,cants,precios,importes,descuentos,totalSinDescuento,
+      totalDescuento,totalPagar,adelandto,saldoPagar
+    }
+    ,
     success: function(resp){
 
-                 toastr.info('pureba mensage');
+     toastr.info('pureba mensage');
 
-  toast.info('');
-    },
-    error: function(){ 
+     toast.info('');
+   },
+   error: function(){ 
       // window.location="<?php echo base_url(); ?>ventas";
-    }
-  });
+   }
+ });
 }

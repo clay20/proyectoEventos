@@ -82,7 +82,7 @@ class Reservas extends CI_Controller {
 		$cants	= $this->input->post("cants");
 
 		if($total <= 0){
-			$resp= array('type' => "error", 'message' => "Para realizar la venta agregue productos");
+			$resp= array('type' => "error", 'message' => "Para realizar la ventssdffa agregue productos");
 			echo json_encode($resp);
 		} else if($clientId == null){
 			$resp= array('type' => "error", 'message' => "Antes de finalizar la venta seleccsdfhsdfdgdfsgfgsione un cliente");
