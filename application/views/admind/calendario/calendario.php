@@ -86,7 +86,7 @@
             <!-- Sección para el nombre del evento -->
             <div class="col-12" >
               <div class="myBox">
-                <input class="myImputField form-control form-control-sm" id="nombreEvento" list="listaEventos" type="text" placeholder="Ej.Cena Graduación Compromiso Matrimonio..." autofocus autocomplete="off">
+                <input class="myImputField form-control form-control-sm" id="nombreEvento" list="listaEventos" type="text" placeholder="Ej.Cena Graduación Compromiso Matrimonio..." autofocus autocomplete="off" onkeypress="return soloLetrasEspacio(event)">
                 <label class="mylabel">Tipo del Evento</label>
               </div>
             </div>
@@ -144,7 +144,7 @@
         <div class="myBox">
 
           <input type="hidden" id="txtId" name="idCliente">
-          <input type="text" class="myImputField" id="nombreCliente" required placeholder="" list="listaCliente" onchange="seleccionCliente(this)" autocomplete="off"> 
+          <input type="text" class="myImputField" id="nombreCliente" required placeholder="" list="listaCliente" onchange="seleccionCliente(this)" autocomplete="off" onkeypress="return soloLetrasEspacio(event)"> 
           <label class="mylabel" id="lbLeyenda">Persona que contrata el evento</label>
         </div>
 
@@ -172,7 +172,7 @@
         <div class="myBox">
 
 
-          <input type="text" class="myImputField" id="txtBuscaeServicio" required placeholder="" list="listaServicio"  onautocomplete="off" onchange="seleccionarServicio(this)"> 
+          <input type="text" class="myImputField" id="txtBuscaeServicio" required placeholder="" list="listaServicio"  onautocomplete="off" onchange="seleccionarServicio(this)" onkeypress="return soloLetrasEspacio(event)"> 
           <label class="mylabel" >Buscar Servicio</label>
         </div>
 

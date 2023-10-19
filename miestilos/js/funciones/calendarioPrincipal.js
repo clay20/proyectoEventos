@@ -216,7 +216,7 @@ function seleccionarServicio(data) {
 
             // Agregar aquí la lógica para procesar cada elemento seleccionado
       generarNuevaFila(servicio,diasEventos,precio,id,cant,maximo);
-  
+
     }
   }
 
@@ -231,90 +231,91 @@ var valoresInputsTexto = [];
 var valoresInputsDescuento = [];
 
 
-    function generarCheckboxes() {
+function generarCheckboxes() {
     // Obtener el número ingresado
-        var numero = document.getElementById("txtDia").value;
-        var tabla = document.getElementById("servicioDetalle");
-        var filas = tabla.getElementsByTagName("tr");
+  var numero = document.getElementById("txtDia").value;
+  var tabla = document.getElementById("servicioDetalle");
+  var filas = tabla.getElementsByTagName("tr");
 
-        for (var i = 0; i <filas.length; i++) {
-            var celdaDiaCat = filas[i].cells[1];
-        celdaDiaCat.innerHTML = ""; 
+  for (var i = 0; i <filas.length; i++) {
+    var celdaDiaCat = filas[i].cells[1];
+    celdaDiaCat.innerHTML = ""; 
 
-                 
-                 var max = filas[i].cells[0].querySelector("#maximo");
-            
+
+    var max = filas[i].cells[0].querySelector("#maximo");
+
         // Recuperar estados de checkboxes y valores de inputs de texto
-        var checkboxes = estadosCheckboxes[i] || [];
-        var valoresTexto = valoresInputsTexto[i] || [];
-        var valorDescuento=valoresInputsDescuento[i] || [];
+    var checkboxes = estadosCheckboxes[i] || [];
+    var valoresTexto = valoresInputsTexto[i] || [];
+    var valorDescuento=valoresInputsDescuento[i] || [];
 
-        for (var j = 1; j <= numero; j++) {
+    for (var j = 1; j <= numero; j++) {
 
-                var invitados = document.getElementById("nroInvitados" + (j)); 
-                 var cant = Math.ceil((invitados.value / 400) * max.value);
-            var divDia = document.createElement("div");
-            divDia.className = "d-flex justify-content-start align-items-center diaDiv";
-
-
-            var checkboxDia = document.createElement("input");
-            checkboxDia.type = "checkbox";
-            checkboxDia.id = "dia" + j;
-            checkboxDia.name = "dia" + j;
-            checkboxDia.style.width="22px"
-            checkboxDia.style.height="22px"
-            if(j<=checkboxes.length)
-            {
-
-            checkboxDia.checked = checkboxes[j-1] && true;
-          }else
-          {
-            checkboxDia.checked =  true;
-
-          }
-          
+      var invitados = document.getElementById("nroInvitados" + (j)); 
+      var cant = Math.ceil((invitados.value / 400) * max.value);
+      var divDia = document.createElement("div");
+      divDia.className = "d-flex justify-content-start align-items-center diaDiv";
 
 
-            var lbDia = document.createElement("span");
-            lbDia.textContent = " Día " + j;
+      var checkboxDia = document.createElement("input");
+      checkboxDia.type = "checkbox";
+      checkboxDia.id = "dia" + j;
+      checkboxDia.name = "dia" + j;
+      checkboxDia.className="diaBox";
+      checkboxDia.style.width="22px";
+      checkboxDia.style.height="22px";
+      if(j<=checkboxes.length)
+      {
 
-            var inputDia = document.createElement("input");
-            inputDia.type = "text";
-            inputDia.id="cant"+j;
-            inputDia.className="inputCat";
-            inputDia.style.textAlign = "right"; 
+        checkboxDia.checked = checkboxes[j-1] && true;
+      }else
+      {
+        checkboxDia.checked =  true;
 
-            inputDia.minLength=1;
-            inputDia.maxLength=3;
-
-            inputDia.onkeypress = function(event) {
-                return soloNumero(event);
-            };
-
-            inputDia.style.width="35px"
-            inputDia.style.height="22px" 
-            inputDia.value = valoresTexto[j-1] || cant;
+      }
 
 
 
-            divDia.appendChild(lbDia);
-            divDia.appendChild(checkboxDia);
+      var lbDia = document.createElement("span");
+      lbDia.textContent = " Día " + j;
+
+      var inputDia = document.createElement("input");
+      inputDia.type = "text";
+      inputDia.id="cant"+j;
+      inputDia.className="inputCat";
+      inputDia.style.textAlign = "right"; 
+
+      inputDia.minLength=1;
+      inputDia.maxLength=3;
+
+      inputDia.onkeypress = function(event) {
+        return soloNumero(event);
+      };
+
+      inputDia.style.width="35px"
+      inputDia.style.height="22px" 
+      inputDia.value = valoresTexto[j-1] || cant;
+
+
+
+      divDia.appendChild(lbDia);
+      divDia.appendChild(checkboxDia);
         divDia.appendChild(inputDia); // Agregar el input de texto
 
 
         celdaDiaCat.appendChild(divDia);
-    }
-    console.log(valoresTexto);
+      }
+      console.log(valoresTexto);
 
         // Celda de importe
         // var celdaImporte = filas[i].Cells[3];
-    var celdaImporte = filas[i].cells[3];
+      var celdaImporte = filas[i].cells[3];
 
-    celdaImporte.innerHTML = "";
+      celdaImporte.innerHTML = "";
 
-    celdaImporte.classList.add("text-right");
+      celdaImporte.classList.add("text-right");
 
-    for (var k = 1; k <= numero; k++) {
+      for (var k = 1; k <= numero; k++) {
         var divImporte = document.createElement("div");
         divImporte.className="divImporte";
         var labelDia = document.createElement("span");
@@ -324,15 +325,15 @@ var valoresInputsDescuento = [];
         divImporte.appendChild(labelDia);
 
         celdaImporte.appendChild(divImporte);
-    }
+      }
 
         // Celda de descuento
-    var celdaDescuento = filas[i].cells[4];
-    celdaDescuento.classList.add("text-right");
-        celdaDescuento.innerHTML = ""; 
+      var celdaDescuento = filas[i].cells[4];
+      celdaDescuento.classList.add("text-right");
+      celdaDescuento.innerHTML = ""; 
 
 
-    for (var j = 1; j <= numero; j++) {
+      for (var j = 1; j <= numero; j++) {
         var divDiaDes = document.createElement("div");
         divDiaDes.className="d-flex justify-content-end align-items-center divDes"
         var inputDiaSDes = document.createElement("input");
@@ -342,7 +343,7 @@ var valoresInputsDescuento = [];
         // console.log(valorDescuento[j-1]);
         inputDiaSDes.className = "descuentoT";  
         inputDiaSDes.onkeypress = function(event) {
-            return soloNumero(event);
+          return soloNumero(event);
         };
 
         inputDiaSDes.style.width = "60px";
@@ -350,63 +351,63 @@ var valoresInputsDescuento = [];
         inputDiaSDes.style.textAlign = "right"; 
         divDiaDes.appendChild(inputDiaSDes);
         celdaDescuento.appendChild(divDiaDes);
+      }
     }
-}
 
 
- cantidadPrecio();
-}
+    cantidadPrecio();
+  }
 
 
 
 
 //persistencia de datos temporales
 
-function actualizarCheckboxes() {
+  function actualizarCheckboxes() {
             // Obtener la tabla
-  var tabla = document.getElementById("servicioDetalle");
-  var filas = tabla.getElementsByTagName("tr");
+    var tabla = document.getElementById("servicioDetalle");
+    var filas = tabla.getElementsByTagName("tr");
 
             // Guardar los estados de los checkboxes y valores de inputs de texto antes de limpiar la tabla
-  estadosCheckboxes = [];
-  valoresInputsTexto = [];
-  valoresInputsDescuento = [];
+    estadosCheckboxes = [];
+    valoresInputsTexto = [];
+    valoresInputsDescuento = [];
 
-  for (var i = 0; i < filas.length; i++) {
-    var celdaDiaCat = filas[i].cells[1];
-    var divsDia = celdaDiaCat.getElementsByClassName("diaDiv");
+    for (var i = 0; i < filas.length; i++) {
+      var celdaDiaCat = filas[i].cells[1];
+      var divsDia = celdaDiaCat.getElementsByClassName("diaDiv");
 
 
-    
-  var celdaDiaCat = filas[i].cells[4];
-    var divDes = celdaDiaCat.getElementsByClassName("divDes");
-    var descuentos = [];
 
-    var estados = [];
-    var valores = [];
-    for (var j = 0; j <divsDia.length; j++) {
-      var checkbox = divsDia[j].querySelector("input[type=checkbox]");
-      var inputTexto = divsDia[j].querySelector("input[type=text]");
+      var celdaDiaCat = filas[i].cells[4];
+      var divDes = celdaDiaCat.getElementsByClassName("divDes");
+      var descuentos = [];
 
-      var inputTextoDes = divDes[j].querySelector("input[type=text]");
+      var estados = [];
+      var valores = [];
+      for (var j = 0; j <divsDia.length; j++) {
+        var checkbox = divsDia[j].querySelector("input[type=checkbox]");
+        var inputTexto = divsDia[j].querySelector("input[type=text]");
 
-     
-      estados.push(checkbox.checked);
-      valores.push(inputTexto.value);
+        var inputTextoDes = divDes[j].querySelector("input[type=text]");
+
+
+        estados.push(checkbox.checked);
+        valores.push(inputTexto.value);
         descuentos.push(inputTextoDes.value);
 
+      }
+
+      estadosCheckboxes.push(estados);
+      valoresInputsTexto.push(valores);
+      valoresInputsDescuento.push(descuentos);
+
+
+
     }
-
-    estadosCheckboxes.push(estados);
-    valoresInputsTexto.push(valores);
-valoresInputsDescuento.push(descuentos);
-  
-
-
-  }
             // Actualizar la tabla
-  generarCheckboxes();
-}
+    generarCheckboxes();
+  }
 
 
 
@@ -415,70 +416,71 @@ valoresInputsDescuento.push(descuentos);
 
 
 
-function generarNuevaFila(nombreServicio, dias,pu,id,cant,max,) {
+  function generarNuevaFila(nombreServicio, dias,pu,id,cant,max,) {
     // Obtener la tabla
-  var tabla = document.getElementById("servicioDetalle");
-  var numero = dias;
-  var nuevaFila = tabla.insertRow();
-  var celdaNombreServicio = nuevaFila.insertCell();
-  var divNmbre = document.createElement("div");
+    var tabla = document.getElementById("servicioDetalle");
+    var numero = dias;
+    var nuevaFila = tabla.insertRow();
+    var celdaNombreServicio = nuevaFila.insertCell();
+    var divNmbre = document.createElement("div");
 
 
-  var inputId = document.createElement("input");
-  inputId.value=id;
-  var maximo = document.createElement("input");
-  maximo.value=max;
-  maximo.id="maximo";
-  maximo.type="hidden";
-  var labelNombre = document.createElement("label");
-  labelNombre.textContent =  nombreServicio;
-  inputId.type = "hidden";
+    var inputId = document.createElement("input");
+    inputId.value=id;
+    var maximo = document.createElement("input");
+    maximo.value=max;
+    maximo.id="maximo";
+    maximo.type="hidden";
+    var labelNombre = document.createElement("label");
+    labelNombre.textContent =  nombreServicio;
+    inputId.type = "hidden";
 
 
 
-  inputId.className = "ids"; 
-  divNmbre.appendChild(inputId);
-  divNmbre.appendChild(maximo);
+    inputId.className = "ids"; 
+    divNmbre.appendChild(inputId);
+    divNmbre.appendChild(maximo);
 
-  divNmbre.appendChild(labelNombre);
+    divNmbre.appendChild(labelNombre);
 
 
-  celdaNombreServicio.appendChild(divNmbre);
+    celdaNombreServicio.appendChild(divNmbre);
 
     // Segunda celda para checkboxes con etiquetas y cantidad
-  var celdaDiaCat = nuevaFila.insertCell();
- 
-  for (var i = 1; i <= numero; i++) {
+    var celdaDiaCat = nuevaFila.insertCell();
+
+    for (var i = 1; i <= numero; i++) {
 
      var invitados = document.getElementById("nroInvitados" + i);
-    var cant = Math.ceil((invitados.value / 400) * max);
-    var divDia = document.createElement("div");
-    divDia.className = "d-flex  justify-content-start align-items-center diaDiv";
- 
-    var checkboxDia = document.createElement("input");
-    checkboxDia.type = "checkbox";
-    checkboxDia.id = "dia" + i;
-    checkboxDia.name = "dia" + i;
+     var cant = Math.ceil((invitados.value / 400) * max);
+     var divDia = document.createElement("div");
+     divDia.className = "d-flex  justify-content-start align-items-center diaDiv";
 
-    checkboxDia.style.width="22px"
-    checkboxDia.style.height="22px"
-    checkboxDia.checked=true;
+     var checkboxDia = document.createElement("input");
+     checkboxDia.type = "checkbox";
+     checkboxDia.id = "dia" + i;
+     checkboxDia.name = "dia" + i;
+
+     checkboxDia.style.width="22px"
+     checkboxDia.style.height="22px"
+     checkboxDia.checked=true;
+     checkboxDia.className="diaBox";
 
 
-    var lbDia = document.createElement("span");
-    lbDia.textContent = " Día " + i;
+     var lbDia = document.createElement("span");
+     lbDia.textContent = " Día " + i;
 
-    var inputDia = document.createElement("input");
-    inputDia.type = "text";
-    inputDia.id="cant"+i;
-    inputDia.className="inputCat";
-    inputDia.style.textAlign = "right"; 
+     var inputDia = document.createElement("input");
+     inputDia.type = "text";
+     inputDia.id="cant"+i;
+     inputDia.className="inputCat";
+     inputDia.style.textAlign = "right"; 
 
-    inputDia.minLength=1;
-    inputDia.maxLength=3;
-  
-    inputDia.onkeypress = function(event) {
-    return soloNumero(event);
+     inputDia.minLength=1;
+     inputDia.maxLength=3;
+
+     inputDia.onkeypress = function(event) {
+      return soloNumero(event);
     };
 
     inputDia.style.width="35px"
@@ -528,16 +530,16 @@ function generarNuevaFila(nombreServicio, dias,pu,id,cant,max,) {
 
       for (var i = 1; i <= numero; i++) {
         var divDiaDes = document.createElement("div");
-     
-         divDiaDes.className="d-flex justify-content-end align-items-center divDes"
+
+        divDiaDes.className="d-flex justify-content-end align-items-center divDes"
         var inputDiaSDes = document.createElement("input");
         inputDiaSDes.type = "text";
         inputDiaSDes.id="descuento"+i;
         inputDiaSDes.value="0.00";
         inputDiaSDes.className = "descuentoT";  
-          inputDiaSDes.onkeypress = function(event) {
-    return soloNumero(event);
-    };
+        inputDiaSDes.onkeypress = function(event) {
+          return soloNumero(event);
+        };
         inputDiaSDes.style.width = "60px";
         inputDiaSDes.style.height = "22px";   
         inputDiaSDes.style.textAlign = "right"; 
@@ -577,17 +579,14 @@ function cantidadPrecio() {
 
     var divsDia = celdaDiaCat.getElementsByClassName("diaDiv");
     var divsImporte = celdaImporte.getElementsByClassName("divImporte");
-   
-  
+
+
     for (var j = 0; j < divsDia.length; j++) {
 
       var inputTexto = divsDia[j].querySelector("input[type=text]");
-       cant=inputTexto.value;
-       var label = divsImporte[j].querySelector("span");
-     label.textContent = (cant * precio).toFixed(2);
-
-
-   
+      cant=inputTexto.value;
+      var label = divsImporte[j].querySelector("span");
+      label.textContent = (cant * precio).toFixed(2);
     }
   }
   actualizarPrecio();
@@ -595,8 +594,81 @@ function cantidadPrecio() {
 
 
 $(document).on("keyup", ".servicioDetalle .descuentoT", function () {
+
+
+  des = Number($(this).val());
+
+  var divActual = $(this).closest("div.divDes");
+  var indiceDiv = divActual.index();
+
+
+  var impSub = $(this).closest("tr").find("td:eq(3) span#importe" + (indiceDiv + 1)).text();
+  if(impSub<=des){
+    var descuento=impSub==0? 0:impSub/2;
+    $(this).val(descuento);
+    toastr.info("El descuento no debe ser mayor a 50% " +descuento);
+  } 
+
+
+
   actualizarPrecio();
+
+
 })
+
+
+
+$(document).on("click", ".diaBox", function() {
+
+
+
+  var divActual = $(this).closest("div.diaDiv");
+  var indiceDiv = divActual.index();
+
+  if ($(this).is(":checked")) {
+
+    precio = Number($(this).closest("tr").find("td:eq(2)").text());
+    maximo = Number($(this).closest("tr").find("td:eq(0) div input#maximo").val());
+    nroInvitado = $("#nroInvitados"+(indiceDiv+1));
+    var cant = Math.ceil((nroInvitado.val() / 400) * maximo);
+    var ele= $(this).closest("tr").find("td:eq(1) div input#cant" + (indiceDiv + 1));
+    ele.val(cant);
+
+    var importe = $(this).closest("tr").find("td:eq(3) span#importe" + (indiceDiv + 1));
+    importe.text(parseInt(ele.val())*precio);
+
+
+    actualizarPrecio();
+
+
+
+  } 
+  else {
+   $(this).closest("tr").find("td:eq(1) div input#cant" + (indiceDiv + 1)).val(0);
+
+   $(this).closest("tr").find("td:eq(1) div#cant" + (indiceDiv + 1)).val(0);
+   $(this).closest("tr").find("td:eq(3) span#importe" + (indiceDiv + 1)).text(0);
+   $(this).closest("tr").find("td:eq(4) div input#descuento" + (indiceDiv + 1)).val(0);
+   actualizarPrecio();
+
+
+ }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -604,13 +676,13 @@ $(document).on("keyup", ".servicioDetalle .descuentoT", function () {
 $(document).on("keyup", ".servicioDetalle .inputCat", function () {
   cant = Number($(this).val());
   precio = Number($(this).closest("tr").find("td:eq(2)").text());
- var importe=0;
-   var divActual = $(this).closest("div.diaDiv");
+  var importe=0;
+  var divActual = $(this).closest("div.diaDiv");
   var indiceDiv = divActual.index();
 
 // alert('indeic '+indiceDiv);
   maximo = Number($(this).closest("tr").find("td:eq(0) #maximo").val());  //es como es stok en un 
- nombreservicio = $(this).closest("tr").find("td:eq(0) label").html();
+  nombreservicio = $(this).closest("tr").find("td:eq(0) label").html();
 
 
   if (!Number.isInteger(cant) || cant >= maximo) {
@@ -627,13 +699,13 @@ $(document).on("keyup", ".servicioDetalle .inputCat", function () {
     $(this).removeClass("is-invalid");
     importe = (cant*precio).toFixed(2);
 
-   
+
 
 
   }
-var sudElement = $(this).closest("tr").find("td:eq(3) span#importe" + (indiceDiv + 1));
-sudElement.text(importe); 
-actualizarPrecio();
+  var sudElement = $(this).closest("tr").find("td:eq(3) span#importe" + (indiceDiv + 1));
+  sudElement.text(importe); 
+  actualizarPrecio();
 
 });
 
@@ -648,10 +720,10 @@ actualizarPrecio();
 function actualizarPrecio() {
   var total = 0;
   var descuentoTotal = 0;
-   var subtotal = 0;
+  var subtotal = 0;
   var subdescuentoTotal = 0;
 
-   var tabla = document.getElementById("servicioDetalle");
+  var tabla = document.getElementById("servicioDetalle");
   var filas = tabla.getElementsByTagName("tr");
 
   for (var i = 0; i < filas.length; i++) {
@@ -664,27 +736,27 @@ function actualizarPrecio() {
 
     for (var j = 0; j < divsImporte.length; j++) {
 
-  
-       var label = divsImporte[j].querySelector("span");
-          subtotal=subtotal+ parseFloat(label.textContent) ;
+
+     var label = divsImporte[j].querySelector("span");
+     subtotal=subtotal+ parseFloat(label.textContent) ;
      var des = divDes[j].querySelector("input");
-      subdescuentoTotal =subdescuentoTotal+ parseFloat(des.value);
-    }
-    total+=parseFloat(subtotal);
-    subtotal=0;
-    descuentoTotal+=subdescuentoTotal;
-    subdescuentoTotal=0;
-  }
+     subdescuentoTotal =subdescuentoTotal+ parseFloat(des.value);
+   }
+   total+=parseFloat(subtotal);
+   subtotal=0;
+   descuentoTotal+=subdescuentoTotal;
+   subdescuentoTotal=0;
+ }
 
-  $("#total").val(total.toFixed(2));
-  $("#descuento").val(descuentoTotal.toFixed(2));
-  
-  var valorMontoAdelantado = $("#montoAdelantado").val();
-  var totalPagar=total-descuentoTotal;
-  $("#totalPagar").val(totalPagar.toFixed(2));
+ $("#total").val(total.toFixed(2));
+ $("#descuento").val(descuentoTotal.toFixed(2));
 
-  totalPagar =totalPagar- valorMontoAdelantado;
-  $("#saldoPagar").val(totalPagar.toFixed(2));
+ var valorMontoAdelantado = $("#montoAdelantado").val();
+ var totalPagar=total-descuentoTotal;
+ $("#totalPagar").val(totalPagar.toFixed(2));
+
+ totalPagar =totalPagar- valorMontoAdelantado;
+ $("#saldoPagar").val(totalPagar.toFixed(2));
 }
 
 
@@ -718,7 +790,7 @@ function valoresInvitados(dias) {
   for (var i = 0; i < dias; i++) {
     var nInv = document.getElementById("nroInvitados" + (i+1));
 
-      estadoInvitados[i] =  nInv.value;
+    estadoInvitados[i] =  nInv.value;
   }
 
 }
@@ -731,18 +803,18 @@ function agregarBloques() {
 
   var contenedor = document.getElementById("contenedorBloques");
   contenedor.innerHTML = "";
-      var resValores;
+  var resValores;
   var fFin;
   for (var i = 0; i < cantidadBloques; i++) {
 
     var nuevoBloque = document.createElement("div");
     nuevoBloque.className = "col-12";
 
-if (i < estadoInvitados.length && estadoInvitados.length!=0) {
-  resValores = estadoInvitados[i];
-} else {
-  resValores = 100;
-}
+    if (i < estadoInvitados.length && estadoInvitados.length!=0) {
+      resValores = estadoInvitados[i];
+    } else {
+      resValores = 100;
+    }
     // fechas sumas 
     var fechaObjeto = new Date(fechaIngresada);
     var nuevaFecha = new Date(fechaObjeto);
@@ -752,46 +824,46 @@ if (i < estadoInvitados.length && estadoInvitados.length!=0) {
     // fechas sumas 
 
     var innerHTML = `
-        <div class="col-12 m-0 p-0">
-        
-          <div class="row">
-            <div class="col-xl-7 col-lg-12 col-md-7 col-sm-7 col-7 d-flex">
-             <div class="col-12">
-              <strong> Horario dia ${i + 1}:</strong>  <mark><b><span id="horas${i + 1}" name="">8</span></b></mark> Horas
-            </div>
+    <div class="col-12 m-0 p-0">
 
-          </div>
-          <div class="col-xl-5 col-lg-12 col-md-5 col-sm-5 col-5 d-flex">
+    <div class="row">
+    <div class="col-xl-7 col-lg-12 col-md-7 col-sm-7 col-7 d-flex">
+    <div class="col-12">
+    <strong> Horario dia ${i + 1}:</strong>  <mark><b><span id="horas${i + 1}" name="">8</span></b></mark> Horas
+    </div>
 
-            <div class="col-6">
-              <label>
-              Invitados:</label>
-            </div>
-            <div class="col-6">
-              <input class="invitados"  type="text" id="nroInvitados${i+1}" name="nroInvitados" onkeypress="return soloNumero(event)" maxlength="3" minlength="1"   value="${resValores}" style="width: 40px; height: 25px;" required ">
+    </div>
+    <div class="col-xl-5 col-lg-12 col-md-5 col-sm-5 col-5 d-flex">
 
-            </div>  
-          </div>
-        </div>
-        <div class="row">
-          <input class="form-control" type="range" id="horaRange${i+1}" min="1" max="12" value="8" name="horaRange${i+1}" onchange="actualizarHoraFin(this, ${i + 1})" >
-        </div>
-        <div class="row">  
-           <div class="col-12 d-flex">
-             <div class="col-6 d-flex">
-                <span>Hora Inicio</span> <input type="time" id="inicioH${i + 1}" step="3600" name="inicioH${i + 1}" value="10:00" style="width:80px" onchange="actualizarHoraFinPorCambioHora(this, ${i + 1})">
-             </div>
-             <div class="col-6 d-flex">
-                <span>Hora Fin</span> <input type="time" id="finH${i + 1}" step="3600" name="finH${i + 1}" value="11:00" readonly style="width:80px">
-             </div>
+    <div class="col-6">
+    <label>
+    Invitados:</label>
+    </div>
+    <div class="col-6">
+    <input class="invitados"  type="text" id="nroInvitados${i+1}" name="nroInvitados" onkeypress="return soloNumero(event)" maxlength="3" minlength="1"   value="${resValores}" style="width: 40px; height: 25px;" required ">
 
-           </div>
-         
-         
-          <input type="hidden" id="fecha${i + 1}" name="fecha${i + 1}" class="" value="${nuevaFechaFormateada}" >
-        </div>
-      </div>
-      <hr class="bgt-primary">
+    </div>  
+    </div>
+    </div>
+    <div class="row">
+    <input class="form-control" type="range" id="horaRange${i+1}" min="1" max="12" value="8" name="horaRange${i+1}" onchange="actualizarHoraFin(this, ${i + 1})" >
+    </div>
+    <div class="row">  
+    <div class="col-12 d-flex">
+    <div class="col-6 d-flex">
+    <span>Hora Inicio</span> <input type="time" id="inicioH${i + 1}" step="3600" name="inicioH${i + 1}" value="10:00" style="width:80px" onchange="actualizarHoraFinPorCambioHora(this, ${i + 1})">
+    </div>
+    <div class="col-6 d-flex">
+    <span>Hora Fin</span> <input type="time" id="finH${i + 1}" step="3600" name="finH${i + 1}" value="11:00" readonly style="width:80px">
+    </div>
+
+    </div>
+
+
+    <input type="hidden" id="fecha${i + 1}" name="fecha${i + 1}" class="" value="${nuevaFechaFormateada}" >
+    </div>
+    </div>
+    <hr class="bgt-primary">
 
     `;
 
@@ -804,8 +876,8 @@ if (i < estadoInvitados.length && estadoInvitados.length!=0) {
   fechaFin.value=fFin;
   var cantN=document.getElementById('txtId');
   cantN.disabled=true;
- actualizarCheckboxes();
- actualizarPrecio();
+  actualizarCheckboxes();
+  actualizarPrecio();
 }
 
 
@@ -813,7 +885,7 @@ if (i < estadoInvitados.length && estadoInvitados.length!=0) {
 
 $(document).on("keyup", ".invitados", function () {
   invitados = Number($(this).val());
-var id = $(this).attr('id');
+  var id = $(this).attr('id');
 var indice=id[id.length-1]; //tenemos el id para manda ahora en la tabla que
 var capacidadMaxima= document.getElementById("maxCapacidad").value;
 
@@ -821,32 +893,32 @@ var capacidadMaxima= document.getElementById("maxCapacidad").value;
 if( invitados<=capacidadMaxima)
 {
  var tabla = document.getElementById("servicioDetalle");
-  var filas = tabla.getElementsByTagName("tr");
+ var filas = tabla.getElementsByTagName("tr");
 
-  for (var i = 0; i < filas.length; i++) {
-    var celdaDiaCat = filas[i].cells[1];
-    var divsDia = celdaDiaCat.getElementsByClassName("diaDiv");
-     var max = filas[i].cells[0].querySelector("#maximo");
+ for (var i = 0; i < filas.length; i++) {
+  var celdaDiaCat = filas[i].cells[1];
+  var divsDia = celdaDiaCat.getElementsByClassName("diaDiv");
+  var max = filas[i].cells[0].querySelector("#maximo");
 
 
-    for (var j = 0; j < divsDia.length; j++) {
+  for (var j = 0; j < divsDia.length; j++) {
 
-         if(j==indice-1){
-              var cant = Math.ceil((invitados/ capacidadMaxima) * max.value);
-               var inputTexto = divsDia[j].querySelector("input[type=text]");
-               inputTexto.value=cant;
-                
-         }
- 
+   if(j==indice-1){
+    var cant = Math.ceil((invitados/ capacidadMaxima) * max.value);
+    var inputTexto = divsDia[j].querySelector("input[type=text]");
+    inputTexto.value=cant;
 
-    }
   }
+
+
+}
+}
 
 
 }else
 {
-    $(this).val(capacidadMaxima);
-    toastr.info("Cantidad de invitados debe ser menor "+capacidadMaxima+"");
+  $(this).val(capacidadMaxima);
+  toastr.info("Cantidad de invitados debe ser menor "+capacidadMaxima+"");
 
 
 }
@@ -855,8 +927,8 @@ var dias =document.getElementById("txtDia");
 valoresInvitados(dias.value);
 
 cantidadPrecio();
- 
-  });
+
+});
 
 
 function actualizarHoraFin(inputRange, index) {
@@ -886,24 +958,71 @@ function actualizarHoraFinPorCambioHora(inputHoraInicio, index) {
 } 
 
 
+function validarCampos()
+{
+  var bar= false;
+
+  var tipoEvento = document.getElementById("nombreEvento");
+  var dia = document.getElementById("txtDia");
+  var fecha =document.getElementById("fecha");
+  var fechafin =document.getElementById("fechaFIn");
+  var cliente=document.getElementById("nombreCliente");
+  var tabla = document.getElementById("servicioDetalle");
+  var filas = tabla.getElementsByTagName("tr");
+  var servicio=document.getElementById("txtBuscaeServicio");
+  if(tipoEvento.value=="")
+  {
+    tipoEvento.focus();
+    toastr.info("Debe seleccionar un tipo de evento");
+  }
+  if(dia.value=="")
+  {
+    dia.focus();
+    dia.value=1;
+    toastr.warning("almenos debe ir un dia");
+    fechaFin.value=fecha.value;
+    var eventoChange = new Event("change");
+
+    dia.dispatchEvent(eventoChange);
+
+  }
+  if(cliente.value=="")
+  {
+    cliente.focus();
+    toastr.info("Elige un cliente");
+  }
+
+  if(filas.length==0)
+  {
+    servicio.focus();
+    toastr.info("Debes eligir eligir los servicios");
+
+  }
+
+}
 
 
 $(document).ready( function () {
  $("#btnGuardar").on("click", function(){ 
-  alert("holas");
-  fechaInici=$("#fecha").val();
-  nombreEvento= $('#nombreEvento').val();
-  dias= $('#txtDia').val();
-  fechaFin=$("#fechaFin").val();
+
+   validarCampos();
 
 
 
-  horaInicios = new Array();
-  horaFines = new Array();
-  duraciones = new Array();
-  invitados=new Array();
-  fechas=new Array();
-  for (var i = 1; i <= dias; i++) {
+
+   fechaInici=$("#fecha").val();
+   nombreEvento= $('#nombreEvento').val();
+   dias= $('#txtDia').val();
+   fechaFin=$("#fechaFin").val();
+
+
+
+   horaInicios = new Array();
+   horaFines = new Array();
+   duraciones = new Array();
+   invitados=new Array();
+   fechas=new Array();
+   for (var i = 1; i <= dias; i++) {
 
     horaInicio = $(`#inicioH${i}`).val();
     duracion = $(`#horaRange${i}`).val();
@@ -926,11 +1045,11 @@ $(document).ready( function () {
 
   });
 
-var ids = [];
-var cbxDia = [];
-var cantidades = [];
-var descuento = [];
-var importes=[];
+  var ids = [];
+  var cbxDia = [];
+  var cantidades = [];
+  var descuento = [];
+  var importes=[];
 
   var tabla = document.getElementById("servicioDetalle");
   var filas = tabla.getElementsByTagName("tr");
@@ -952,13 +1071,13 @@ var importes=[];
     var celdImporte = filas[i].cells[3];//celda donde esta importe
     var divimpo = celdImporte.getElementsByClassName("divImporte");
     var importe=[];
-   
+
     for (var j = 0; j <divsDia.length; j++) {
       var checkbox = divsDia[j].querySelector("input[type=checkbox]");
       var inputTexto = divsDia[j].querySelector("input[type=text]");
       var inputTextoDes = divDes[j].querySelector("input[type=text]");
       var importeServicio=divimpo[j].querySelector("span");
-     
+
       estados.push(checkbox.checked);
       valores.push(inputTexto.value);
       descuentos.push(inputTextoDes.value);
@@ -970,16 +1089,16 @@ var importes=[];
     cantidades.push(valores);
     descuento.push(descuentos);
     ids.push(id);
-    importes.push(fechas);
-  
+    importes.push(importe);
+
   }
 
-console.log(ids);
-console.log(cbxDia);
-console.log(importes);
-console.log(cantidades);
-console.log(descuentos);
-console.log(fecha);
+  console.log(ids);
+  console.log(cbxDia);
+  console.log(importes);
+  console.log(cantidades);
+  console.log(descuentos);
+  console.log(fecha);
 
 
 
@@ -987,10 +1106,10 @@ console.log(fecha);
 
 
  // fecha
- var pu = new Array();
-$(".servicioDetalle").find('tr').each(function() {
-  pu.push($(this).find("td:eq(2)").text());
-});
+  var pu = new Array();
+  $(".servicioDetalle").find('tr').each(function() {
+    pu.push($(this).find("td:eq(2)").text());
+  });
 
 
 
@@ -1000,13 +1119,6 @@ $(".servicioDetalle").find('tr').each(function() {
   adelandto=$("#montoAdelantado").val();
   saldoPagar=$("#saldoPagar").val();
 
-
-
-
-  // cants=new Array();
-  // $(".list-product").find('tr').each (function() {
-  //   cants.push($(this).find("#cant").val());
-  // }); 
 
   // agregarReservar(fechaInici,nombreEvento,numInvitados,dias,horaInicios,horaFines,duraciones,fechaFin,idCliente,
   //   ids, fechaHoraInicio,fechaHoraFin,horasDuracion,cants,precios,importes,descuentos,totalSinDescuento,
