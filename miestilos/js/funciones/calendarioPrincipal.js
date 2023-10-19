@@ -567,6 +567,48 @@ celdaBotonEliminar.appendChild(btnEliminar);
     // actualizarCheckboxes();
 cantidadPrecio();
 }
+
+
+  function eliminarFilasSinCheck() {
+            // Obtener la tabla
+            var tabla = document.getElementById("servicioDetalle");
+
+            // Obtener todas las filas de la tabla
+            var filas = tabla.getElementsByTagName("tr");
+
+            // Recorrer las filas en reversa (empezando desde el final)
+            for (var i = 0 ;i<filas.length ; i++) {
+                var celdaDiaCat = filas[i].cells[1];
+                var divsDia = celdaDiaCat.getElementsByClassName("diaDiv");
+
+                // Verificar si algún checkbox está marcado
+                var algunCheckboxMarcado = Array.from(divsDia).some(div => {
+                    var checkbox = div.querySelector("input[type=checkbox]");
+                    return checkbox.checked;
+                });
+                console.log(algunCheckboxMarcado);
+
+                // Si no hay ningún checkbox marcado, eliminar la fila
+                if (!algunCheckboxMarcado) {
+                    tabla.deleteRow(i);
+                }
+
+            }
+            ListaServicio();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 function cantidadPrecio() {
   // Obtener la tabla
   var tabla = document.getElementById("servicioDetalle");
@@ -590,6 +632,7 @@ function cantidadPrecio() {
     }
   }
   actualizarPrecio();
+  eliminarFilasSinCheck();
 }
 
 
@@ -635,7 +678,7 @@ $(document).on("click", ".diaBox", function() {
     ele.val(cant);
 
     var importe = $(this).closest("tr").find("td:eq(3) span#importe" + (indiceDiv + 1));
-    importe.text(parseInt(ele.val())*precio);
+    importe.text((parseFloat(ele.val())*precio).toFixed(2));
 
 
     actualizarPrecio();
@@ -646,9 +689,9 @@ $(document).on("click", ".diaBox", function() {
   else {
    $(this).closest("tr").find("td:eq(1) div input#cant" + (indiceDiv + 1)).val(0);
 
-   $(this).closest("tr").find("td:eq(1) div#cant" + (indiceDiv + 1)).val(0);
-   $(this).closest("tr").find("td:eq(3) span#importe" + (indiceDiv + 1)).text(0);
-   $(this).closest("tr").find("td:eq(4) div input#descuento" + (indiceDiv + 1)).val(0);
+
+   $(this).closest("tr").find("td:eq(3) span#importe" + (indiceDiv + 1)).text((0).toFixed(2));
+   $(this).closest("tr").find("td:eq(4) div input#descuento" + (indiceDiv + 1)).val((0).toFixed(2));
    actualizarPrecio();
 
 
