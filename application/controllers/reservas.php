@@ -17,49 +17,51 @@ class Reservas extends CI_Controller {
  {
 
  	//datao para registra en reserva
- 	 	$dias=$_POST['dias']-1;
+ 	 	$dias=$_POST['dias'];
    
- 	$data['cantidadPersonas']=$_POST['numInvitados'];
+ 	$data['cantidadPersonas']=200;//hojo
  	$data['fechaInicio']=$_POST['fechaInici'];
-	$data['fechaFin']=
+	$data['fechaFin']=$_POST['fechaFin'];
 	$data['plazoConfirmacion']=2;//ojo
-	$data['fechaFin'}=$_POST['fechaFin'];
+
 
  $nombreEvento=$_POST['nombreEvento'];//estoo necesitamos quse del id
-
-
- $data['idCliente']=$_POST['idCliente'];
-  // $totalSinDescuento=$_POST['totalSinDescuento']; ojo
- 	// $totalDescuento=$_POST['totalDescuento'];   ojo
-
  	$data['adelantoReserva']=$_POST['adelandto'];
  	$data['saldo']=$_POST['saldoPagar'];
- 	$data{totalPagar=$_POST['totalPagar'];
+ 	$data['total']=$_POST['totalPagar'];
+ $data['idUsuario']=$this->session->userdata('idUsuario');
+ $data['idTipoEvento']=1;
+ $data['idCliente']=$_POST['idCliente'];
 
- 	//
 
 
 
+  $totalSinDescuento=$_POST['totalSinDescuento'];// ojo
+ 	$totalDescuento=$_POST['totalDescuento'];   //ojo
 
+
+ 	//unidimension
+
+  $horaInicios=$_POST["horaInicios"];
+  $horaFines=$_POST["horaFines"];
+  $duracion=$_POST["duraciones"];
+  $invitado=$_POST["invitados"];
+  $fechas=$_POST["fechas"];
  	$ids=$_POST['ids'];
- 	$fechaHoraInicio=$_POST['fechaHoraInicio'];
- 	$fechaHoraFin=$_POST['fechaHoraFin'];
-
- 	$cants=$_POST['cants'];
- 	$precios=$_POST['precios'];
-
- 	$importes=$_POST['importes'];
- 	$descuentos=$_POST['descuentos'];
-
+ 	$pu =$_POST['pu'];
+//bidiminesionales
+ 	$cants=$_POST['cantidades'];
+ 	$precios=$_POST['importes'];
+ 	$chebox=$_POST['cbxDia'];
+ 	$des=$_POST['descuento'];
+  
 
 
-
- 	  echo $fecha.$nombreEvento.$numInvi;
- 	  echo $dias.$idCliente.$idCliente;
-
-
- 	  if()
-
+ // print_r($dias."---dias: ".count($ids));
+ 	  
+  $db= $this->reserva_model->agregarReservadb($data,$ids,$horaInicios,$horaFines,$duracion,$invitado,$fechas,$cants,$precios,$chebox,$des,$pu,$dias);
+ 	 echo json_encode(array('msg'=>$db));
+  
  }
 
 
@@ -118,8 +120,5 @@ class Reservas extends CI_Controller {
 			$this->updateStock($ids[$i],$cants[$i]);
 		}
 	}
-
-
-
-
 }
+
