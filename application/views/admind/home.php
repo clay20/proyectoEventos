@@ -2,7 +2,7 @@
 <div class="wrapper"  >
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper " style=" background-image: url('<?php echo base_url();?>/img/fondo.jpg'); background-repeat: no-repeat" >
+  <div class="content-wrapper " style=" background-image: url('<?php echo base_url();?>/img/fondo.png'); background-repeat: no-repeat" >
     <!-- Content cabeera (pagima cabera) -->
     <section class="content-header ">
       <div>

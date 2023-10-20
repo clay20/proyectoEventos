@@ -1,11 +1,23 @@
 function prepareModalDetail(clickedDay, eventDetail) {
-    c = $(".calendar-day-" + clickedDay);
-    c = c.attr("class").split(" ");
-    classModalType = c[c.length - 1];
-    $("#modalType").removeClass().addClass('box box-solid event-item ' + classModalType);
-    $("#eventActive").text('"' + eventDetail.title + '"');
-    $("#infoDetail").html($("#detailEvent" + eventDetail.id + " #" + eventDetail.date).html());
-    $("#modalDetailEvent").modal();
+   
+    $.ajax({
+    url: '../reservas/listaFechasReservar', // Reemplaza con la URL de tu servidor
+    method: 'POST',
+    dataType: 'json',
+    success: function (response) {
+      // Manejar los datos recibidos, asumiendo que data es un array de fechas
+      // aplicarEstilosAFechasDesdeBaseDeDatos(data);
+      // let fechas = JSON.parse(response);
+      response.forEach(function(objeto) {
+       
+              console.log(objeto);
+   $("#detalleEvento").modal('show');
+      });
+
+    },
+
+  });
+
 }
 
 function prepareModalToAdd(clickedDay) {
@@ -861,8 +873,20 @@ totalSinDescuento,totalDescuento,totalPagar,adelandto,saldoPagar
         },
         success: function(resp) {
           var json=JSON.parse(resp);
-            toastr.info('pureba mensage'+json.msg);
-           
+         if(json.msg)
+         {
+
+            toastr.success("Evento agregado con exito");
+         }
+         else
+         {
+            toastr.warning('pureba mensage'+json.msg);
+
+         }
+
+           // var modal= document.getElementById('modalAddEvent');
+           // modal.style.display='none';
+        $(modalAddEvent).modal('hide');
         },
         error: function() {
             // window.location="<?php echo base_url(); ?>ventas";

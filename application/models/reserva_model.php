@@ -52,37 +52,16 @@ class Reserva_model extends CI_Model
 	}
 
 
+public function reservasdb()
+{
+	   $this->db->distinct();
+    $this->db->select('R.fechaInicio,R.estado, H.fecha');
 
+    $this->db->from('reservas R');
+    $this->db->join('horarioevento H', 'H.idReservas = R.id'); // Corregido el alias en el join
+    return $this->db->get();
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	public function listaServiciosdb($estado)
-	{
-		$this->db->select('S.id,S.nombre ,S.descriccion,S.unidadMedida AS medida, S.precio,S.maximo');
-
-		$this->db->from('servicios S');
-		$this->db->where('S.estado',$estado);
-		$this->db->order_by('S.nombre', 'asc'); 
-		
-		return $this->db->get();
-	}
 
 
 
