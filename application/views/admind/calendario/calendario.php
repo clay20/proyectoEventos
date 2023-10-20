@@ -42,16 +42,11 @@
             </div>
 
           </div>
-          <!-- /.row -->
 
         </section>
-        <!-- /.content -->
+
       </div>
-      <!-- /.content-wrapper -->
-
-
-    </div>
-    <!-- ./wrapper -->
+  </div>
 
     <div class="modal modal-primary" id="modalAddEvent" aria-hidden="true"  >
       <div class="modal-dialog modal-xl" >
@@ -71,13 +66,7 @@
            </div>
          </div>
        </div>
-       <script type="text/javascript">
-
-
-
-       </script>
-
-
+  
 
        <div class="modal-body mx-1 p-1 fgt-secondary">
         <section class="row p-0" >
@@ -127,110 +116,110 @@
             </div> 
           </div>
 
-      <div class="col-12 p-0 " id="contenedorBloques" style="background: rgba(255, 255, 255, .4);">
-        <!-- muy impirta aqui se esta cargado lo ide de campos -->
+          <div class="col-12 p-0 " id="contenedorBloques" style="background: rgba(255, 255, 255, .4);">
+            <!-- muy impirta aqui se esta cargado lo ide de campos -->
+          </div>
+
+          <hr class="bgt-primary " style="
+          height: 2px;
+          ">
+        </section>
+
       </div>
+      <div class="col-sm-12 col-lg-8 p-1">
+        <div class="col-12 d-flex ">
 
- <hr class="bgt-primary " style="
-  height: 2px;
-">
-    </section>
+          <div class="col-11">
+            <div class="myBox">
 
-  </div>
-  <div class="col-sm-12 col-lg-8 p-1">
-    <div class="col-12 d-flex ">
+              <input type="hidden" id="txtId" name="idCliente">
+              <input type="text" class="myImputField" id="nombreCliente" required placeholder="" list="listaCliente" onchange="seleccionCliente(this)" autocomplete="off" onkeypress="return soloLetrasEspacio(event)"> 
+              <label class="mylabel" id="lbLeyenda">Persona que contrata el evento</label>
+            </div>
 
-      <div class="col-11">
-        <div class="myBox">
+            <datalist id="listaCliente">
 
-          <input type="hidden" id="txtId" name="idCliente">
-          <input type="text" class="myImputField" id="nombreCliente" required placeholder="" list="listaCliente" onchange="seleccionCliente(this)" autocomplete="off" onkeypress="return soloLetrasEspacio(event)"> 
-          <label class="mylabel" id="lbLeyenda">Persona que contrata el evento</label>
+            </datalist>
+
+          </div>
+          <div class="col-1 d-flex justify-content-center align-items-center" >
+            <button class="btnt-primary btn-sm" title="Nuevo Cliente" data-toggle="modal" data-target="#agregarCliente"><i class="fa-solid fa-square-plus d-flex justify-content-center"></i></button>
+
+          </div>
         </div>
+        <div class="col-12 d-flex">
+          <div class="col-4">
+            <div class="myBox">
 
-        <datalist id="listaCliente">
+              <input class="myImputField" type="date" name="" id="fechaFin" readonly>
+              <label class="mylabel">Fin del  Evento</label>
+              <label class="mylabel-icon"><i class="fa-regular fa-calendar-days"></i></label>
 
-        </datalist>
+            </div>
+          </div>
+          <div class="col-7">
+            <div class="myBox">
 
+
+              <input type="text" class="myImputField" id="txtBuscaeServicio" required placeholder="" list="listaServicio"  onautocomplete="off" onchange="seleccionarServicio(this)" onkeypress="return soloLetrasEspacio(event)"> 
+              <label class="mylabel" >Buscar Servicio</label>
+            </div>
+
+            <datalist id="listaServicio">
+
+            </datalist>
+          </div>
+          <div class="col-1 d-flex justify-content-center align-items-center" >
+            <button class="btnt-primary btn-sm" disabled ><i class="fa-solid fa-magnifying-glass fa-sm"></i></button>
+          </div>
+        </div >
+
+        <div class="row p-1" style="overflow-x:auto; min-width:50px">
+
+          <table class="p-1" rules="all" width="100%" id="detalleServicio">
+            <thead class="bgt-primary">
+              <tr>
+                <th style="text-align: center; min-width: 150px; width: auto;"><small>Nombre Servicio</small></th>
+                <th style="text-align: center; min-width: 100px;"><small>dia/Cant</small></th>
+                <th style="text-align: center;  min-width: 50px;"><small>PU(Bs)</small></th>
+                <th style="text-align: center; min-width: 110px;"><small>inporte(Bs)</small></th>
+                <th style="text-align: center;  min-width: 120px;"><small>Descuento(Bs)</small></th>
+                <th style="width:7px"></th>
+              </tr>
+            </thead>
+            <tbody id="servicioDetalle" class="servicioDetalle">
+
+            </tbody>
+            <tfoot class="bgt-primary">
+             <tr>
+              <td colspan="3"><small>Total</small></td>
+              <td style="text-align:right;"><input type="text"  id="total" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right; background: #CBDFFF;" readonly>bs.</td>
+              <td style="text-align:right;"><input type="text"  id="descuento" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right; background: #CBDFFF;" readonly>bs.</td>
+            </tr>
+            <tr>
+              <td colspan="3"><small>Total a Pagar</small></td>
+              <td style="text-align:right;"><input type="text"  id="totalPagar" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right; background: #CBDFFF;" readonly>bs.</td>
+
+            </tr>
+            <tr>
+              <td colspan="3"><small>Monto adelantado</small></td>
+              <td style="text-align:right;"><input type="text"  id="montoAdelantado" onkeypress="return soloNumero(event)"  class="" name=""  value="0.00"  style="width:80px; height: 20px; font: 10px; text-align: right;">bs.</td>
+            </tr>
+            <tr>
+              <th colspan="3"><small>Saldo a pagar</small></th>
+              <td style="text-align:right;"><input type="text"  id="saldoPagar" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right; background: #CBDFFF;" readonly>bs.</td>
+            </tr>
+          </tfoot>
+        </table>
       </div>
-      <div class="col-1 d-flex justify-content-center align-items-center" >
-        <button class="btnt-primary btn-sm" title="Nuevo Cliente" data-toggle="modal" data-target="#agregarCliente"><i class="fa-solid fa-square-plus d-flex justify-content-center"></i></button>
 
-      </div>
+
+
     </div>
-    <div class="col-12 d-flex">
-      <div class="col-4">
-        <div class="myBox">
-
-          <input class="myImputField" type="date" name="" id="fechaFin" readonly>
-          <label class="mylabel">Fin del  Evento</label>
-          <label class="mylabel-icon"><i class="fa-regular fa-calendar-days"></i></label>
-
-        </div>
-      </div>
-      <div class="col-7">
-        <div class="myBox">
+  </section>
 
 
-          <input type="text" class="myImputField" id="txtBuscaeServicio" required placeholder="" list="listaServicio"  onautocomplete="off" onchange="seleccionarServicio(this)" onkeypress="return soloLetrasEspacio(event)"> 
-          <label class="mylabel" >Buscar Servicio</label>
-        </div>
-
-        <datalist id="listaServicio">
-
-        </datalist>
-      </div>
-      <div class="col-1 d-flex justify-content-center align-items-center" >
-        <button class="btnt-primary btn-sm" disabled ><i class="fa-solid fa-magnifying-glass fa-sm"></i></button>
-      </div>
-    </div >
-
-    <div class="row p-1" style="overflow-x:auto; min-width:50px">
-
-      <table class="p-1" rules="all" width="100%" id="detalleServicio">
-        <thead class="bgt-primary">
-          <tr>
-            <th style="text-align: center; min-width: 150px; width: auto;"><small>Nombre Servicio</small></th>
-            <th style="text-align: center; min-width: 100px;"><small>dia/Cant</small></th>
-            <th style="text-align: center;  min-width: 50px;"><small>PU(Bs)</small></th>
-            <th style="text-align: center; min-width: 110px;"><small>inporte(Bs)</small></th>
-            <th style="text-align: center;  min-width: 120px;"><small>Descuento(Bs)</small></th>
-            <th style="width:7px"></th>
-          </tr>
-        </thead>
-        <tbody id="servicioDetalle" class="servicioDetalle">
-
-      </tbody>
-      <tfoot class="bgt-primary">
-       <tr>
-        <td colspan="3"><small>Total</small></td>
-        <td style="text-align:right;"><input type="text"  id="total" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right; background: #CBDFFF;" readonly>bs.</td>
-        <td style="text-align:right;"><input type="text"  id="descuento" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right; background: #CBDFFF;" readonly>bs.</td>
-      </tr>
-      <tr>
-        <td colspan="3"><small>Total a Pagar</small></td>
-        <td style="text-align:right;"><input type="text"  id="totalPagar" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right; background: #CBDFFF;" readonly>bs.</td>
-
-      </tr>
-      <tr>
-        <td colspan="3"><small>Monto adelantado</small></td>
-        <td style="text-align:right;"><input type="text"  id="montoAdelantado" onkeypress="return soloNumero(event)"  class="" name=""  value="0.00"  style="width:80px; height: 20px; font: 10px; text-align: right;">bs.</td>
-      </tr>
-      <tr>
-        <th colspan="3"><small>Saldo a pagar</small></th>
-        <td style="text-align:right;"><input type="text"  id="saldoPagar" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right; background: #CBDFFF;" readonly>bs.</td>
-      </tr>
-    </tfoot>
-  </table>
-</div>
-
-
-
-</div>
-</section>
-
-
-<!-- <div class="clearfix"></div>         -->
+  <!-- <div class="clearfix"></div>         -->
 
 </div>
 <div class="modal-footer d-flex justify-content-around p-1 bgt-acent " >
@@ -346,6 +335,104 @@
 </div>
 </form>
 
+  <div class="modal fade" id="detalleEvento" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header p-2 bgt-acent">
+
+
+         <div class="container">
+           <div class="row">
+
+            <h5 class="modal-title ">Nombre Cliente</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span  aria-hidden="true">×</span></button>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-body bgt-secondary">
+
+        <!-- Post -->        
+
+        <div class="row">
+
+          <div class=" col-md-12 ">
+            <label class="mylabel" for=""> Servicio reservados para este dia</label>
+            <table border="1" rules="all" width="100%"> 
+              <thead class="bgt-primary">
+                <tr>
+                  <th>Servicio </th>
+                  <th>canti </th>
+                  <th>Precio Total </th>
+                  <th>Incio</th>
+                  <th>Fin</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Servicio q</td>
+                  <td>200</td>
+                  <td>234</td>
+                  <td>00:00</td>
+                  <td>08:00</td>
+                </tr>
+                  <tr>
+                  <td>Servicio q</td>
+                  <td>200</td>
+                  <td>234</td>
+                  <td>00:00</td>
+                  <td>08:00</td>
+                </tr>  <tr>
+                  <td>Servicio q</td>
+                  <td>200</td>
+                  <td>234</td>
+                  <td>00:00</td>
+                  <td>08:00</td>
+                </tr>  <tr>
+                  <td>Servicio q</td>
+                  <td>200</td>
+                  <td>234</td>
+                  <td>00:00</td>
+                  <td>08:00</td>
+                </tr>  <tr>
+                  <td>Servicio q</td>
+                  <td>200</td>
+                  <td>234</td>
+                  <td>00:00</td>
+                  <td>08:00</td>
+                </tr>
+              </tbody>
+
+
+            </table>
+           <div class="myBox">
+
+  
+
+          </div>
+        </div>
+      
+   
+
+  </div>
+
+
+
+
+
+</div>
+
+<div class="modal-footer d-flex justify-content-around p-1 bgt-acent">
+ <label>Nombre Cliente</label>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
 <script>"use strict";</script>
 <script src="<?php echo base_url();?>/calendario/res/jquery.js"></script>
 <script src="<?php echo base_url();?>/calendario/res/momentjs.lang.js"></script>
@@ -401,6 +488,32 @@
   var myCalendar;
   var currentPeriod = 202308;
   var eventsArray = [];
+  var fechasAColor = ['2023-10-20','2023-10-30'];
+  var estado=[0,1,2]
+$(document).ready(function() {
+      cargarFechasDesdeBaseDeDatos();
+});
+  function cargarFechasDesdeBaseDeDatos() {
+    $.ajax({
+    url: '../reservas/listaFechasReservar', // Reemplaza con la URL de tu servidor
+    method: 'POST',
+    dataType: 'json',
+    success: function (response) {
+      // Manejar los datos recibidos, asumiendo que data es un array de fechas
+      // aplicarEstilosAFechasDesdeBaseDeDatos(data);
+      // let fechas = JSON.parse(response);
+      response.forEach(function(objeto) {
+       
+        fechasAColor.push(objeto.fecha);
+        estado.push(objeto.estado);
+
+      });
+
+    },
+
+  });
+  }
+
 
   function cargarPorSeccion(){
 
@@ -408,61 +521,111 @@
 
     var aux;
 
+    function aplicarEstilosAFechas() {
+   
+      var i=0;
+      fechasAColor.forEach(function (fecha) {
+        var currentCell = $('#mini-clndr .calendar-day-' + fecha);
+        currentCell.addClass('colored-date has-event');
+      
+        if(estado[i]==0){
+            currentCell.css({
+        'background-color': '#ffaaaa',
+        'color': '#000', 
+      });
+        }
+        else if(estado[i]==1){
+            currentCell.css({
+        'background-color': '#ffa222',
+        'color': '#000', 
+      });
+        }
+          else if(estado[i]==2){
+            currentCell.css({
+        'background-color': '#f11122',
+        'color': '#000', 
+      });
+        }  else if(estado[i]==2){
+            currentCell.css({
+        'background-color': '#33a222',
+        'color': '#000', 
+      });
+        }
+        else
+        {
+               currentCell.css({
+        'background-color': '#aaa222',
+        'color': '#000', 
+      });
+        }
+        i=i+1;
+      
+      });
+    }
+
+
+
     myCalendar = $('#mini-clndr').clndr({
 
       daysOfTheWeek: ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do'],
       template  :    $('#calendar-template').html(),
       events    :    eventsArray,
 
-      ready     :    function(){ setInterval(getNewData, 1000); },  
+      ready     :    function(){ 
+   aplicarEstilosAFechas();
+  
+    },  
 
-      clickEvents: {
-      // fired whenever a calendar box is clicked.
-      // returns a 'target' object containing the DOM element, any events, and the date as a moment.js object.
-        click: function(target){
-          aux = target;
+    clickEvents: {
 
-          dayClass = aux.element.className;
+      click: function(target){
+        aux = target;
+
+        dayClass = aux.element.className;
 
         /*today o YYYY-mm-dd*/
         clickedDay = aux.date._i;  /*dayClass.split(" ")[1].replace("calendar-day-", '');*/
 
-          if ( dayClass.indexOf('event') > -1 ){
+        if ( dayClass.indexOf('event') > -1 ){
 
-            eventDetail = aux.events[0];
-            prepareModalDetail( clickedDay, eventDetail );
+          eventDetail = aux.events[0];
+          prepareModalDetail( clickedDay, eventDetail );
 
-          }else{
+        }else{
 
-            if ( dayClass.indexOf('past') < 0 && dayClass.indexOf('adjacent-month') < 0 ) {
-              prepareModalToAdd( clickedDay );
+          if ( dayClass.indexOf('past') < 0 && dayClass.indexOf('adjacent-month') < 0 ) {
+            prepareModalToAdd( clickedDay );
 
-            }
-
+          }else
+          {
+            toastr.info("La fecha seleccionada debe estar dentro de este mes.");
           }
-
-        },
-        onMonthChange: function(month) {
-          waitOnCalendarLoad(true);
-          currentPeriod =  month.format('YYYYMM');
         }
 
+      },
+      onMonthChange: function(month) {
+        // waitOnCalendarLoad(true);
+        currentPeriod =  month.format('YYYYMM');
+        aplicarEstilosAFechas();
       }
 
-    });
+    }
+
+  });
 
 
 
 
 
 
-    var enjoyhint_instance = new EnjoyHint({});
+//     var enjoyhint_instance = new EnjoyHint({});
 
 
 
-// https://github.com/xbsoftware/enjoyhint
-    enjoyhint_instance.set(enjoyhint_script_steps);
-    enjoyhint_instance.run();
+// // https://github.com/xbsoftware/enjoyhint
+//     enjoyhint_instance.set(enjoyhint_script_steps);
+//     enjoyhint_instance.run();
+
   }
 
 
@@ -489,83 +652,81 @@
 
 //     }
 
-//   // Agregar lo que falta
-//     ivtosend += '"day":"' + clickedDay + '"';
-//     ivtosend = '{' + ivtosend + '}';
+  // Agregar lo que falta
+    // ivtosend += '"day":"' + clickedDay + '"';
+    // ivtosend = '{' + ivtosend + '}';
 
-//     var objson = JSON.parse(ivtosend);
+    // var objson = JSON.parse(ivtosend);
 
-//     $.post( 
-//       'aqui var ir nuestro direccion' + 
-//       3 + 
-//       '/'+ currentPeriod, 
-//       objson ,
-//       function( data ){
+    // $.post( 
+    //   'aqui var ir nuestro direccion' + 
+    //   3 + 
+    //   '/'+ currentPeriod, 
+    //   objson ,
+    //   function( data ){
 
-//         console.log(data);
-//         $("#modalAddEvent .modal-header .close").click();
+    //     console.log(data);
+    //     $("#modalAddEvent .modal-header .close").click();
 
-//       // Limpiar campos ---------------------------
-//         for (i = 0; i < fieldsToGetVal.length; i++) {
-//           fieldToSend = fieldsToGetVal[i];
-//           $("#"+fieldToSend).val("");
-//         }
-//       // Campos que no se mandan pero se calculan
-//         $("#remain").val("0");
-//         $("#startH").val("10:00 PM");
-//         $("#eventHours").simpleSlider("setValue", 1);
-//         $("#eventHours").val(1);
+    //   // Limpiar campos ---------------------------
+    //     for (i = 0; i < fieldsToGetVal.length; i++) {
+    //       fieldToSend = fieldsToGetVal[i];
+    //       $("#"+fieldToSend).val("");
+    //     }
+    //   // Campos que no se mandan pero se calculan
+    //     $("#remain").val("0");
+    //     $("#startH").val("10:00 PM");
+    //     $("#eventHours").simpleSlider("setValue", 1);
+    //     $("#eventHours").val(1);
 
-//       // Remover la clase error
-//         $(".has-error").removeClass('has-error');      
-//       // End limpiar campos ------------------------
+    //   // Remover la clase error
+    //     $(".has-error").removeClass('has-error');      
+    //   // End limpiar campos ------------------------
 
-//       });
+    //   });
 
-//   }
+  
 
   // var uuidJson = 0;
 
-  // function getNewDatad(){
+  function getNewData(){
 
-  //   $.get('aqui var ir nuetro httpd://' + 
-  //     3 +
-  //     '/'+ currentPeriod,               
+    $.get('aqui var ir nuetro httpd://' + 
+      3 +
+      '/'+ currentPeriod,               
 
-  //     function(data){
+      function(data){
 
-  //         //data = JSON.parse( data );
+          //data = JSON.parse( data );
 
-  //       uuidExternal = data.uuid;
+        uuidExternal = data.uuid;
 
 
-  //       if ( uuidJson != uuidExternal ) {
+        if ( uuidJson != uuidExternal ) {
 
-  //         waitOnCalendarLoad(false);
-  //         uuidJson = uuidExternal;
+          waitOnCalendarLoad(false);
+          uuidJson = uuidExternal;
 
-  //         if ( uuidExternal === undefined ) {
+          if ( uuidExternal === undefined ) {
 
-  //             // Como no hay eventos ese mes, cambiar el uuid por currentperiod, 
-  //             // Asi no queda sin cargarse el calendario(waitOnCalendarLoad) por comparar 2 undefined
-  //           uuidJson = currentPeriod; 
+              // Como no hay eventos ese mes, cambiar el uuid por currentperiod, 
+              // Asi no queda sin cargarse el calendario(waitOnCalendarLoad) por comparar 2 undefined
+            uuidJson = currentPeriod; 
 
-  //         }else{
+          }else{
 
-  //             // Get reservations with client data
-  //           $.get('aqui var nuestro direccion https/ssf' + currentPeriod + '/?e_salon=si57',
-  //             function( jsonFull ){
-  //               refreshWithNewData( myCalendar, jsonFull.events );
-  //               colourByStatus();
-  //             })
+           
+                refreshWithNewData( myCalendar, jsonFull.events );
+                colourByStatus();
+           
 
-  //         }
+          }
 
-  //       }
+        }
 
-  //     })
+      })
 
-  // }
+  }
 
 
 // loadBySection();
