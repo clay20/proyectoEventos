@@ -72,5 +72,7 @@ public function buscarClientedb($valor)// buscar clientes
 return $this->db->get();
 }
 
+
+
 }
 

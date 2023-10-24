@@ -48,6 +48,8 @@
 
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionServicio.js"></script> 
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/calendarioPrincipal.js"></script> 
+<script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionReservas.js"></script> 
+
 
 
 <!-- alertas -->
@@ -56,11 +58,127 @@
 
 <!-- Page specific script -->
 <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+ 
+
+ function inicializarDataTableR(){
+
+  $("#miTablaR").DataTable({
+    "responsive": true,
+    "lengthChange": false,
+    "autoWidth": false,
+    "pageLength": 8,
+    "searching": false,
+    "pagingType": "full_numbers",
+    "language": {
+      "decimal": "",
+      "emptyTable": "No hay datos disponibles en la tabla",
+      "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+      "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+      "infoFiltered": "(filtrado de _MAX_ registros totales)",
+      "infoPostFix": "",
+      "thousands": ",",
+      "lengthMenu": "Mostrar _MENU_ registros",
+      "loadingRecords": "Cargando...",
+      "processing": "Procesando...",
+      "search": "Buscar:",
+      "zeroRecords": "No se encontraron registros coincidentes",
+      "paginate": {
+        "first": '<i class="fas fa-step-backward"></i>',
+        "previous": '<i class="fas fa-chevron-left"></i>',
+        "next": '<i class="fas fa-chevron-right"></i>',
+        "last": '<i class="fas fa-step-forward"></i>'
+      },
+      "aria": {
+        "sortAscending": ": activar para ordenar la columna ascendente",
+        "sortDescending": ": activar para ordenar la columna descendente"
+      }
+    },
+    
+  });
+}
+
+ function inicializarDataTableCliente(){
+
+    $(".miTablaCliente").DataTable({
+    "responsive": true,
+    "lengthChange": false,
+    "autoWidth": false,
+    "pageLength": 8,
+    "searching": false,
+    "pagingType": "full_numbers",
+    "language": {
+      "decimal": "",
+      "emptyTable": "No hay datos disponibles en la tabla",
+      "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+      "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+      "infoFiltered": "(filtrado de _MAX_ registros totales)",
+      "infoPostFix": "",
+      "thousands": ",",
+      "lengthMenu": "Mostrar _MENU_ registros",
+      "loadingRecords": "Cargando...",
+      "processing": "Procesando...",
+      "search": "Buscar:",
+      "zeroRecords": "No se encontraron registros coincidentes",
+      "paginate": {
+        "first": '<i class="fa-solid fa-angles-left"></i>',
+        "previous": '<i class="fas fa-chevron-left"></i>',
+        "next": '<i class="fas fa-chevron-right"></i>',
+        "last": '<i class="fa-solid fa-angles-right"></i>'
+      },
+      "aria": {
+        "sortAscending": ": activar para ordenar la columna ascendente",
+        "sortDescending": ": activar para ordenar la columna descendente"
+      }
+    },
+  // "dom": '<"top"lf>rt<"bottom"ip>', // Cambia la posición del campo de búsqueda
+
+  // "initComplete": function () {
+  //   // Reemplaza el texto "Buscar" con el icono de búsqueda de Font Awesome
+  //   $('.dataTables_filter label input[type="search"]').attr('placeholder', 'Buscar...');
+  //   $('.dataTables_filter label').addClass('input-group');
+  //   $('.dataTables_filter label').append('<span class="input-group-btn"><button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button></span>');
+  // },
+    
+  });
+ }
+
+   function inicializarDataTableServicio(){
+
+    $("#miTablaServicio").DataTable({
+    "responsive": true,
+    "lengthChange": false,
+    "autoWidth": false,
+    "pageLength": 5,
+    "searching": false,
+    "pagingType": "full_numbers",
+    "language": {
+      "decimal": "",
+      "emptyTable": "No hay datos disponibles en la tabla",
+      "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+      "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+      "infoFiltered": "(filtrado de _MAX_ registros totales)",
+      "infoPostFix": "",
+      "thousands": ",",
+      "lengthMenu": "Mostrar _MENU_ registros",
+      "loadingRecords": "Cargando...",
+      "processing": "Procesando...",
+      "search": "Buscar:",
+      "zeroRecords": "No se encontraron registros coincidentes",
+      "paginate": {
+        "first": '<i class="fas fa-step-backward"></i>',
+        "previous": '<i class="fas fa-chevron-left"></i>',
+        "next": '<i class="fas fa-chevron-right"></i>',
+        "last": '<i class="fas fa-step-forward"></i>'
+      },
+      "aria": {
+        "sortAscending": ": activar para ordenar la columna ascendente",
+        "sortDescending": ": activar para ordenar la columna descendente"
+      }
+    },
+    
+  });
+ }
+
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
@@ -70,7 +188,7 @@
       "autoWidth": false,
       "responsive": true,
     });
-  });
+
 </script>
 
 

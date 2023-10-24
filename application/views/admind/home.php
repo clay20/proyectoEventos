@@ -1,5 +1,5 @@
 
-<div class="wrapper"  >
+<div class="wrapper">
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper " style=" background-image: url('<?php echo base_url();?>/img/fondo.png'); background-repeat: no-repeat" >
@@ -145,7 +145,7 @@
                    <div class="col-lg-4">
                      <div class="myBox">
 
-                      <input  class="myImputField" type="password" required  />
+                      <input  class="myImputField" type="text" required  />
                       <label class="mylabel">Password</label>
                     </div>
                   </div>

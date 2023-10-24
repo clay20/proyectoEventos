@@ -69,7 +69,7 @@ public function listacliente()
 			if($id!=0){
 
 
-			$lista=$this->cliente_model->obtenerCliente($id);
+			$lista=$this->cliente_model->datoClientedb($id);
 			// $listaArray = $lista->result_array();
 			$listaArray = $lista->row_array();
 			echo json_encode($listaArray);

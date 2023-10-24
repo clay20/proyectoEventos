@@ -2,7 +2,7 @@
 
 <div class="wrapper" style="background-image: url('<?php echo base_url();?>/img/fondo.jpg');">
 
-  <div class="content-wrapper"   style=" background:rgba(0, 0, 0, .3);">
+  <div class="content-wrapper"   style=" background:rgba(0, 0, 0, .0);">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -32,7 +32,7 @@
                   <li class="nav-item"><a class=" nav-link " href="#agregarCliente" id="agregarclientelink"  data-toggle="tab">Agregar</a></li>
                 </ul>
               </div><!-- /.card-header -->
-              <div class="card-body m-0 p-0 px-1 "style="background: rgba(251, 214, 169, .2);">
+              <div class="card-body m-0 p-0 px-1 "style="background: rgba(255, 255, 255, .2);">
                 <div class="tab-content m-0 p-0">
                   <div class="active tab-pane" id="listaCliente">
                     <!-- Post -->
@@ -45,11 +45,11 @@
                       </div>
                     </div>
                     <div class="card-body m-0 p-0" style="height: 60vh;">
-                      <table id="" class="table table-sm"  style="color: #001f3f;">
+                      <table id="miTablaCliente" class="table table-sm miTablaCliente"  style="color: #001f3f;">
                         <thead>
                           <tr class="">
                             <th>Nro</th>
-                            <th>Nombre Completo</th>
+                            <th>Nombre Completo<i class="fa-solid fa-sort"></i></th>
                             
                             <th>Ci</th>
 

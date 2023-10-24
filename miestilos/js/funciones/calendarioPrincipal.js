@@ -1,19 +1,42 @@
-function prepareModalDetail(clickedDay, eventDetail) {
-   
-    $.ajax({
-    url: '../reservas/listaFechasReservar', // Reemplaza con la URL de tu servidor
-    method: 'POST',
-    dataType: 'json',
-    success: function (response) {
-      // Manejar los datos recibidos, asumiendo que data es un array de fechas
-      // aplicarEstilosAFechasDesdeBaseDeDatos(data);
-      // let fechas = JSON.parse(response);
-      response.forEach(function(objeto) {
-       
-              console.log(objeto);
-   $("#detalleEvento").modal('show');
-      });
+function prepareModalDetail(clickedDay, eventDetail,month) {
 
+    var dia =month.date.format('dddd');
+    var fecha=clickedDay;
+    $.ajax({
+    url: '../reservas/listaServicioParaEldia', // Reemplaza con la URL de tu servidor
+    method: 'POST',
+    data:{fecha},
+    success: function (response) {
+ 
+        var servicios= JSON.parse(response);
+          var title=document.getElementById('dtnombreEvento');
+          title.textContent=servicios[0].evento;
+        console.log(servicios);
+       $("#dtdiaL").text(dia);
+       $("#dtdia").text(servicios[0].diaEvento);
+       $("#eventoCliente").text(servicios[0].nombreCompleto);
+       $("#horaInicio").text(servicios[0].horaInicio);
+       $("#horaFin").text(servicios[0].horaFin);
+       $("#idReserva").text(servicios[0].idReserva);
+
+        let template= "";
+      var i=1;
+
+      servicios.forEach(servicioR=>{
+        template+=`
+        <tr servicioId=${servicioR.servicio}>
+        <td  style="text-align: right; padding-right:2px ">${i}</td>
+        <td style=" padding-left:2px" >${servicioR.servicio}</td>
+        <td  style="text-align: right; padding-right:2px" >${servicioR.cantidad}</td>
+        <td style="text-align: right; padding-right:2px">${servicioR.precio}</td>
+        <td style="text-align: right; padding-right:2px">${servicioR.subTotal}</td>
+       </tr>
+        `
+        i++;
+      });
+      $('#servicioReservado').html(template); 
+             
+   $("#detalleEvento").modal('show');
     },
 
   });
@@ -66,6 +89,38 @@ $('#nombreCliente').keyup(function() { //buscamo al empledo para signiar un usua
         })
     }
 });
+$('#nombreEvento').keyup(function() { //reserva
+    if ($('#nombreEvento').val()) {
+        let valor = $('#nombreEvento').val();
+        $.ajax({
+            url: '../reservas/tipoEvento', // 
+            data: {
+                valor
+            },
+            type: 'POST',
+            success: function(response) {
+                if (!response.error) {
+                    let cliente = JSON.parse(response);
+                    // console.log(cliente);
+                    let template = "";
+                    cliente.forEach(cliente => {
+                        template += `
+                        <option 
+                        clienteId=${cliente.id}                 
+                        value=" ${cliente.segundoApellido}">
+
+                        
+                        </option>
+                         `
+                    });
+                    $('#listaEventos').html(template);
+                    actualizarPrecio();
+                }
+            }
+        })
+    }
+});
+
 
 function seleccionCliente(data) {
     const datalist = document.getElementById('listaCliente')
@@ -97,7 +152,7 @@ $("#formNuevoCliente").submit(function(ev) {
                 var json = JSON.parse(data);
                 console.log(json);
                 if (json.id != 0) {
-                    swal("", "Registro con exito'", "success");
+                    // swal("", "Registro con exito'", "success");
                     limmpiarCampos();
                     $("#agregarCliente").modal("hide");
                     const inputNombre = document.getElementById('nombreCliente');
@@ -568,20 +623,33 @@ function actualizarPrecio() {
     $("#saldoPagar").val(totalPagar.toFixed(2));
 }
 $(document).on('keyup', '#montoAdelantado', function() {
-    var total = parseFloat($("#total").val()) || 0;
-    var valorMontoAdelantado = parseFloat($(this).val()) || 0;
+    var total = parseFloat($("#total").val());
+    var valorMontoAdelantado = parseFloat($(this).val());
+    plazoConfirmacion=$("#plazoConfirmacion").val();
     if (total >= valorMontoAdelantado) {
         var saldo = total - valorMontoAdelantado;
         $("#saldoPagar").val(saldo.toFixed(2));
         $(this).css("background-color", ""); // Restaurar el color de fondo
         $(this).css("background-color", "#fff");
+
     } else {
-        console.log('El monto a pagar no debe ser mayor al total.');
+         $(this).val(total.toFixed(2));
+        // console.log('El monto a pagar no debe ser mayor alr total.'+total);
+        toastr.info('l monto a pagar no debe ser mayor alr total.'+total);
         $(this).css("background-color", "#FF8080");
         // Cambiar el color de fondo a un rojo suave si no cumple
         $(this).css("border-bottom", "2px solid #ff9999");
     }
+    if(valorMontoAdelantado==0)
+    {
+        plazoConfirmacion.readonly=false;
+    }
+    else
+    {
+        plazoConfirmacion.readonly=true;
+    }
     actualizarPrecio();
+    alert("fd");
 });
 var estadoInvitados = [];
 
@@ -776,20 +844,20 @@ $(document).ready(function() {
         duraciones = new Array();
         invitados = new Array();
         fechas = new Array();
-        for (var i = 1; i <= dias; i++) {
+        for (var i = 1; i <=dias; i++) {
             horaInicio = $(`#inicioH${i}`).val();
             duracion = $(`#horaRange${i}`).val();
             horaFin = $(`#finH${i}`).val();
             invitado = $(`#nroInvitados${i}`).val();
             fecha = $(`#fecha${i}`).val();
-            horaInicios[i] = horaInicio;
-            duraciones[i] = duracion;
-            horaFines[i] = horaFin;
-            invitados[i] = invitado;
-            fechas[i] = fecha;
+            horaInicios.push( horaInicio);
+            duraciones.push(duracion);
+            horaFines.push(horaFin);
+            invitados.push(invitado);
+            fechas.push(fecha);
         }
 
-
+console.log(horaFines+' prueb horas');
 
         idCliente = $("#txtId").val(); //el cliente que pide una reseerva
         var ids = [];
@@ -828,12 +896,12 @@ $(document).ready(function() {
             ids.push(id);
             importes.push(importe);
         }
-        console.log(ids);
-        console.log(cbxDia);
-        console.log(importes);
-        console.log(cantidades);
-        console.log(descuentos);
-        console.log(fecha);
+        // console.log(ids);
+        // console.log(cbxDia);
+        // console.log(importes);
+        // console.log(cantidades);
+        // console.log(descuentos);
+        // console.log(fecha);
         // fecha
         var pu = new Array();
         $(".servicioDetalle").find('tr').each(function() {
@@ -844,11 +912,12 @@ $(document).ready(function() {
         totalPagar = $("#totalPagar").val(); //ya con descuento de anterior
         adelandto = $("#montoAdelantado").val();
         saldoPagar = $("#saldoPagar").val();
+        plazoConfirmacion=$("#plazoConfirmacion").val();
    
         agregarReservar(fechaInici,nombreEvento,dias,fechaFin,
 horaInicios,horaFines,duraciones,invitados,fechas,
 idCliente,ids,cbxDia,cantidades,descuento,importes,pu,
-totalSinDescuento,totalDescuento,totalPagar,adelandto,saldoPagar);
+totalSinDescuento,totalDescuento,totalPagar,adelandto,saldoPagar,plazoConfirmacion);
 
       }
       else
@@ -862,25 +931,26 @@ totalSinDescuento,totalDescuento,totalPagar,adelandto,saldoPagar);
 function agregarReservar(fechaInici,nombreEvento,dias,fechaFin,
 horaInicios,horaFines,duraciones,invitados,fechas,
 idCliente,ids,cbxDia,cantidades,descuento,importes,pu,
-totalSinDescuento,totalDescuento,totalPagar,adelandto,saldoPagar) {
+totalSinDescuento,totalDescuento,totalPagar,adelandto,saldoPagar,plazoConfirmacion) {
     $.ajax({
         url: "../reservas/agregar",
         type: "POST",
         data: {fechaInici,nombreEvento,dias,fechaFin,
 horaInicios,horaFines,duraciones,invitados,fechas,
 idCliente,ids,cbxDia,cantidades,descuento,importes,pu,
-totalSinDescuento,totalDescuento,totalPagar,adelandto,saldoPagar
+totalSinDescuento,totalDescuento,totalPagar,adelandto,saldoPagar,plazoConfirmacion
         },
         success: function(resp) {
           var json=JSON.parse(resp);
          if(json.msg)
          {
 
+            actuliazarNuevoEventoagreados();
             toastr.success("Evento agregado con exito");
          }
          else
          {
-            toastr.warning('pureba mensage'+json.msg);
+            toastr.warning('Fallo al agregar un evento'+json.msg);
 
          }
 

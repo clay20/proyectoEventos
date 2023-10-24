@@ -19,6 +19,9 @@ class Reserva_model extends CI_Model
 	      );
 	      $this->db->insert('horarioevento',$data2);
 	   }
+
+
+
 	   for ($i=0; $i <count($ids) ; $i++) { 
 	   	for ($j=0; $j <$dias ; $j++) { 
 	   		 $data3=array(
@@ -28,7 +31,7 @@ class Reserva_model extends CI_Model
 	   		   'descuento'=>$des[$i][$j],
 	   		   'fechaHoraInicio'=>$fechas[$j].' ' .$horaInicios[$j],
 	   		   'fechaHoraFin'=>$fechas[$j].' '.$horaFines[$j],
-	   		   'idServicios'=>$ids[$j],
+	   		   'idServicios'=>$ids[$i],
 	   		   'idReservas'=>$idReserva,
 	   		  );
 	      $this->db->insert('detalle',$data3);
@@ -61,6 +64,179 @@ public function reservasdb()
     $this->db->join('horarioevento H', 'H.idReservas = R.id'); // Corregido el alias en el join
     return $this->db->get();
 }
+
+
+
+public function servicioRequediosFechadb($fecha)
+{
+	
+    $this->db->select("concat(C.nombre,' ',C.primerApellido,' ',IFNULL(C.segundoApellido,'')) AS nombreCompleto,
+    	TE.nombre AS evento, R.fechaInicio ,DAY(R.fechaInicio ) AS diaInicio,HE.fecha ,DAY(HE.fecha) AS diaEvento,S.nombre AS servicio,D.cantidad,
+    	D.precio,D.subTotal,D.descuento,D.fechaHoraInicio,D.fechaHoraFin,DATE_FORMAT(HE.horaInicio, '%H:%i') AS horaInicio,DATE_FORMAT( HE.horaFIn, '%H:%i') AS horaFin,R.id AS idReserva");
+
+    $this->db->from('detalle D');
+    $this->db->join('servicios S',' S.id=D.idServicios'); 
+    $this->db->join('reservas R',' R.id=D.idReservas'); 
+    $this->db->join('clientes C ','C.id =R.idCliente'); 
+    $this->db->join('tipoevento TE','TE.id=R.idTipoEvento'); 
+    $this->db->join('horarioevento HE ',' HE.idReservas=R.id'); 
+    $this->db->where("HE.fecha",$fecha);
+	$this->db->where("R.estado <>", 0);
+	$this->db->where("DATE(D.fechaHoraInicio)",$fecha);
+    return $this->db->get();
+
+}
+
+
+
+public function listaReservasMensualesdb($mes,$anio,$hoy)
+{
+	
+  $this->db->select("CONCAT(C.nombre,' ',C.primerApellido,' ', IFNULL(C.segundoApellido, '')) AS nombreCompleto, TE.nombre AS evento, R.fechaInicio,R.estado,diasEventos(R.id) AS dias");
+$this->db->from('clientes C');
+$this->db->join('reservas R', 'R.idCliente=C.id');
+$this->db->join('tipoevento TE', 'TE.id=R.idTipoEvento');
+$this->db->where("R.estado <>", 0);
+$this->db->where("MONTH(R.fechaInicio) =", $mes); // Usar '=' en lugar de solo $mes
+$this->db->where("YEAR(R.fechaInicio) =", $anio); // Usar '=' en lugar de solo $anio
+$this->db->where("R.fechaInicio >=", $hoy); // Usar '=' en lugar de solo $anio
+
+$this->db->order_by("DAY(R.fechaInicio)", "asc");
+return $this->db->get();
+
+
+}
+
+public function listaReservasPorRealizar($fechaMomento)
+{
+
+	$this->db->select(
+            'R.id ,CONCAT(C.nombre, " ", C.primerApellido, " ", IFNULL(C.segundoApellido, "")) AS nombreCompleto, 
+            TE.nombre AS evento, R.fechaInicio, diasEventos(R.id) AS dias, R.total,R.adelantoReserva,R.saldo,
+            	CASE 
+				  WHEN R.estado = 1 THEN "Confirmar"
+				  WHEN R.estado = 2 THEN "Reservado"
+				  WHEN R.estado = 3 THEN "Pagado"
+				  WHEN R.estado = 4 THEN "Pendiente"
+				  ELSE "Cancelado"
+				END AS rEstado, 
+				COUNT(HE.fecha) AS cantidadDias,
+				R.estado AS estadoNumero',
+
+				FALSE 
+        );
+        $this->db->from('clientes C');
+        $this->db->join('reservas R', 'R.idCliente = C.id');
+        $this->db->join('horarioevento HE', 'HE.idReservas = R.id');
+        $this->db->join('tipoevento TE', 'TE.id = R.idTipoEvento');
+        $this->db->where('C.estado', 1);
+        $this->db->where('R.estado <>', 0);
+        $this->db->where('R.fechaInicio >=', $fechaMomento);
+        $this->db->group_by('R.id,nombreCompleto, TE.nombre, R.fechaInicio');
+		$this->db->order_by("R.fechaInicio", "asc");
+
+       return $this->db->get();
+       
+}
+public function fechasEventosdb($idReserva)
+{
+		$this->db->select('HE.fecha,HE.horaInicio,HE.horaFIn,HE.cantidadPersona');
+
+        $this->db->from('horarioevento HE');
+        $this->db->join('reservas R','R.id=HE.idReservas');
+        $this->db->where('R.id', $idReserva);
+        
+       return $this->db->get();
+}
+public function servicioReservadosdb($id,$inicioEvento,$fecha){
+		$this->db->select('D.id AS idDetalle,S.nombre AS servicio, D.cantidad,D.precio AS PU,D.subTotal,D.descuento,DATE(fechaHoraInicio) AS fechaInicio');
+
+        $this->db->from('detalle D ');
+        $this->db->join('servicios S ',' S.id =D.idServicios');
+        $this->db->join('reservas R',' R.id=D.idReservas');
+
+        $this->db->where('R.id', $id);
+        $this->db->where('DATE(D.fechaHoraInicio)', $fecha);
+        $this->db->where('R.fechaInicio', $inicioEvento);
+       return $this->db->get();
+ 
+}
+
+public function servicioReservadosPagardb($id,$data)
+{
+      $this->db->where('id',$id);
+		$this->db->update('reservas',$data);
+		return $this->db->affected_rows();
+}
+
+// consulta 
+
+public function nombreEventodb($valor)
+	{
+		$this->db->select('*');
+		$this->db->from('tipoevento S'); 
+		return $this->db->get();
+	}
+
+//consulta de praccion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

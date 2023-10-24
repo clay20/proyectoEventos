@@ -21,7 +21,7 @@
 
         <div class="row">
           <div class="col-12">
-            <div class="card " style="background:rgba(0, 0, 0, .2);" >
+            <div class="card " style="background:rgba(255, 255, 255, .2);" >
               <div class="card-header p-0 ">
 
                 <ul class="nav nav-pills p-0 " style="background:rgba(0, 0, 0, .4);">
@@ -40,9 +40,9 @@
                       <label class="mylabel-icon"><i class="fas fa-search"></i></label>
                       </div>
                     </div>
-                    <div style="height: 60vh; overflow-y: auto;">
-                      <div class="card-body m-0 p-0" >
-                        <table id="example11" class="table table-sm  " rules="rows">
+                    <div style="">
+                 
+                        <table id="miTablaServicio" class="table table-sm  miTablaServicio" rules="all">
                           <thead>
                             <tr>
                               <th>Nro</th>
@@ -57,10 +57,11 @@
                             </tr>
                           </thead>
                           <tbody  id="servicioT">
+                            
                           </tbody>
 
                         </table>
-                      </div>
+               
                     </div>
 
 

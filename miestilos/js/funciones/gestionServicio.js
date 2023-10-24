@@ -1,7 +1,4 @@
 
-$(document).ready(function() {
-  // Global Settings
-
   listarServicios();
 
 //inicio listar servicios
@@ -14,7 +11,7 @@ $(document).ready(function() {
     success:function(response){
       
       let servicio= JSON.parse(response);
-      console.log(servicio);
+ 
       let template= "";
       var i=1;
 
@@ -30,16 +27,19 @@ $(document).ready(function() {
 
         <td >${servicio.descriccion}</td>
 
-        <td class="d-flex"> 
-       
+        <td> 
+       <div  class="d-flex" >
         <button title="Editar"  type="submit" class="editarServicio btn btn-sm btnt-primary" data-target="#ModificarProveedor" ><i class="fa-solid fa-pen-to-square fa-lg text-warning"></i></button> 
        <button title="Eliminar"  class="eliminarServicio btn btn-sm btnt-primary"><i class="fa-solid fa-trash  fa-lg text-danger"></i></button>
+       </div>
         </td>
        </tr>
         `
         i++;
       });
       $('#servicioT').html(template); 
+      inicializarDataTableServicio();
+      // alert('des');
     }
   });
  }//fin lista servicions
@@ -124,6 +124,4 @@ $(document).ready(function() {
     });
   }); 
 
-
-});
 

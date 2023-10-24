@@ -491,7 +491,8 @@ p {
 }
 #mini-clndr .clndr .controls .clndr-previous-button:hover,
 #mini-clndr .clndr .controls .clndr-next-button:hover {
-  background-color: #2A91CF;
+  background-color: #001F3F;
+  cursor: pointer;
 }
 #mini-clndr .clndr .controls .month {
   width: 70%;
@@ -519,6 +520,7 @@ p {
   transition: left 0.5s;
   width: 100%;
 }
+/*CAmbio realizado en colres*/
 #mini-clndr .clndr .days-container .days .day,
 #mini-clndr .clndr .days-container .days .empty {
   display: inline-block;
@@ -526,7 +528,7 @@ p {
   padding-bottom: 2%;
   font-size: 1.2em;
   text-align: center;
-  color: #212121;
+/*  color: red;*/
   border-right: 1px solid rgba(255, 255, 255, 0.5);
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   width: 14.2857%;
@@ -666,21 +668,47 @@ p {
     font-size: 16px;
 }
 
+/*Desde aqui el contenido*/
+
 .day.past.last-month,.day.adjacent-month.last-month, .day.adjacent-month.next-month {
-    color: #D6D1C9!important;
+    color: #C0C0C0!important;
 }
-.day.past{
-  color: #BBC8D0!important;
+.day.adjacent-month.last-month {
+          background: rgba(0, 0, 0, 0)!important;
+
+}
+ .day.adjacent-month.last-month:hover {
+    color: #fff !important;
+      background: rgba(0, 0, 0, 0.5)!important;
+    cursor: help;
 }
 
+ .day.adjacent-month.next-month {
+    background: rgba(0, 0, 0, 0)!important;
+}
+ .day.adjacent-month.next-month:hover {
+    color: #fff !important;
+    background: rgba(0, 0, 0, 0.5)!important;
+    cursor: help;
+}
+
+
+
+.day.past{
+  color: #BBC8D0!important;
+/*  background: #ECC89D;*/
+}
+.day{
+  color: #001F3F;
+}
 .day:hover{
-  background: #47A3DA;
+  background: #001F3F;
   color: white!important;
   cursor: pointer;
 }
 
-.day.past:hover, .day.past.last-month:hover{
-  background: #AF0000;
+.day.past:hover, .day.past.last-month:hover, .day.past.next-month:hover{
+  background: #AF0000 !important;
   cursor: not-allowed;
 }
 

@@ -24,15 +24,22 @@ $(document).ready(function() {
           <td>${cliente.nombre+' '+cliente.primerApellido+ ' '+cliente.segundoApellido}</td>
           <td>${cliente.ci}</td>
           <td >${cliente.celular+' '+cliente.telefono}</td>
-          <td class="d-flex "> 
-          <button type="submit" class="editarCliente btn btn-sm btnt-primary p-1" data-target="#ModificarProveedor"   title="Editar"><i class="fa-solid fa-pen-to-square fa-lg text-warning"></i></button> 
+          <td > 
+          <div class="d-flex ">
+ <button type="submit" class="editarCliente btn btn-sm btnt-primary p-1" data-target="#ModificarProveedor"   title="Editar"><i class="fa-solid fa-pen-to-square fa-lg text-warning"></i></button> 
           <button class="eliminarcliente btn btn-sm btnt-primary ml-1"><i class="fa-solid fa-trash  fa-lg text-danger"  title="Eliminar"></i></button> 
-          </td>
+          
+          <div/>
+         </td>
           </tr>
           `
+
           i++;
         });
         $('#tbCliente').html(template); 
+  
+         inicializarDataTableCliente();
+      
       }
     });
  
@@ -64,16 +71,20 @@ $(document).ready(function() {
           <td>${cliente.ci}</td>
           <td >${cliente.celular+' '+cliente.telefono}</td>
           <td class="d-flex "> 
+            <div class="d-flex >
+
+       
           <button type="submit" class="editarCliente btn btn-sm btnt-primary p-1" data-target="#ModificarProveedor"   title="Editar"><i class="fa-solid fa-pen-to-square fa-lg text-warning"></i></button> 
           <button class="eliminarcliente btn btn-sm btnt-primary ml-1"><i class="fa-solid fa-trash  fa-lg text-danger"  title="Eliminar"></i></button> 
-          </td>
+             <div/>
+             </td>
           </tr>
           `
           i++;
         });
         $('#tbCliente').html(template); 
 
-
+       
         }
       } 
     })
