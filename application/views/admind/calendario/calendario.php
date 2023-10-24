@@ -124,10 +124,45 @@
             </div> 
           </div>
 
+<<<<<<< HEAD
           <div class="col-12 px-1 m-0 " id="contenedorBloques" style="background: rgba(255, 255, 255, .4);">
             <!-- muy impirta aqui se esta cargado lo ide de campos -->
 
 
+          </div>
+
+          <hr class="bgt-primary " style="
+          height: 2px;
+          ">
+        </section>
+
+      </div>
+      <div class="col-sm-12 col-lg-8 p-1">
+        <div class="col-12 d-flex ">
+
+          <div class="col-11">
+            <div class="myBox">
+
+              <input type="hidden" id="txtId" name="idCliente">
+              <input type="text" class="myImputField" id="nombreCliente" required placeholder="" list="listaCliente" onchange="seleccionCliente(this)" autocomplete="off" onkeypress="return soloLetrasEspacio(event)"> 
+              <label class="mylabel" id="lbLeyenda">Persona que contrata el evento</label>
+            </div>
+
+            <datalist id="listaCliente">
+
+            </datalist>
+
+          </div>
+          <div class="col-1 d-flex justify-content-center align-items-center" >
+            <button class="btnt-primary btn-sm" title="Nuevo Cliente" data-toggle="modal" data-target="#agregarCliente"><i class="fa-solid fa-square-plus d-flex justify-content-center"></i></button>
+
+          </div>
+        </div>
+        <div class="col-12 d-flex">
+          <div class="col-4">
+=======
+          <div class="col-12 p-0 " id="contenedorBloques" style="background: rgba(255, 255, 255, .4);">
+            <!-- muy impirta aqui se esta cargado lo ide de campos -->
           </div>
 
           <hr class="bgt-primary " style="
@@ -168,6 +203,17 @@
             </div>
           </div>
           <div class="col-7">
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
+            <div class="myBox">
+
+              <input class="myImputField" type="date" name="" id="fechaFin" readonly>
+              <label class="mylabel">Fin del  Evento</label>
+              <label class="mylabel-icon"><i class="fa-regular fa-calendar-days"></i></label>
+
+<<<<<<< HEAD
+            </div>
+          </div>
+          <div class="col-7">
             <div class="myBox">
 
 
@@ -177,6 +223,14 @@
 
             <datalist id="listaServicio">
 
+=======
+              <input type="text" class="myImputField" id="txtBuscaeServicio" required placeholder="" list="listaServicio"  onautocomplete="off" onchange="seleccionarServicio(this)" onkeypress="return soloLetrasEspacio(event)"> 
+              <label class="mylabel" >Buscar Servicio</label>
+            </div>
+
+            <datalist id="listaServicio">
+
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
             </datalist>
           </div>
           <div class="col-1 d-flex justify-content-center align-items-center" >
@@ -184,7 +238,11 @@
           </div>
         </div >
 
+<<<<<<< HEAD
         <div class="row p-0 mx-1" style="overflow-x:auto; min-width:50px">
+=======
+        <div class="row p-1" style="overflow-x:auto; min-width:50px">
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
 
           <table class="p-1" rules="all" width="100%" id="detalleServicio">
             <thead class="bgt-primary">
@@ -193,7 +251,11 @@
                 <th style="text-align: center; min-width: 100px;"><small>dia/Cant</small></th>
                 <th style="text-align: center;  min-width: 50px;"><small>PU(Bs)</small></th>
                 <th style="text-align: center; min-width: 110px;"><small>inporte(Bs)</small></th>
+<<<<<<< HEAD
                 <th style="text-align: center;  min-width: 100px;"><small>Descuento(Bs)</small></th>
+=======
+                <th style="text-align: center;  min-width: 120px;"><small>Descuento(Bs)</small></th>
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
                 <th style="width:7px"></th>
               </tr>
             </thead>
@@ -203,6 +265,7 @@
             <tfoot class="bgt-primary">
              <tr>
               <td colspan="3"><small>Total</small></td>
+<<<<<<< HEAD
               <td style="text-align:right;"><input type="text"  id="total" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right; background: #CBDFFF;" readonly><small>bs.</small></td>
               <td style="text-align:right;"><input type="text"  id="descuento" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right; background: #CBDFFF;" readonly><small>bs.</small></td>
             
@@ -225,6 +288,15 @@
 
                    </div>
                    </td>
+=======
+              <td style="text-align:right;"><input type="text"  id="total" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right; background: #CBDFFF;" readonly>bs.</td>
+              <td style="text-align:right;"><input type="text"  id="descuento" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right; background: #CBDFFF;" readonly>bs.</td>
+            </tr>
+            <tr>
+              <td colspan="3"><small>Total a Pagar</small></td>
+              <td style="text-align:right;"><input type="text"  id="totalPagar" class="" name=""   style="width:80px; height: 20px; font: 10px; text-align: right; background: #CBDFFF;" readonly>bs.</td>
+
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
             </tr>
             <tr>
               <td colspan="3"><small>Monto adelantado</small></td>
@@ -360,6 +432,7 @@
 </div>
 </form>
 
+<<<<<<< HEAD
 
 
 <!-- Evento resevado con su estaod para esa fecha -->
@@ -368,10 +441,17 @@
     <div class="modal-dialog  modal-lg">
       <div class="modal-content">
         <div class="modal-header p-2 bgt-primary">
+=======
+  <div class="modal fade" id="detalleEvento" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header p-2 bgt-acent">
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
 
 
          <div class="container">
            <div class="row">
+<<<<<<< HEAD
             <div class=" col-10 d-flex justify-content-start align-items-center">
             <h5 class="modal-title "> Evento : <span id="dtnombreEvento"></span></h5>
               
@@ -380,18 +460,28 @@
                   <button type="button" class="btn btn-sm" data-dismiss="modal" aria-label="Close"><span  aria-hidden="true" style="color: red;"><b>X</b></span></button>
             </div>
         
+=======
+
+            <h5 class="modal-title ">Nombre Cliente</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span  aria-hidden="true">×</span></button>
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
 
 
           </div>
         </div>
       </div>
+<<<<<<< HEAD
       <div class="modal-body bgt-secondary m-0 p-0 px-2">
+=======
+      <div class="modal-body bgt-secondary">
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
 
         <!-- Post -->        
 
         <div class="row">
 
           <div class=" col-md-12 ">
+<<<<<<< HEAD
             <label class="row"><div class="col-lg-6 col-md-8 col-sm-12"> Servicios reservados para el <span id="dtdiaL"></span> <span id="dtdia"></span> </div>
              <div  class="col-lg-6 col-md-4 col-sm-12">Horas<span id="horaInicio">10:00</span> - <span id="horaFin">14:00</span></div></label>
             <table rules="all" width="100%"> 
@@ -408,6 +498,52 @@
               </thead>
               <tbody class="servicioReservado" id="servicioReservado">
             
+=======
+            <label class="mylabel" for=""> Servicio reservados para este dia</label>
+            <table border="1" rules="all" width="100%"> 
+              <thead class="bgt-primary">
+                <tr>
+                  <th>Servicio </th>
+                  <th>canti </th>
+                  <th>Precio Total </th>
+                  <th>Incio</th>
+                  <th>Fin</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Servicio q</td>
+                  <td>200</td>
+                  <td>234</td>
+                  <td>00:00</td>
+                  <td>08:00</td>
+                </tr>
+                  <tr>
+                  <td>Servicio q</td>
+                  <td>200</td>
+                  <td>234</td>
+                  <td>00:00</td>
+                  <td>08:00</td>
+                </tr>  <tr>
+                  <td>Servicio q</td>
+                  <td>200</td>
+                  <td>234</td>
+                  <td>00:00</td>
+                  <td>08:00</td>
+                </tr>  <tr>
+                  <td>Servicio q</td>
+                  <td>200</td>
+                  <td>234</td>
+                  <td>00:00</td>
+                  <td>08:00</td>
+                </tr>  <tr>
+                  <td>Servicio q</td>
+                  <td>200</td>
+                  <td>234</td>
+                  <td>00:00</td>
+                  <td>08:00</td>
+                </tr>
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
               </tbody>
 
 
@@ -426,6 +562,7 @@
 
 
 
+<<<<<<< HEAD
 </div>
 
 <div class="modal-footer d-flex justify-content-start p-2 bgt-acent t-secondary-n">
@@ -436,6 +573,13 @@
   <span id="idReserva">d</span>
   <button type="button" class="btn btn-success" id="btnPagarCalendario">Cobrar</button>
 </div>
+=======
+
+</div>
+
+<div class="modal-footer d-flex justify-content-around p-1 bgt-acent">
+ <label>Nombre Cliente</label>
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
 </div>
 </div>
 </div>
@@ -444,6 +588,15 @@
 
 
 
+<<<<<<< HEAD
+=======
+<script>"use strict";</script>
+<script src="<?php echo base_url();?>/calendario/res/jquery.js"></script>
+<script src="<?php echo base_url();?>/calendario/res/momentjs.lang.js"></script>
+<script src="<?php echo base_url();?>/calendario/res/bootstrap.min.js"></script>
+<script src="<?php echo base_url();?>/calendario/res/underscore-min.js"></script>
+<script src="<?php echo base_url();?>/calendario/res/clndr.min.js"></script>
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
 
 
 <script>
@@ -499,12 +652,41 @@
   var myCalendar;
   var currentPeriod = 202308;
   var eventsArray = [];
+<<<<<<< HEAD
   var fechasAColor = [];
   var estado=[];
   var fechaActual ;
 $(document).ready(function() {
     fechaActual = moment();
   // console.log("Fecha actual:", fechaActual.format('YYYY-MMMM-dddd'));
+=======
+  var fechasAColor = ['2023-10-20','2023-10-30'];
+  var estado=[0,1,2]
+$(document).ready(function() {
+      cargarFechasDesdeBaseDeDatos();
+});
+  function cargarFechasDesdeBaseDeDatos() {
+    $.ajax({
+    url: '../reservas/listaFechasReservar', // Reemplaza con la URL de tu servidor
+    method: 'POST',
+    dataType: 'json',
+    success: function (response) {
+      // Manejar los datos recibidos, asumiendo que data es un array de fechas
+      // aplicarEstilosAFechasDesdeBaseDeDatos(data);
+      // let fechas = JSON.parse(response);
+      response.forEach(function(objeto) {
+       
+        fechasAColor.push(objeto.fecha);
+        estado.push(objeto.estado);
+
+      });
+
+    },
+
+  });
+  }
+
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
 
    cargarFechasDesdeBaseDeDatos();
  
@@ -579,15 +761,68 @@ $(document).ready(function() {
   moment.locale('es'); /*Lang*/
 
     var aux;
+<<<<<<< HEAD
+=======
+
+    function aplicarEstilosAFechas() {
+   
+      var i=0;
+      fechasAColor.forEach(function (fecha) {
+        var currentCell = $('#mini-clndr .calendar-day-' + fecha);
+        currentCell.addClass('colored-date has-event');
+      
+        if(estado[i]==0){
+            currentCell.css({
+        'background-color': '#ffaaaa',
+        'color': '#000', 
+      });
+        }
+        else if(estado[i]==1){
+            currentCell.css({
+        'background-color': '#ffa222',
+        'color': '#000', 
+      });
+        }
+          else if(estado[i]==2){
+            currentCell.css({
+        'background-color': '#f11122',
+        'color': '#000', 
+      });
+        }  else if(estado[i]==2){
+            currentCell.css({
+        'background-color': '#33a222',
+        'color': '#000', 
+      });
+        }
+        else
+        {
+               currentCell.css({
+        'background-color': '#aaa222',
+        'color': '#000', 
+      });
+        }
+        i=i+1;
+      
+      });
+    }
+
+
+
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
     myCalendar = $('#mini-clndr').clndr({
 
       daysOfTheWeek: ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do'],
       template  :    $('#calendar-template').html(),
       events    :    eventsArray,
 
+<<<<<<< HEAD
       ready     :    function() {setInterval(getNewData, 1000);  
    // aplicarEstilosAFechas();
    // listaEventoDelMes(aux.date);
+=======
+      ready     :    function(){ 
+   aplicarEstilosAFechas();
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
   
     },  
 
@@ -604,6 +839,7 @@ $(document).ready(function() {
         if ( dayClass.indexOf('event') > -1 ){
 
           eventDetail = aux.events[0];
+<<<<<<< HEAD
           prepareModalDetail( clickedDay, eventDetail,aux );
 
         }else{
@@ -612,6 +848,14 @@ $(document).ready(function() {
             prepareModalToAdd( clickedDay );
 
            fechaActual= aux.date;
+=======
+          prepareModalDetail( clickedDay, eventDetail );
+
+        }else{
+
+          if ( dayClass.indexOf('past') < 0 && dayClass.indexOf('adjacent-month') < 0 ) {
+            prepareModalToAdd( clickedDay );
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
 
           }else
           {
@@ -623,9 +867,18 @@ $(document).ready(function() {
       onMonthChange: function(month) {
         // waitOnCalendarLoad(true);
         currentPeriod =  month.format('YYYYMM');
+<<<<<<< HEAD
         var mesL=month.format('MMMM');//nombre mes
 
         var diaL=month.format('dddd');//nombre dias
+=======
+        aplicarEstilosAFechas();
+      }
+
+    }
+
+  });
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
 
         var mes=month.format('MM');
         var anio=month.format('YYYY');
@@ -639,6 +892,7 @@ $(document).ready(function() {
   });
 
 
+<<<<<<< HEAD
 
 //     var enjoyhint_instance = new EnjoyHint({});
 
@@ -738,6 +992,118 @@ function listaEventoDelMes(month){
         // Agrega el contenido al contenedor y muestra el modal
         $('#modalContainer').html(data);
         $('#miModal').modal('show');
+=======
+
+//     var enjoyhint_instance = new EnjoyHint({});
+
+
+
+// // https://github.com/xbsoftware/enjoyhint
+//     enjoyhint_instance.set(enjoyhint_script_steps);
+//     enjoyhint_instance.run();
+
+  }
+
+
+
+
+//   function addCalendarEvt( clickedDay ){
+
+//     if ( !passValidation() ) {
+//       return 0;
+//     }
+
+// /*  console.log( clickedDay );*/
+
+
+//     fieldsToGetVal = ['eventName', 'userName', 'tel', 'email', 'eventHours', 'startH', 'total', 'payment'];
+//     var ivtosend = '';
+
+//     for (i = 0; i < fieldsToGetVal.length; i++) {
+
+//       fieldToSend = fieldsToGetVal[i];
+//       valueToSend = $("#"+fieldToSend).val();
+
+//       ivtosend += '"' + fieldToSend + '":"' + valueToSend + '",';
+
+//     }
+
+  // Agregar lo que falta
+    // ivtosend += '"day":"' + clickedDay + '"';
+    // ivtosend = '{' + ivtosend + '}';
+
+    // var objson = JSON.parse(ivtosend);
+
+    // $.post( 
+    //   'aqui var ir nuestro direccion' + 
+    //   3 + 
+    //   '/'+ currentPeriod, 
+    //   objson ,
+    //   function( data ){
+
+    //     console.log(data);
+    //     $("#modalAddEvent .modal-header .close").click();
+
+    //   // Limpiar campos ---------------------------
+    //     for (i = 0; i < fieldsToGetVal.length; i++) {
+    //       fieldToSend = fieldsToGetVal[i];
+    //       $("#"+fieldToSend).val("");
+    //     }
+    //   // Campos que no se mandan pero se calculan
+    //     $("#remain").val("0");
+    //     $("#startH").val("10:00 PM");
+    //     $("#eventHours").simpleSlider("setValue", 1);
+    //     $("#eventHours").val(1);
+
+    //   // Remover la clase error
+    //     $(".has-error").removeClass('has-error');      
+    //   // End limpiar campos ------------------------
+
+    //   });
+
+  
+
+  // var uuidJson = 0;
+
+  function getNewData(){
+
+    $.get('aqui var ir nuetro httpd://' + 
+      3 +
+      '/'+ currentPeriod,               
+
+      function(data){
+
+          //data = JSON.parse( data );
+
+        uuidExternal = data.uuid;
+
+
+        if ( uuidJson != uuidExternal ) {
+
+          waitOnCalendarLoad(false);
+          uuidJson = uuidExternal;
+
+          if ( uuidExternal === undefined ) {
+
+              // Como no hay eventos ese mes, cambiar el uuid por currentperiod, 
+              // Asi no queda sin cargarse el calendario(waitOnCalendarLoad) por comparar 2 undefined
+            uuidJson = currentPeriod; 
+
+          }else{
+
+           
+                refreshWithNewData( myCalendar, jsonFull.events );
+                colourByStatus();
+           
+
+          }
+
+        }
+
+      })
+
+  }
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
 
         // Delegación de eventos para el botón en la segunda vista
         $('#miTablaSegundaVista').on('click', '.btnMostrarAlert', function() {

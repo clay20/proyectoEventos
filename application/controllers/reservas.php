@@ -102,6 +102,7 @@ $plazoCofirmar=$_POST['plazoConfirmacion'];
 	
  }
  
+<<<<<<< HEAD
 
   function listaServicioParaEldia()
   {
@@ -188,5 +189,8 @@ $plazoCofirmar=$_POST['plazoConfirmacion'];
   }
  }
  
+=======
+
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
 }
 

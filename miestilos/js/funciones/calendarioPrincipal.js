@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function prepareModalDetail(clickedDay, eventDetail,month) {
 
     var dia =month.date.format('dddd');
@@ -37,6 +38,24 @@ function prepareModalDetail(clickedDay, eventDetail,month) {
       $('#servicioReservado').html(template); 
              
    $("#detalleEvento").modal('show');
+=======
+function prepareModalDetail(clickedDay, eventDetail) {
+   
+    $.ajax({
+    url: '../reservas/listaFechasReservar', // Reemplaza con la URL de tu servidor
+    method: 'POST',
+    dataType: 'json',
+    success: function (response) {
+      // Manejar los datos recibidos, asumiendo que data es un array de fechas
+      // aplicarEstilosAFechasDesdeBaseDeDatos(data);
+      // let fechas = JSON.parse(response);
+      response.forEach(function(objeto) {
+       
+              console.log(objeto);
+   $("#detalleEvento").modal('show');
+      });
+
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
     },
 
   });
@@ -945,12 +964,19 @@ totalSinDescuento,totalDescuento,totalPagar,adelandto,saldoPagar,plazoConfirmaci
          if(json.msg)
          {
 
+<<<<<<< HEAD
             actuliazarNuevoEventoagreados();
+=======
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
             toastr.success("Evento agregado con exito");
          }
          else
          {
+<<<<<<< HEAD
             toastr.warning('Fallo al agregar un evento'+json.msg);
+=======
+            toastr.warning('pureba mensage'+json.msg);
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
 
          }
 

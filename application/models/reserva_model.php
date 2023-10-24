@@ -59,6 +59,7 @@ public function reservasdb()
 {
 	   $this->db->distinct();
     $this->db->select('R.fechaInicio,R.estado, H.fecha');
+<<<<<<< HEAD
 
     $this->db->from('reservas R');
     $this->db->join('horarioevento H', 'H.idReservas = R.id'); // Corregido el alias en el join
@@ -216,6 +217,18 @@ public function nombreEventodb($valor)
 
 
 
+=======
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
+
+    $this->db->from('reservas R');
+    $this->db->join('horarioevento H', 'H.idReservas = R.id'); // Corregido el alias en el join
+    return $this->db->get();
+}
+
+
+
+
+<<<<<<< HEAD
 
 
 
@@ -236,11 +249,8 @@ public function nombreEventodb($valor)
 
 
 
-
-
-
-
-
+=======
+>>>>>>> 2ae43ddfc85c8ea6a60451d1774187d7421c2f47
 	
 	public function listaServiciosNOAgregadosdb($estado,$ids)
 	{
