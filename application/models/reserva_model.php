@@ -39,20 +39,22 @@ class Reserva_model extends CI_Model
 	   	}
 	   }
 
-
-
-
      $this->db->trans_complete(); // Fin de la transacción
 
     if ($this->db->trans_status() === FALSE) {
         return false;
     }
     else{
-    	return true;
+    	
+    $this->db->select('*');
+    $this->db->from('reservas R');
+    // $this->db->join('reservas R',' R.id=D.idReservas'); 
+    $this->db->where('R.id',$idReserva);
+    return $this->db->get();
     }
    
 
-	}
+}
 
 
 public function reservasdb()
@@ -179,6 +181,7 @@ public function nombreEventodb($valor)
 	}
 
 //consulta de praccion
+
 
 
 

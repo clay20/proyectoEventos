@@ -88,7 +88,19 @@ $plazoCofirmar=$_POST['plazoConfirmacion'];
  // print_r($dias."---dias: ".count($ids));
  	  
   $db= $this->reserva_model->agregarReservadb($data,$ids,$horaInicios,$horaFines,$duracion,$invitado,$fechas,$cants,$precios,$chebox,$des,$pu,$dias);
- 	 echo json_encode(array('msg'=>$db));
+  if($db!=false)
+  {
+
+      // $listaArray = $lista->result_array();
+   $listaArray = $db->row_array();
+   // echo json_encode($listaArray);
+ 	 echo json_encode(array('msg'=>true,'datos'=>$listaArray));
+
+  }else
+  {
+    echo json_encode(array('msg'=>false));
+
+  }
   
  }
 

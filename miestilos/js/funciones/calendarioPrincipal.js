@@ -947,6 +947,7 @@ totalSinDescuento,totalDescuento,totalPagar,adelandto,saldoPagar,plazoConfirmaci
 
             actuliazarNuevoEventoagreados();
             toastr.success("Evento agregado con exito");
+            console.log(json.datos);
          }
          else
          {
