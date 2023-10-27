@@ -120,10 +120,10 @@
             </a>
             <ul class="nav nav-treeview" style="margin-left:10px">
               <li class="nav-item" >
-                <a href="#" class="nav-link">
+                <a href="<?php echo base_url();?>index.php/reportes/index" class="nav-link">
                   <i class='bx bx-calendar-edit' style="color:red"></i>
 
-                  <p>nnnnnnn</p>
+                  <p>Servicios </p>
 
                 </a>
               </li>

@@ -1,5 +1,5 @@
 
-<div class="wrapper">
+<div class="wrapper" style="background:red">
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper bgt-acent">

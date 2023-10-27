@@ -1,8 +1,8 @@
 
-<div class="wrapper">
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper " style=" background-image: url('<?php echo base_url();?>/img/fondo.png'); background-repeat: no-repeat" >
+<div class="wrapper" style="background:rgba(255, 171, 105, .2);">
+<div class="content-wrapper " style=" background-image: url('<?php echo base_url();?>/img/fondo.png'); background-repeat: no-repeat" >
     <!-- Content cabeera (pagima cabera) -->
     <section class="content-header ">
       <div>

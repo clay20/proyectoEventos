@@ -33,7 +33,7 @@
         <div class="row " style="height: 100px;" >
           <div class="col-12  d-flex justify-content-center ">
             <div class="col-6 d-flex justify-content-end"><p>Usuario</p></div>
-            <div class="col-6"> <h5><?php echo $this->session->userdata('nombreUsuario'); ?></h5></div>
+            <div class="col-6" id="nombreUsuarioSeccion"> <h5><?php echo $this->session->userdata('nombreUsuario'); ?></h5></div>
           </div>
           <div class="col-12 d-flex justify-content-around  ">
             <div class="col-6 d-flex justify-content-end"><p>Rol</p></div>

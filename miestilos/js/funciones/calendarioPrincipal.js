@@ -649,7 +649,7 @@ $(document).on('keyup', '#montoAdelantado', function() {
         plazoConfirmacion.readonly=true;
     }
     actualizarPrecio();
-    alert("fd");
+    
 });
 var estadoInvitados = [];
 
@@ -947,7 +947,15 @@ totalSinDescuento,totalDescuento,totalPagar,adelandto,saldoPagar,plazoConfirmaci
 
             actuliazarNuevoEventoagreados();
             toastr.success("Evento agregado con exito");
-            console.log(json.datos);
+           var datos2=json.datos;
+        
+
+           console.log(datos2.id+' esta una prueba '+datos2.fechaInicio);
+           $(modalAddEvent).modal('hide');
+
+                setTimeout(function() {
+                                      generarPdf(datos2.id,datos2.fechaInicio,datos2.nombreCompleto,datos2.total,datos2.adelantoReserva,datos2.saldo,datos2.ci,3);
+                                }, 1000); 
          }
          else
          {
@@ -957,7 +965,7 @@ totalSinDescuento,totalDescuento,totalPagar,adelandto,saldoPagar,plazoConfirmaci
 
            // var modal= document.getElementById('modalAddEvent');
            // modal.style.display='none';
-        $(modalAddEvent).modal('hide');
+        
         },
         error: function() {
             // window.location="<?php echo base_url(); ?>ventas";

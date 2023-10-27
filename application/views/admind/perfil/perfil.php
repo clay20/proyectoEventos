@@ -1,7 +1,7 @@
 
-<div class="wrapper">
+  <div class="wrapper"   style=" background-image: url('<?php echo base_url();?>/img/fondo.jpg'); background-repeat: no-repeat">
+<div class="content-wrapper"  style="background: rgba(255,255,255,0.2);">
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper"   style=" background-image: url('<?php echo base_url();?>/img/fondo.jpg'); background-repeat: no-repeat">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">

@@ -2,7 +2,7 @@
 
 <div class="wrapper" style="background-image: url('<?php echo base_url();?>/img/fondo.jpg');">
 
-  <div class="content-wrapper"   style=" background:rgba(0, 0, 0, .0);">
+  <div class="content-wrapper"   style=" background:rgba(255, 255, 255, .1);">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">

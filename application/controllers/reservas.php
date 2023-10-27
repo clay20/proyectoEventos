@@ -106,7 +106,13 @@ $plazoCofirmar=$_POST['plazoConfirmacion'];
 
  function listaFechasReservar()
  {
- 	$lista=$this->reserva_model->reservasdb();
+  
+   $mes =$_POST['mes'];
+   $anio =$_POST['anio'];
+   $hoy =$_POST['hoy'];
+
+
+ 	$lista=$this->reserva_model->reservasdb($mes,$anio,$hoy);
 
 	$listaArray = $lista->result_array();
 	// $listaArray = $lista->row_array();
@@ -141,7 +147,6 @@ $plazoCofirmar=$_POST['plazoConfirmacion'];
 
 
 
-
   public function reservasClientes()
   {
      $fechas=$_POST['fechaMomento'];
@@ -152,6 +157,19 @@ $plazoCofirmar=$_POST['plazoConfirmacion'];
   // $listaArray = $lista->row_array();
   echo json_encode($listaArray);
   }
+ public function reservasClientesBuscar()
+ {
+     $valor=$_POST['valor'];
+     $fechaMomento=$_POST['fechaMomento'];
+       $lista=$this->reserva_model->listaReservasBuscardb($valor,$fechaMomento);
+  $listaArray = $lista->result_array();
+  // $listaArray = $lista->row_array();
+  echo json_encode($listaArray);
+
+ }
+
+
+
  public function fechasEventos()
  {
     $idReserva=$_POST['id'];
@@ -198,7 +216,19 @@ $plazoCofirmar=$_POST['plazoConfirmacion'];
   echo json_encode(array('uri'=>0));
 
   }
+
+
  }
- 
+
+ public function cambiarRuta()
+ {
+     $id=$_POST['id'];
+     $url= base_url();
+  echo json_encode(array('url'=>$url.'index.php/reservas/index?id='.$id));
+
+ }
+
+
 }
 
+  

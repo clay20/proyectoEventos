@@ -14,7 +14,7 @@
         <div class="col-4 d-flex justify-content-end align-items-center ">
           <div class="myBox">
             <label class="mylabel-icon"><i class="fas fa-search"></i></label>
-            <input id="buscarUsuario" class="myImputField" type="search" name="buscarUsuario" >
+            <input id="txtBuscarReserva" class="myImputField" type="search" name="buscarReserva"  onkeypress="return soloLetrasEspacio(event); ">
           </div>
 
         </div>
@@ -35,7 +35,7 @@
       <div>
 
         <div>
-          <table id="miTablaR" rules="all" width="100%" >
+          <table id="miTablaR" class="miTablaR" rules="all" width="100%" >
 
            <thead class="t-secondary ">
             <tr style="text-align: center;">
@@ -59,7 +59,7 @@
               <th style="width:10px">Acciones</th>
             </tr>
           </thead>
-          <tbody class="clienteReservadoT t-secondary-n">
+          <tbody class="clienteReservadoT t-secondary-n" id="clienteReservadoT">
           
 
          </tbody>

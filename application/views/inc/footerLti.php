@@ -8,6 +8,8 @@
 </div>
 <!-- ./wrapper -->
 
+
+
 <!-- jQuery -->
 <script src="<?php echo base_url();?>/adminlti/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -49,7 +51,16 @@
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionServicio.js"></script> 
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/calendarioPrincipal.js"></script> 
 <script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionReservas.js"></script> 
+<script type="text/javascript" src="<?php echo base_url();?>miestilos/js/funciones/gestionReportes.js"></script> 
 
+
+
+
+<!-- jspdf -->
+<script type="text/javascript" src="<?php echo base_url();?>miestilos/js/jspdf/jspdf.js"></script> 
+
+<script type="text/javascript" src="<?php echo base_url();?>miestilos/js/jspdf/jspdf.plugin.autotable.js"></script> 
+<script type="text/javascript" src="<?php echo base_url();?>miestilos/js/jspdf/numeroaletras.js"></script> 
 
 
 <!-- alertas -->

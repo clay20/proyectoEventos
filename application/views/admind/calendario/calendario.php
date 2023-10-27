@@ -54,6 +54,10 @@
        
 
           </div>
+          <div id="contenedorEventosPagar">
+            <!-- /muy importante -->
+          </div>
+
 
         </section>
 
@@ -433,8 +437,8 @@
   Cliente: <label id="eventoCliente"></label>
 
 </div><div class="d-flex justify-content-end col-5">
-  <span id="idReserva">d</span>
-  <button type="button" class="btn btn-success" id="btnPagarCalendario">Cobrar</button>
+  <span id="idReserva"></span>
+  <button type="button" class="btn btn-success" id="btnPagarCalendario">Cancelar</button>
 </div>
 </div>
 </div>
@@ -502,22 +506,31 @@
   var fechasAColor = [];
   var estado=[];
   var fechaActual ;
+  var ban=1;
 $(document).ready(function() {
     fechaActual = moment();
   // console.log("Fecha actual:", fechaActual.format('YYYY-MMMM-dddd'));
 
-   cargarFechasDesdeBaseDeDatos();
+   // cargarFechasDesdeBaseDeDatos();
+  cargarFechasDesdeBaseDeDatos(fechaActual);
+
  
 });
 
-  function cargarFechasDesdeBaseDeDatos() {
+  function cargarFechasDesdeBaseDeDatos(fecha) {
+    mes =fecha.format("MM");
+    anio =fecha.format("YYYY");
+    hoy= fecha.format("YYYY-MM-DD");
+    // alert(hoy);
+
     $.ajax({
     url: '../reservas/listaFechasReservar', // Reemplaza con la URL de tu servidor
     method: 'POST',
+    data:{mes,anio,hoy},
     success: function (response) {
       let fechas = JSON.parse(response);
-
          fechas.forEach(fecha=>{
+           // console.log(fecha.fecha+'fecha par calendario');
 
 
         fechasAColor.push(fecha.fecha);
@@ -528,6 +541,7 @@ $(document).ready(function() {
     },
 
   });
+
   }
   function aplicarEstilosAFechas() {
    
@@ -629,9 +643,12 @@ $(document).ready(function() {
 
         var mes=month.format('MM');
         var anio=month.format('YYYY');
-        aplicarEstilosAFechas();
+        cargarFechasDesdeBaseDeDatos(month);
+
         // console.log(month);
         listaEventoDelMes(month);
+        setTimeout(aplicarEstilosAFechas, 500);
+
       }
 
     }
@@ -697,14 +714,15 @@ function listaEventoDelMes(month){
       // console.log('deee +');
 }
 
-  var ban=1;
+  
   function getNewData(){
           if(ban==1)
           {
-              // cargarFechasDesdeBaseDeDatos();
-
+               // cargarFechasDesdeBaseDeDatos(fechaActual);
                listaEventoDelMes(fechaActual);
-               aplicarEstilosAFechas();
+               // aplicarEstilosAFechas();
+               setTimeout(aplicarEstilosAFechas, 500);
+
                ban=0;
             
           } 
@@ -712,52 +730,54 @@ function listaEventoDelMes(month){
   }
   function actuliazarNuevoEventoagreados(){
          
-       cargarFechasDesdeBaseDeDatos();
-      listaEventoDelMes(fechaActual);
-      // aplicarEstilosAFechas();
-            
-         
-        setTimeout(aplicarEstilosAFechas, 1000);
+       cargarFechasDesdeBaseDeDatos(fechaActual);
+      listaEventoDelMes(fechaActual);         
+        setTimeout(aplicarEstilosAFechas, 500);
   }
 
   cargarPorSeccion();
-  
 
+  // actuliazarNuevoEventoagreados();
 
-  $('#btnPagarCalendario').click(function() {
-    cargarYMostrarModal('http://localhost/web2/proyectodegrado/proyectoEventosAndrea/index.php/reservas/index');
-    alert("gg");
-
-
-
-     function cargarYMostrarModal(ruta) {
-    $.ajax({
-      url: ruta,
-      dataType: 'html',
-      success: function(data) {
-        // Agrega el contenido al contenedor y muestra el modal
-        $('#modalContainer').html(data);
-        $('#miModal').modal('show');
-
-        // Delegación de eventos para el botón en la segunda vista
-        $('#miTablaSegundaVista').on('click', '.btnMostrarAlert', function() {
-          // Obtener datos de la fila
-          var nombre = $(this).closest('tr').find('.nombre').text();
-          var edad = $(this).closest('tr').find('.edad').text();
-
-          // Mostrar alerta
-          alert(`Se presionó el botón en la fila:\nNombre: ${nombre}\nEdad: ${edad}`);
-        });
-
-        // Simular clic aleatorio después de un segundo
-        // setTimeout(simularClicAleatorio, 1000);
-      },
-      error: function() {
-        console.error('Error al cargar el modal.');
-      }
+  $(document).ready(function() {
+    // Botón para cargar y mostrar la Segunda Vista
+    $('#btnPagarCalendario').click(function() {
+         var id=$('#idReserva').text();
+          cargarYMostrarVista(id);
+         
     });
-  }
+ });
+
+    // Función para cargar y mostrar la Segunda Vista
+  var idCliente=0;
+   function cargarYMostrarVista(id) {
+    // alert(id);
+  $.ajax({
+    url: '../reservas/cambiarRuta?id='+id,
+    method: 'POST',
+    data: { id },
+    success: function (data) {
+  
+      var json =JSON.parse(data);
+      // console.log(json.url);
+      window.location.href = json.url; 
+  
+       $("#detalleEvento").modal('hide');
+     
+    },
+    error: function () {
+      console.error('Error al cargar la vista.');
+    }
   });
+}
+
+
+
+
+
+
+
+
 </script>
 
 
